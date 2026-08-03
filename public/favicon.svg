@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Nexa Rx">
+  <rect width="64" height="64" rx="14" fill="#0F1722"/>
+  <path d="M18 16h7.2v20.4L40.8 16H48v32h-7.2V27.2L25.2 48H18V16z" fill="#F2F4F7"/>
+  <path d="M22 46.5L46 17.5" stroke="#4DAA9A" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="20.5" cy="47.5" r="2.6" fill="#4DAA9A"/>
+</svg>
