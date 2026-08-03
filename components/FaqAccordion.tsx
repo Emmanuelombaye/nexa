@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import { faqItems } from '../lib/site-data'
 
 const FAQ_CATEGORIES = [
@@ -38,6 +38,8 @@ export default function FaqAccordion() {
   const [openFaq, setOpenFaq] = useState(0)
   const [activeCategory, setActiveCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const listRef = useRef<HTMLDivElement>(null)
+  const hasInteractedRef = useRef(false)
 
   const itemsWithCategory = useMemo(() => {
     return faqItems.map((item, originalIndex) => ({
@@ -57,6 +59,22 @@ export default function FaqAccordion() {
       return matchesCat && matchesSearch
     })
   }, [itemsWithCategory, activeCategory, searchQuery])
+
+  useEffect(() => {
+    if (!hasInteractedRef.current || openFaq < 0 || !listRef.current) return
+    const openItem = listRef.current.querySelector<HTMLElement>(`#faq-button-${openFaq}`)
+    if (!openItem) return
+
+    const frame = window.requestAnimationFrame(() => {
+      openItem.scrollIntoView({ block: 'nearest', behavior: 'smooth', inline: 'nearest' })
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [openFaq])
+
+  const openItem = (index: number) => {
+    hasInteractedRef.current = true
+    setOpenFaq(index)
+  }
 
   return (
     <section className="section faq" id="support">
@@ -146,7 +164,7 @@ export default function FaqAccordion() {
           </div>
 
           {/* Accordion List */}
-          <div className="faq__list">
+          <div className="faq__list" ref={listRef}>
             {filteredFaqs.length > 0 ? (
               filteredFaqs.map((item) => {
                 const isOpen = openFaq === item.originalIndex
@@ -163,7 +181,7 @@ export default function FaqAccordion() {
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                       className="faq__button"
-                      onClick={() => setOpenFaq(isOpen ? -1 : item.originalIndex)}
+                      onClick={() => openItem(isOpen ? -1 : item.originalIndex)}
                     >
                       <span className="faq__question">{item.q}</span>
                       <span className="faq__toggle" aria-hidden="true">
