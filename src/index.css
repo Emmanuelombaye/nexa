@@ -4205,6 +4205,44 @@ html.js [data-reveal="tilt"]:not(.is-in) {
   }
 }
 
+@media (max-width: 767px) {
+  .pricing-card__header,
+  .pricing-card__row,
+  .pricing-card__footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .pricing-card__row {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .pricing-card__hero-price {
+    margin: 0 1.25rem 1rem;
+  }
+
+  .pricing-card__split {
+    margin: 0 1.25rem 1rem;
+  }
+
+  .pricing-card__drivers {
+    margin: 0 1.25rem 1rem;
+  }
+
+  .pricing-card__details {
+    margin: 0 1.25rem 1rem;
+  }
+
+  .pricing-card__footer {
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+
+  .supplement-facts {
+    margin: 0 1.25rem 1rem;
+  }
+}
+
 /* Legal pages */
 .legal-page {
   padding-bottom: 3.5rem;
@@ -5389,6 +5427,10 @@ html.js [data-reveal="tilt"]:not(.is-in) {
   .flow-stepper-steps {
     grid-template-columns: repeat(4, auto);
     justify-content: space-between;
+  }
+
+  .flow-form-grid {
+    grid-template-columns: 1fr;
   }
 }
 
