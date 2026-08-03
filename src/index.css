@@ -3808,7 +3808,7 @@ html.js [data-reveal="tilt"]:not(.is-in) {
 
 .program-detail-card,
 .state-card {
-  background: var(--white);
+  background: #fff;
   border: 1px solid var(--line);
   border-radius: 1.25rem;
   padding: 1.5rem;
@@ -3821,12 +3821,464 @@ html.js [data-reveal="tilt"]:not(.is-in) {
   font-size: 1.2rem;
 }
 
+/* Program Care Blueprint — treatment detail redesign */
+.program-blueprint {
+  position: relative;
+  isolation: isolate;
+  margin: 0.5rem 0 2.5rem;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(77, 170, 154, 0.14), transparent 42%),
+    radial-gradient(ellipse at 88% 92%, rgba(15, 23, 34, 0.05), transparent 46%),
+    linear-gradient(180deg, #f7f5f1 0%, var(--cloud) 55%, #f3f0ea 100%);
+  overflow: clip;
+}
+
+.program-blueprint__atmosphere {
+  position: absolute;
+  inset: auto -10% -30% auto;
+  width: min(52vw, 460px);
+  height: min(52vw, 460px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77, 170, 154, 0.14), transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.program-blueprint__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.program-blueprint__header {
+  max-width: 38rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.program-blueprint__header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.65rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--navy);
+  margin: 0.35rem 0 0.75rem;
+  text-wrap: balance;
+}
+
+.program-blueprint__sub {
+  color: var(--slate);
+  font-size: 1.02rem;
+  line-height: 1.55;
+  max-width: 34rem;
+}
+
+.program-blueprint__grid {
+  display: grid;
+  gap: 1.15rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .program-blueprint__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .program-blueprint__panel--states {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1100px) {
+  .program-blueprint__grid {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 1.35rem;
+  }
+
+  .program-blueprint__panel--highlights,
+  .program-blueprint__panel--care {
+    min-height: 100%;
+  }
+
+  .program-blueprint__panel--meds,
+  .program-blueprint__panel--states {
+    grid-column: 1 / -1;
+  }
+}
+
+.program-blueprint__panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 34, 0.08);
+  border-radius: 1.35rem;
+  padding: clamp(1.2rem, 2.5vw, 1.65rem);
+  box-shadow: 0 14px 36px rgba(15, 23, 34, 0.05);
+  min-width: 0;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.program-blueprint__panel:hover {
+  border-color: rgba(10, 154, 158, 0.28);
+  box-shadow: 0 18px 42px rgba(15, 23, 34, 0.08);
+}
+
+.program-blueprint__panel-top {
+  margin-bottom: 1.15rem;
+}
+
+.program-blueprint__panel-top--row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.program-blueprint__panel h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--navy);
+  margin: 0.55rem 0 0;
+  text-wrap: balance;
+}
+
+.program-blueprint__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.7rem 0.32rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(10, 154, 158, 0.08);
+  border: 1px solid rgba(10, 154, 158, 0.2);
+  color: var(--teal-deep);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.program-blueprint__icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.program-blueprint__lede {
+  margin-top: 0.65rem;
+  color: var(--slate);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  max-width: 42rem;
+}
+
+.program-blueprint__matrix-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.program-blueprint__checks {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.program-blueprint__checks li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.85rem 0.95rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(247, 245, 241, 0.9), rgba(255, 255, 255, 0.65));
+  border: 1px solid rgba(15, 23, 34, 0.06);
+  min-width: 0;
+}
+
+.program-blueprint__check-index {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--teal-deep);
+  padding-top: 0.15rem;
+}
+
+.program-blueprint__check-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--navy);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.program-blueprint__care-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.program-blueprint__care-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(15, 23, 34, 0.07);
+  min-width: 0;
+}
+
+.program-blueprint__care-list li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.program-blueprint__care-list li:first-child {
+  padding-top: 0;
+}
+
+.program-blueprint__care-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.75rem;
+  display: grid;
+  place-items: center;
+  background: rgba(77, 170, 154, 0.12);
+  color: var(--teal-deep);
+  flex-shrink: 0;
+}
+
+.program-blueprint__care-icon .program-blueprint__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.program-blueprint__care-copy {
+  min-width: 0;
+}
+
+.program-blueprint__care-copy strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 0.2rem;
+}
+
+.program-blueprint__care-copy p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(15, 23, 34, 0.78);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.program-blueprint__meds {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .program-blueprint__meds {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+}
+
+.program-blueprint__meds li {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1rem;
+  border-radius: 1.05rem;
+  background: rgba(15, 23, 34, 0.025);
+  border: 1px solid rgba(15, 23, 34, 0.06);
+  min-width: 0;
+}
+
+.program-blueprint__med-step {
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--navy);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.program-blueprint__meds p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(15, 23, 34, 0.8);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.program-blueprint__state-groups {
+  display: grid;
+  gap: 1rem;
+}
+
+.program-blueprint__state-group {
+  padding: 1rem;
+  border-radius: 1.05rem;
+  border: 1px solid rgba(15, 23, 34, 0.07);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.program-blueprint__state-group--available {
+  border-color: rgba(18, 183, 106, 0.22);
+  background: rgba(18, 183, 106, 0.04);
+}
+
+.program-blueprint__state-group--review {
+  border-color: rgba(180, 130, 40, 0.28);
+  background: rgba(180, 130, 40, 0.05);
+}
+
+.program-blueprint__state-group--unavailable {
+  border-color: rgba(15, 23, 34, 0.1);
+  background: rgba(15, 23, 34, 0.03);
+}
+
+.program-blueprint__state-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.program-blueprint__state-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--slate);
+  flex-shrink: 0;
+}
+
+.program-blueprint__state-group--available .program-blueprint__state-dot {
+  background: #12b76a;
+  box-shadow: 0 0 0 3px rgba(18, 183, 106, 0.2);
+}
+
+.program-blueprint__state-group--review .program-blueprint__state-dot {
+  background: #c48a20;
+  box-shadow: 0 0 0 3px rgba(196, 138, 32, 0.2);
+}
+
+.program-blueprint__state-group--unavailable .program-blueprint__state-dot {
+  background: #6b7280;
+}
+
+.program-blueprint__state-label strong {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.program-blueprint__state-count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--slate);
+  margin-left: auto;
+}
+
+.program-blueprint__state-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.program-blueprint__state-chips li {
+  min-width: 2.35rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 0.55rem;
+  background: #fff;
+  border: 1px solid rgba(15, 23, 34, 0.1);
+  color: var(--navy);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  line-height: 1;
+}
+
+@media (max-width: 767px) {
+  .program-blueprint {
+    margin: 0 0 calc(1.5rem + 5.25rem + env(safe-area-inset-bottom, 0px));
+    padding: 2.15rem 0 2.35rem;
+    overflow: visible;
+  }
+
+  .program-blueprint__panel {
+    padding: 1.15rem;
+  }
+
+  .program-blueprint__panel-top--row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .program-blueprint__matrix-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .program-blueprint__checks li,
+  .program-blueprint__care-list li,
+  .program-blueprint__meds li {
+    gap: 0.7rem;
+  }
+
+  .program-blueprint__check-text,
+  .program-blueprint__care-copy p,
+  .program-blueprint__meds p {
+    font-size: 0.9rem;
+  }
+
+  .program-blueprint__state-count {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .program-blueprint__state-chips li {
+    min-width: 2.2rem;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .program-blueprint__panel {
+    transition: none;
+  }
+}
+
 .state-availability__grid {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .state-card__summary {
-  color: var(--muted);
+  color: var(--slate);
   margin-bottom: 1rem;
 }
 
@@ -3852,7 +4304,7 @@ html.js [data-reveal="tilt"]:not(.is-in) {
 }
 
 .state-card__groups span {
-  color: var(--muted);
+  color: var(--slate);
   font-size: 0.92rem;
   line-height: 1.5;
 }
