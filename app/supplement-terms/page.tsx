@@ -77,7 +77,7 @@ export default function Page() {
             <h2>7. Adverse events</h2>
             <p>
               Report suspected adverse events to <a href="mailto:adverse-events@nexamd.com">adverse-events@nexamd.com</a>{' '}
-              or call (800) 555-0139. Product questions: <a href="mailto:supplements@nexamd.com">supplements@nexamd.com</a>.
+              or call 775-262-9279. Product questions: <a href="mailto:supplements@nexamd.com">supplements@nexamd.com</a>.
             </p>
           </article>
           <p className="legal-page__cta">

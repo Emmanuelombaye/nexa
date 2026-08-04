@@ -514,7 +514,7 @@ export const faqItems = [
 const supplementContact = {
   questions: 'supplements@nexamd.com',
   adverseEvents: 'adverse-events@nexamd.com',
-  phone: '(800) 555-0139',
+  phone: '775-262-9279',
 }
 
 const supplementManufacturer = {
