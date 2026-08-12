@@ -104,8 +104,8 @@ export const howWhy = [
   },
   {
     image: media.heroLifestyle,
-    title: 'Science-backed results',
-    body: 'Clinically guided care designed for long-term optimization, not trends.',
+    title: 'Clinically guided care',
+    body: 'Clinically guided care designed for long-term oversight, not trends.',
   },
 ] as const
 

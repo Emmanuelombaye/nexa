@@ -21,7 +21,7 @@ export const HOME_TREATMENTS = [
     label: 'Semaglutide',
     tone: 'var(--navy)',
     toneSoft: 'color-mix(in oklch, var(--navy) 18%, transparent)',
-    badge: 'Most Popular',
+    badge: 'GLP-1',
     badgeTone: 'var(--teal)',
     badgeSoft: 'color-mix(in oklch, var(--teal) 18%, transparent)',
     title: 'Personalized Semaglutide',

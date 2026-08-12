@@ -299,7 +299,7 @@ function KnowallSection({ content, programSlug }: { content: ProgramExploreConte
         <div className="retro-knowall__left">
           <p className="pax-knowall__eyebrow">Before you begin</p>
           <h2 id="retro-knowall-heading" className="retro-knowall__heading">
-            What most patients want to know before they begin.
+            Common questions before you begin.
           </h2>
           <img className="retro-knowall__vial retro-knowall__vial--wl" src={content.vialImage} alt="" loading="lazy" />
         </div>

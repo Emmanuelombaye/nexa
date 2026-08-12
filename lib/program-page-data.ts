@@ -52,7 +52,7 @@ const SHARED_EXPECT = {
     },
     {
       tag: 'Week 4 → 12 · The protocol starts to settle',
-      text: 'This is when most patients begin to feel the treatment working more consistently. Food noise and cravings often quiet. Fullness arrives earlier and stays longer. Your dose may be reviewed based on how your body responds.',
+      text: 'As titration continues, your clinician monitors how you respond. Appetite signals and dosing may be adjusted based on your individual course — experiences vary, and treatment is not guaranteed to produce a specific outcome.',
       img: `${YUCCA}/GLP1-Retro/expect-week-4-12.avif`,
     },
     {
@@ -68,19 +68,19 @@ export const PROGRAM_EXPLORE: Record<ProgramSlug, ProgramExploreContent> = {
     slug: 'semaglutide',
     card: 'wl',
     cardTitle: 'Personalized Semaglutide',
-    chip: 'Most Popular',
+    chip: 'GLP-1',
     blurb:
       'A weekly GLP-1 injection designed to support appetite regulation and steady weight management through a single clinically studied pathway.',
     priceBadge: `${YUCCA}/lowest-price-ever-badge-6-mo.png`,
     priceBadgeAlt: 'Starting at $0 to begin — itemized quote before enrollment',
     productThumb: `${YUCCA}/expt-wl-sema.jpg`,
     productName: 'GLP-1 (Semaglutide)',
-    productDesc: 'Gradual, effective results.',
+    productDesc: 'Weekly GLP-1 pathway.',
     alternateProduct: {
       href: '/tirzepatide',
       thumb: `${YUCCA}/expt-wl-tirz.jpg`,
       name: 'GLP-1 + GIP (Tirzepatide)',
-      desc: 'Faster dual-action support.',
+      desc: 'Dual-pathway option.',
     },
     vialImage: `${YUCCA}/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif`,
     protocol: {
@@ -155,17 +155,17 @@ export const PROGRAM_EXPLORE: Record<ProgramSlug, ProgramExploreContent> = {
     cardTitle: 'Personalized Tirzepatide',
     chip: 'Dual Pathway',
     blurb:
-      'A weekly dual-action GLP-1 + GIP injection for stronger appetite regulation and more pronounced weight-loss support when clinically appropriate.',
+      'A weekly dual-action GLP-1 + GIP injection for appetite regulation support when clinically appropriate.',
     priceBadge: `${YUCCA}/lowest-price-ever-badge-6-mo.png`,
     priceBadgeAlt: 'Starting at $0 to begin — itemized quote before enrollment',
     productThumb: `${YUCCA}/expt-wl-tirz.jpg`,
     productName: 'GLP-1 + GIP (Tirzepatide)',
-    productDesc: 'Faster dual-action support.',
+    productDesc: 'Dual-pathway weekly support.',
     alternateProduct: {
       href: '/semaglutide',
       thumb: `${YUCCA}/expt-wl-sema.jpg`,
       name: 'GLP-1 (Semaglutide)',
-      desc: 'Gradual, effective results.',
+      desc: 'Weekly GLP-1 pathway.',
     },
     vialImage: `${YUCCA}/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif`,
     protocol: {
