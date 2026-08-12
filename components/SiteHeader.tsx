@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { useEffect, useId, useRef, useState } from 'react'
-import { shopLinks, treatmentLinks } from '../lib/site-data'
+import { createPortal } from 'react-dom'
+import { shopLinks } from '../lib/site-data'
 
 const midLinks = [
   { href: '/how-it-works', label: 'How It Works' },
@@ -11,12 +12,6 @@ const midLinks = [
 ]
 
 const endLinks = [{ href: '/faq', label: 'FAQ' }]
-
-const mobileExploreLinks = [
-  ...midLinks,
-  ...endLinks,
-  { href: '/medical-team', label: 'Medical Team' },
-]
 
 interface NavLinkItem {
   href: string
@@ -29,6 +24,87 @@ interface NavDropdownProps {
   items: NavLinkItem[]
   align?: 'left' | 'right'
 }
+
+interface MenuRow {
+  href: string
+  heading: string
+  caption: string
+  thumb?: string
+  thumbAlt?: string
+  vialBg?: string
+  allThumbs?: string[]
+}
+
+const treatmentMenuRows: MenuRow[] = [
+  {
+    href: '/tirzepatide',
+    heading: 'Tirzepatide',
+    caption: 'Weight Loss',
+    thumb: '/images/yucca-clone/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif',
+    thumbAlt: 'Personalized Tirzepatide vial',
+    vialBg: 'linear-gradient(135deg, #ffcb9b 0%, #ffc38c 100%)',
+  },
+  {
+    href: '/semaglutide',
+    heading: 'Semaglutide',
+    caption: 'Weight Loss',
+    thumb: '/images/yucca-clone/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif',
+    thumbAlt: 'Personalized Semaglutide vial',
+    vialBg: 'linear-gradient(135deg, #d4e8e4 0%, #b8d9d2 100%)',
+  },
+  {
+    href: '/#treatments',
+    heading: 'All Treatments',
+    caption: 'Explore all options',
+    allThumbs: [
+      '/images/yucca-clone/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif',
+      '/images/yucca-clone/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif',
+      '/images/yucca-clone/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif',
+    ],
+  },
+]
+
+const patientMenuRows: MenuRow[] = [
+  {
+    href: '/how-it-works',
+    heading: 'How It Works',
+    caption: 'Patient-first experience',
+    thumb: '/images/yucca-clone/hiw/How-it-works.avif',
+  },
+  {
+    href: '/check-eligibility',
+    heading: 'Check Eligibility',
+    caption: 'See if you qualify',
+    thumb: '/images/yucca-clone/hiw/Get-Started.avif',
+  },
+  {
+    href: '/patient-login',
+    heading: 'Patient Login',
+    caption: 'Access patient portal',
+    thumb: '/images/yucca-clone/hiw/Licensed-Providers.avif',
+  },
+  {
+    href: '/pricing',
+    heading: 'Pricing',
+    caption: 'Clear costs before enrollment',
+    thumb: '/images/yucca-clone/hiw/Treatment-Plan.avif',
+  },
+]
+
+const shopMenuRows: MenuRow[] = [
+  {
+    href: '/supplements',
+    heading: 'All Supplements',
+    caption: 'Shop non-prescription support',
+    thumb: '/images/yucca-clone/hiw/quality-sourcing-verified-compounded-medications-yucca-health.avif',
+  },
+  {
+    href: '/supplements/bundles',
+    heading: 'Bundles',
+    caption: 'Curated support stacks',
+    thumb: '/images/yucca-clone/hiw/Free-Consultation.avif',
+  },
+]
 
 function NavDropdown({ label, href, items, align = 'left' }: NavDropdownProps) {
   const [open, setOpen] = useState(false)
@@ -111,9 +187,51 @@ function NavDropdown({ label, href, items, align = 'left' }: NavDropdownProps) {
   )
 }
 
+function MobileMenuRow({ row, onNavigate }: { row: MenuRow; onNavigate: () => void }) {
+  const isVial = Boolean(row.vialBg)
+  const isAll = Boolean(row.allThumbs?.length)
+
+  return (
+    <Link href={row.href} className="mobile-nav__menu-row" onClick={onNavigate}>
+      {isAll ? (
+        <span className="mobile-nav__menu-thumb mobile-nav__menu-thumb--all" aria-hidden="true">
+          {row.allThumbs!.map((src, index) => (
+            <img key={`${src}-${index}`} src={src} alt="" />
+          ))}
+        </span>
+      ) : isVial ? (
+        <span
+          className="mobile-nav__menu-thumb mobile-nav__menu-thumb--vial"
+          style={{ background: row.vialBg }}
+        >
+          <img src={row.thumb} alt={row.thumbAlt || ''} loading="lazy" />
+        </span>
+      ) : row.thumb ? (
+        <img src={row.thumb} alt="" aria-hidden="true" className="mobile-nav__menu-thumb" loading="lazy" />
+      ) : (
+        <span className="mobile-nav__menu-thumb mobile-nav__menu-thumb--plain" aria-hidden="true" />
+      )}
+      <span className="mobile-nav__menu-text">
+        <span className="mobile-nav__menu-heading">{row.heading}</span>
+        <span className="mobile-nav__menu-caption">{row.caption}</span>
+      </span>
+    </Link>
+  )
+}
+
 export default function SiteHeader({ variant = 'default' }: { variant?: string }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [drawerMounted, setDrawerMounted] = useState(false)
+  const [portalReady, setPortalReady] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const scrollLockY = useRef(0)
+
+  useEffect(() => {
+    setPortalReady(true)
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 18)
@@ -122,22 +240,161 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const menuOpenRef = useRef(false)
+  const drawerMountedRef = useRef(false)
+  menuOpenRef.current = menuOpen
+  drawerMountedRef.current = drawerMounted
+
+  const unlockScroll = () => {
+    const html = document.documentElement
+    const body = document.body
+    html.classList.remove('is-nav-locked')
+    body.classList.remove('is-nav-locked')
+    body.style.top = ''
+    window.scrollTo(0, scrollLockY.current)
+  }
+
+  const closeMenu = () => {
+    if (!menuOpenRef.current && !drawerMountedRef.current) return
+    setMenuOpen(false)
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => {
+      setDrawerMounted(false)
+      unlockScroll()
+      toggleRef.current?.focus({ preventScroll: true })
+      closeTimer.current = null
+    }, 300)
+  }
+
+  const openMenu = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+    setDrawerMounted(true)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setMenuOpen(true))
+    })
+  }
+
+  const toggleMenu = () => {
+    if (menuOpenRef.current) closeMenu()
+    else openMenu()
+  }
+
   useEffect(() => {
     if (!menuOpen) return undefined
 
-    const html = document.documentElement
-    const body = document.body
-    const prevHtmlOverflow = html.style.overflow
-    const prevBodyOverflow = body.style.overflow
-
-    html.style.overflow = 'hidden'
-    body.style.overflow = 'hidden'
-
-    return () => {
-      html.style.overflow = prevHtmlOverflow
-      body.style.overflow = prevBodyOverflow
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeMenu()
     }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
   }, [menuOpen])
+
+  useEffect(() => {
+    if (!drawerMounted) return undefined
+
+    if (menuOpen) {
+      scrollLockY.current = window.scrollY
+      document.documentElement.classList.add('is-nav-locked')
+      document.body.classList.add('is-nav-locked')
+      document.body.style.top = `-${scrollLockY.current}px`
+      const frame = requestAnimationFrame(() => {
+        closeRef.current?.focus({ preventScroll: true })
+      })
+      return () => cancelAnimationFrame(frame)
+    }
+
+    return undefined
+  }, [menuOpen, drawerMounted])
+
+  useEffect(
+    () => () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current)
+      unlockScroll()
+    },
+    [],
+  )
+
+  const drawer = drawerMounted ? (
+    <div
+      id="mobile-nav-panel"
+      className={`mobile-nav ${menuOpen ? 'is-open' : ''}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site navigation"
+      aria-hidden={!menuOpen}
+    >
+      <button type="button" className="mobile-nav__scrim" aria-label="Close menu" onClick={closeMenu} tabIndex={menuOpen ? 0 : -1} />
+      <div className="mobile-nav__sheet">
+        <div className="mobile-nav__drawer-header">
+          <Link href="/" className="mobile-nav__drawer-logo" aria-label="Nexa Rx home" onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
+            <img
+              src="/brand/nexa-rx-tm-logo.webp"
+              alt="Nexa Rx™"
+              width={140}
+              height={38}
+              className="logo-brand-img"
+            />
+          </Link>
+          <button
+            ref={closeRef}
+            type="button"
+            className="mobile-nav__drawer-close"
+            aria-label="Close menu"
+            onClick={closeMenu}
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path
+                d="M5 5l10 10M15 5L5 15"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div className="mobile-nav__menu">
+          <section className="mobile-nav__menu-group">
+            <p className="mobile-nav__menu-label">Explore Treatments</p>
+            <ul className="mobile-nav__menu-list" role="list">
+              {treatmentMenuRows.map((row) => (
+                <li key={row.href}>
+                  <MobileMenuRow row={row} onNavigate={closeMenu} />
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="mobile-nav__menu-group">
+            <p className="mobile-nav__menu-label">Shop</p>
+            <ul className="mobile-nav__menu-list" role="list">
+              {shopMenuRows.map((row) => (
+                <li key={row.href}>
+                  <MobileMenuRow row={row} onNavigate={closeMenu} />
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="mobile-nav__menu-group">
+            <p className="mobile-nav__menu-label">For Patients</p>
+            <ul className="mobile-nav__menu-list" role="list">
+              {patientMenuRows.map((row) => (
+                <li key={row.href}>
+                  <MobileMenuRow row={row} onNavigate={closeMenu} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  ) : null
 
   return (
     <div
@@ -157,18 +414,18 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
 
       <header className="header">
         <div className="container header__inner">
-          <Link href="/" className="logo-brand-img-wrap" aria-label="Nexa Rx home" onClick={() => setMenuOpen(false)}>
+          <Link href="/" className="logo-brand-img-wrap" aria-label="Nexa Rx home" onClick={closeMenu}>
             <img
-              src="/brand/primary-logo.webp"
-              alt="Nexa Rx - Personal Care. Real Results."
-              width={170}
-              height={48}
+              src="/brand/nexa-rx-tm-logo.webp"
+              alt="Nexa Rx™"
+              width={200}
+              height={54}
               className="logo-brand-img"
             />
           </Link>
 
           <nav className="nav" aria-label="Primary">
-            <NavDropdown label="Treatments" href="/#treatments" items={treatmentLinks} />
+            <Link href="/#treatments">Treatments</Link>
             {midLinks.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}
@@ -183,19 +440,21 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
           </nav>
 
           <div className="header__actions">
-            <Link href="/patient-login" className="btn btn--ghost header__signin">
-              Patient Login
+            <Link href="/patient-login" className="header__signin">
+              <span className="header__signin-long">Patient Login</span>
+              <span className="header__signin-short">Login</span>
             </Link>
             <Link href="/check-eligibility" className="btn btn--primary header__cta">
               Check Eligibility
             </Link>
             <button
+              ref={toggleRef}
               type="button"
-              className={`nav-toggle ${menuOpen ? 'is-open' : ''}`}
+              className="nav-toggle"
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-nav-panel"
-              onClick={() => setMenuOpen((open) => !open)}
+              onClick={toggleMenu}
             >
               <span />
               <span />
@@ -205,55 +464,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
         </div>
       </header>
 
-      <div
-        id="mobile-nav-panel"
-        className={`mobile-nav ${menuOpen ? 'is-open' : ''}`}
-        aria-hidden={!menuOpen}
-      >
-        <button type="button" className="mobile-nav__scrim" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
-        <div className="mobile-nav__sheet">
-          <p className="mobile-nav__label">Treatments</p>
-          <nav className="mobile-nav__links">
-            {treatmentLinks.map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <p className="mobile-nav__label">Shop</p>
-          <nav className="mobile-nav__links">
-            <Link href="/supplements" onClick={() => setMenuOpen(false)}>
-              All Supplements
-            </Link>
-            {shopLinks
-              .filter((item) => item.href !== '/supplements')
-              .map((item) => (
-                <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-                  {item.label}
-                </Link>
-              ))}
-          </nav>
-          <p className="mobile-nav__label">Explore</p>
-          <nav className="mobile-nav__links">
-            {mobileExploreLinks.map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-                {item.label}
-              </Link>
-            ))}
-            <Link href="/patient-center" onClick={() => setMenuOpen(false)}>
-              Patient Center
-            </Link>
-          </nav>
-          <div className="mobile-nav__actions">
-            <Link href="/patient-login" className="btn btn--outline btn--lg" onClick={() => setMenuOpen(false)}>
-              Patient Login
-            </Link>
-            <Link href="/check-eligibility" className="btn btn--primary btn--lg" onClick={() => setMenuOpen(false)}>
-              Check Eligibility
-            </Link>
-          </div>
-        </div>
-      </div>
+      {portalReady && drawer ? createPortal(drawer, document.documentElement) : null}
     </div>
   )
 }

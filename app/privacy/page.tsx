@@ -29,9 +29,8 @@ export default function Page() {
           <article>
             <h2>1. Who we are</h2>
             <p>
-              Nexa Rx is a telehealth platform that connects eligible adults with licensed clinicians for medical weight
-              management, hormone health, and select prescription therapies. Dietary supplements are sold in a separate
-              non-prescription shop lane.
+              Nexa Rx is a telehealth platform that connects eligible adults with licensed clinicians for semaglutide and
+              tirzepatide weight-management therapy. Dietary supplements are sold in a separate non-prescription shop lane.
             </p>
           </article>
           <article>

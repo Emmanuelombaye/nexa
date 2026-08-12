@@ -1,0 +1,395 @@
+NEXA Rx  WEBSITE REVIEW
+First Draft Revision Brief
+Exact current copy → recommended replacement copy → implementation rationale
+━━━━━━━━━━━━━━━━━━━━
+ PREPARED FOR WEBSITE TEAM 
+Review basis: live preview where accessible, supplied page screenshots, and the clarified product model: prescribed peptide therapies fulfilled through qualified compounding channels plus a separate dietary supplement store.
+nexamd.vercel.app
+OPERATOR RECOMMENDATION
+Keep the visual direction. Rewrite the positioning, claims, treatment hierarchy, peptide disclosures, pricing language, and site architecture before launch or paid traffic.
+Recommended master positioning
+PRIMARY POSITIONING
+Personalized telehealth for medical weight management, hormone health, and select prescription therapies.
+TRUST LINE
+Licensed clinical care. Clear pricing. Qualified U.S. pharmacy fulfillment.
+What the website should feel like
+A medical care platform first—not a drug catalog.
+Transparent about the difference between FDA-approved medication, compounded prescription therapy, and dietary supplements.
+Premium and accessible without using vague longevity language or outcome promises.
+Designed around eligibility, clinical evaluation, clear pricing, and patient trust.
+Supplements are a separate non-prescription commerce lane, not mixed into the clinical treatment cards.
+02  Site-wide changes
+Apply these wording and architecture changes across every page before refining individual sections.
+Priority
+Current item
+Change to
+Why / team instruction
+P0
+Top bar: “CLINICIAN-GUIDED CARE • DISCREET NATIONWIDE DELIVERY • NO INSURANCE REQUIRED • FREE CONSULTATION PATHWAY”
+“LICENSED CLINICAL CARE • CLEAR PRICING • NO INSURANCE REQUIRED • DISCREET DELIVERY”
+“Nationwide” must be verified by treatment and state. “Free consultation pathway” is unclear. Use direct, defensible trust language.
+P0
+Primary CTA varies: “Get started,” “Start your journey,” “See if you qualify”
+Use “Check Eligibility” as the primary CTA everywhere. Use “View Treatments” or “View Details” as the only secondary CTA.
+One action improves clarity and does not imply prescription approval.
+P1
+“Sign in”
+“Patient Login”
+More specific and medically credible.
+P0
+Navigation: Treatments | How it works | Quality | FAQ
+Treatments | How It Works | Pricing | Quality & Safety | Shop | FAQ
+Pricing must be visible. “Quality” is vague. “Shop” clearly separates supplements from prescriptions.
+P0
+Hash-based routing: /#/
+Use clean routes: /medical-weight-loss, /mens-hormone-health, /womens-hormone-health, /peptide-therapy, /supplements, /pricing, /quality-and-safety.
+Google advises against using URL fragments to change page content.[7] Clean routes improve crawlability, analytics, ads, and sharing.
+P1
+Supplement products are not represented in the current information architecture
+Add a separate Shop area and a homepage supplement section after clinical programs—not inside “Treatments Available.”
+Prevents users from confusing retail products with prescription care.
+Recommended navigation
+DESKTOP
+Treatments  |  How It Works  |  Pricing  |  Quality & Safety  |  Shop  |  FAQ     Patient Login     Check Eligibility
+TREATMENTS DROPDOWN
+Medical Weight Loss  •  Men’s Hormone Health  •  Women’s Hormone Health  •  Peptide Therapy
+SHOP DROPDOWN
+All Supplements  •  Bundles  •  Subscribe & Save  •  Order Support
+03  Homepage hero
+The layout is strong. Replace the copy and treatment-card merchandising.
+Current homepage hero and introductory section
+Priority
+Current item
+Change to
+Why / team instruction
+P0
+Eyebrow: “PERSONAL CARE. REAL RESULTS.”
+“PERSONALIZED CARE. CLINICIAN-GUIDED OPTIONS.”
+“Real results” implies outcomes. The replacement explains the model without promising a result.
+P1
+Headline: “Your care. Your way.”
+Keep “Your care. Your way.”
+This is the strongest consumer-facing line on the page. Keep it, but make the clinical limits clear in the support copy.
+P0
+“Clinically guided longevity, metabolic, and hormone protocols — MD-overseen and delivered to your door. No hidden fees. Ever.”
+“Connect online with a licensed clinician for medical weight management, hormone health, and select prescription therapies. See your options and costs before treatment begins.”
+Removes vague longevity language, “protocols,” an absolute fee promise, and potential overstatement of physician access.
+P0
+Buttons: “View treatments” and “See if you qualify”
+Primary: “Check Eligibility”  |  Secondary: “View Treatments”
+Standardize the conversion path.
+P1
+“2 min Online assessment”
+“2 min Eligibility check”
+“Assessment” may sound clinical. The public-site step should be basic eligibility, not medical intake.
+P0
+“24h Typical clinician review”
+“Within 24 hours Typical clinical review*” 
+Do not make a service-level promise before the provider network proves it. Add a timing disclaimer.
+P1
+“0 Insurance required”
+“No insurance required” with subline “Simple self-pay care.”
+The zero is visually awkward and not a metric.
+P0
+Hero-card badge: “MOST POTENT”
+Remove the badge or use “FEATURED PROGRAM.”
+“Most potent” is a superiority claim and makes the brand look like it sells the strongest drug rather than appropriate care.
+P0
+Hero-card title: “Tirzepatide”
+“Clinician-Guided Weight Management”
+Lead with the care program. Introduce specific medications on the program page with the correct approved/compounded status.
+P0
+“Custom titration. Unlimited physician access. Discreet delivery.”
+“Personalized treatment options, ongoing clinical support, and discreet delivery.”
+Avoid “unlimited” unless the clinical agreement and staffing model support it literally.
+P0
+Hero-card button: “Get started”
+“Check Eligibility”
+Accurate, consistent, and does not promise treatment.
+Recommended hero copy — ready to paste
+EYEBROW
+PERSONALIZED CARE. CLINICIAN-GUIDED OPTIONS.
+HEADLINE
+Your care.Your way.
+SUPPORT COPY
+Connect online with a licensed clinician for medical weight management, hormone health, and select prescription therapies. See your options and costs before treatment begins.
+BUTTONS
+Check Eligibility     View Treatments
+ELIGIBILITY DISCLOSURE
+Prescription treatment is not guaranteed. Eligibility and treatment decisions are made by a licensed clinician. Availability varies by state and treatment.
+04  Homepage positioning section
+Replace broad category language with a clear explanation of what Nexa Rx actually does.
+Priority
+Current item
+Change to
+Why / team instruction
+P1
+Headline: “It’s time to move from sick care to healthcare.”
+“Modern care should be personal, clear, and clinically guided.”
+The current line is familiar but generic. The replacement supports the actual operating model.
+P0
+“Patients nationwide choose bio-individualized care because personalized medicine matters — evidence-based protocols, premium medications, and support that stays with you.”
+“Nexa Rx connects eligible adults with licensed clinicians for medical weight management, hormone health, and select prescription therapies—with transparent pricing and ongoing support.”
+Remove “bio-individualized,” “premium medications,” and unverified nationwide wording.
+P0
+Tiles: GLP-1 | TRT/HRT | Peptides | MD-led
+Medical Weight Loss | Men’s Hormone Health | Women’s Hormone Health | Peptide Therapy
+“MD-led” is a trust attribute, not a treatment category. Separate men’s and women’s hormone programs.
+Recommended section copy — ready to paste
+HEADLINE
+Modern care should be personal, clear, and clinically guided.
+BODY
+Nexa Rx connects eligible adults with licensed clinicians for medical weight management, hormone health, and select prescription therapies—with transparent pricing and ongoing support.
+PROGRAM TILES
+Medical Weight Loss  |  Men’s Hormone Health  |  Women’s Hormone Health  |  Peptide Therapy
+05  Treatment cards
+Keep the card design. Reframe every card around a care program, not access to a specific drug.
+Current treatment-card section
+Priority
+Current item
+Change to
+Why / team instruction
+P0
+Eyebrow: “WEIGHT LOSS & METABOLIC HEALTH”
+“PERSONALIZED CARE PROGRAMS”
+The section contains weight loss, men’s health, women’s health, and peptides—not only metabolic health.
+P1
+Heading: “Treatments available”
+“Explore care programs”
+Less transactional and more appropriate before clinical evaluation.
+P0
+“Unlimited physician access. No hidden fees.”
+“Ongoing clinical support. Clear pricing before enrollment.”
+Avoid absolute promises. Define the actual communication and follow-up model on each program page.
+P0
+Buttons: “Learn more” and “Get started”
+“View Details” and “Check Eligibility”
+Standardize the sitewide action language.
+Card-by-card replacements
+Priority
+Current item
+Change to
+Why / team instruction
+P0
+Weight Loss / “Tirzepatide” / “Clinician-guided GLP-1 / GIP care with custom titration — delivered discreetly to your door.”
+MEDICAL WEIGHT LOSSClinician-Guided Weight Management“Personalized medical evaluation with approved medication options.”
+Do not imply that everyone receives tirzepatide. The detailed page can identify exact products and approved indications.
+P0
+Men’s Health / Hormone Optimization / “TRT”
+MEN’S HORMONE HEALTHTestosterone Evaluation & Care“Evaluation based on symptoms, medical history, and lab results.”
+The care begins with evaluation, not a predetermined prescription.
+P0
+Women’s Health / Hormone Balance / “HRT”
+WOMEN’S HORMONE HEALTHMenopause & Hormone Care“Personalized evaluation and treatment options based on symptoms, medical history, and lab results.”
+Clearer, more specific, and less likely to imply treatment based only on consumer preference.
+P0
+Longevity / Recovery & Wellness / “Peptide Care” / “Premium peptide protocols for recovery, metabolic support, and modern wellness — on your terms.”
+LONGEVITY / RECOVERY THERAPYClinician-Prescribed Peptide Therapy“Online medical evaluation for select peptide therapies. When prescribed, treatment is fulfilled by a qualified U.S. pharmacy.”
+Keep peptides, but remove broad outcome claims, “premium,” and “on your terms.” A clinician—not the customer—determines appropriateness.
+06  Peptide positioning and disclosure
+Priority
+Current item
+Change to
+Why / team instruction
+P1
+No research-use distinction
+Add to the peptide FAQ: “Nexa Rx offers prescription therapies for eligible patients and does not sell research-use-only products.”
+This directly addresses the customer concern without making it the main value proposition.
+Recommended peptide card copy — ready to paste
+CATEGORY
+PRESCRIPTION THERAPY
+TITLE
+Clinician-Prescribed Peptide Therapy
+DESCRIPTION
+Online medical evaluation for select peptide therapies. When prescribed, treatment is fulfilled by a qualified U.S. compounding pharmacy or outsourcing facility, as applicable. Availability varies by therapy and state.
+PRICE
+Starting at $[VERIFIED]/month*
+PRICE NOTE
+*Final price depends on the prescribed therapy, dosage, pharmacy, shipping, and state. All charges and recurring terms are shown before enrollment.
+BUTTONS
+View Peptide Therapy     Check Eligibility
+07  Supplements: how to add them without weakening the medical brand
+Create a separate retail lane. Do not mix supplements with prescription treatment cards or medical eligibility.
+Recommended placement
+Add “Shop” to the main navigation.
+Place the homepage supplement section after the clinical care programs and before FAQs or the footer.
+Use a separate supplement collection page and standard e-commerce checkout.
+Keep clinical intake, prescription decisions, and medical records inside the clinical portal.
+Do not require a supplement purchase to qualify for treatment or imply that buying supplements affects prescribing.
+Priority
+Current item
+Change to
+Why / team instruction
+P0
+Supplements mixed into “Treatments Available”
+Create a separate “Shop Supplements” section and page. Label every product “Dietary Supplement.”
+Separates non-prescription products from medical care and reduces consumer confusion.
+P0
+Shared prescription and supplement checkout
+Use separate flows: clinical portal for care; commerce checkout for supplements.
+Reduces privacy, operational, and customer-service confusion.
+P1
+Unclear recurring supplement billing
+Show subscription frequency, discount, renewal amount, cancellation method, and one-time purchase option before payment.
+Prevents billing complaints and chargebacks.
+Recommended homepage supplement section — ready to paste
+EYEBROW
+NON-PRESCRIPTION SUPPORT
+HEADLINE
+Support your health between visits.
+BODY
+Shop a focused collection of dietary supplements for everyday wellness. No prescription required.
+BUTTON
+Shop Supplements
+REQUIRED DISCLAIMER WHEN STRUCTURE/FUNCTION CLAIMS APPEAR
+These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.
+Minimum information on every supplement product page
+Statement of identity and net quantity.
+Supplement Facts, serving size, servings per container, and full ingredient list.
+Directions, warnings, allergens, storage, and age restrictions where applicable.
+Manufacturer, packer, or distributor name and place of business.
+Verified product-specific claims and the required disclaimer where applicable.
+One-time price, subscription price, renewal frequency, cancellation method, return policy, and shipping terms.
+Contact path for product questions and adverse-event reporting.
+Merchandising recommendation
+Launch with a tight assortment—roughly four to six products tied to clear everyday needs. A giant catalog will cheapen the medical positioning, increase claim-review workload, and create inventory and support complexity before demand is proven.
+08  Quality & Safety page
+Turn the current vague “Quality” navigation item into the page that explains the care model honestly.
+Priority
+Current item
+Change to
+Why / team instruction
+P0
+Navigation label: “Quality”
+“Quality & Safety”
+The user should know what the page contains before clicking.
+P0
+Generic pharmacy trust language
+Explain that prescriptions are sent to appropriately licensed U.S. pharmacies.
+Avoid implying that Nexa Rx is the pharmacy or that FDA approves the facility.
+P0
+No privacy/tracking explanation
+Explain that medical intake happens in a secure clinical portal. Audit all pixels, analytics events, URL parameters, and session-recording tools before launch.
+Health-related selections and patient data should not leak into ad platforms or non-clinical tools.[8]
+Recommended Quality & Safety opening copy
+HEADLINE
+Clear standards for every part of care.
+BODY
+Nexa Rx connects patients with licensed clinicians and qualified U.S. pharmacy partners, and we explain pricing and next steps before enrollment.
+SUPPLEMENT EXPLANATION
+Dietary supplements are non-prescription products and are sold separately from medical treatment. Product claims, ingredients, directions, warnings, and recurring terms are shown on each product page.
+09  How It Works, Pricing, and FAQ
+These pages should answer the operational questions that determine conversion and reduce support volume.
+How It Works — replace general language with this sequence
+1. Choose a care program — Select medical weight management, men’s hormone health, women’s hormone health, or peptide therapy.
+2. Complete secure intake — Provide medical information inside the secure clinical portal—not on the public marketing site.
+3. Meet a licensed clinician — The clinician reviews medical history, symptoms, labs when required, and treatment eligibility.
+4. Receive a clinical decision — A prescription is issued only when medically appropriate. Treatment is not guaranteed.
+5. Pharmacy fulfillment — When prescribed, the medication is dispensed by the applicable licensed pharmacy and shipped where legally available.
+6. Ongoing care — Explain the exact follow-up, messaging, refill, and lab cadence included in the program.
+Pricing page — required fields for every program
+Charge due today.
+Recurring amount and billing frequency.
+Consultation fee and whether it is refundable if the patient is not eligible.
+Medication cost and whether dosage changes the price.
+Lab cost and frequency.
+Supplies and shipping.
+Follow-up visits, clinical messaging, and refill support.
+Cancellation process, timing, and any non-refundable fees.
+State, pharmacy, product, and eligibility limitations.
+FAQ additions — use these exact questions
+Are Nexa Rx peptide therapies prescription-only?
+Does Nexa Rx sell research-use-only peptides?
+Are compounded peptide therapies FDA-approved?
+What is the difference between a 503A compounding pharmacy and a 503B outsourcing facility?
+Which treatments use FDA-approved medications?
+Which costs are included in the monthly price?
+Is a prescription guaranteed?
+Which states are currently supported for each program?
+Are supplements part of my prescription treatment plan?
+Can I buy supplements without becoming a Nexa Rx patient?
+How do I cancel a recurring treatment or supplement order?
+Where is my medical information collected and stored?
+Recommended peptide FAQ answers
+ARE THESE RESEARCH-USE PEPTIDES?
+No. Nexa Rx does not sell research-use-only products. Peptide therapies offered through the clinical program require a medical evaluation and prescription and are dispensed for eligible patients through the applicable pharmacy channel.
+\10  Technical, SEO, privacy, and conversion requirements
+Fix these before the site moves from Vercel draft to production.
+Priority
+Current item
+Change to
+Why / team instruction
+P0
+URL structure uses /#/
+Use clean History API routes and server-side rendering, static rendering, or hydration for public pages.
+Google generally does not support URL fragments to change page content and recommends renderable, indexable JavaScript implementations.[7][10]
+P0
+One generic page shell/title
+Create unique title tags, descriptions, canonical tags, headings, Open Graph data, and indexable copy for every program page.
+Improves search visibility, ad landing-page relevance, and sharing previews.
+P1
+No visible sitemap or structured-data plan
+Add XML sitemap, Organization markup, Breadcrumb markup, and accurate product markup for supplements where applicable.
+Helps search engines understand the company and page hierarchy. Do not mark up content that is not visible.
+P0
+Health selections may be captured by marketing tools
+Audit Meta, Google, analytics, session replay, forms, chat, and URL parameters. Do not send medical intake or identifiable health data to ad platforms.
+HHS has specific guidance on online tracking technologies for regulated entities; the prudent design is to keep clinical data out of marketing tools.[8]
+P0
+Public forms may expand into health questions
+Limit public lead forms to basic contact, state, and program interest. Move symptoms, diagnoses, medications, labs, and medical history into the clinical portal.
+Reduces privacy exposure and keeps marketing systems out of the medical record flow.
+P1
+No explicit supplement/clinical account separation
+Keep supplement orders in the commerce stack and clinical data in the patient portal. Use a carefully designed account handoff rather than one shared database by default.
+Simplifies privacy, support, data governance, and vendor responsibility.
+P1
+Small gray text and very small top-bar copy
+Increase contrast and minimum mobile text size; test all pages at common iPhone and Android widths.
+The current design is elegant but some text is hard to read.
+P1
+No visible sticky mobile CTA plan
+Add a mobile sticky “Check Eligibility” button on clinical pages and a “Shop Supplements” button only on shop pages.
+Improves conversion without mixing the two customer journeys.
+Recommended production routes
+ROUTES
+/   /medical-weight-loss   /mens-hormone-health   /womens-hormone-health   /peptide-therapy   /how-it-works   /pricing   /quality-and-safety   /medical-team   /supplements   /faq   /patient-login
+Recommended homepage metadata
+TITLE TAG
+Nexa Rx | Personalized Telehealth Care
+META DESCRIPTION
+Connect online with licensed clinicians for medical weight management, hormone health, and select prescription therapies. Availability varies by state.
+Preview environment
+Keep the Vercel draft noindexed and password-protected or otherwise inaccessible to search engines until claims, pricing, legal pages, and clinical pathways are approved. Do not let an unfinished medical site become the indexed version of the brand.
+11  Quick decision sheet
+The fastest version for the design and development team.
+KEEP
+Navy, cream, and teal palette
+Two-column hero layout
+Serif headline system
+Four-program card architecture
+Visible pricing concept
+Clean, premium visual restraint
+CHANGE
+Hero and treatment copy
+Primary CTA to Check Eligibility
+Quality to Quality & Safety
+Drug-first cards to program-first cards
+Pricing to show inclusions
+Peptide fulfillment terminology
+REMOVE
+Real Results
+Most Potent
+No hidden fees. Ever.
+Unlimited physician access unless literal
+Bio-individualized
+Premium medications
+Blanket FDA-approved-only positioning
+ADD
+Separate Shop for supplements
+Peptide compounded-drug disclosure
+Pricing page
+Medical Team content
+Clean non-hash URLs
+Program-specific state availability
+Tracking/privacy audit

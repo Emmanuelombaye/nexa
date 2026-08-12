@@ -1,12 +1,9 @@
-import { siteUrl, supplements } from '../lib/site-data'
+import { siteUrl, supplements, programs } from '../lib/site-data'
 
 export default function sitemap() {
   const routes = [
     '/',
-    '/medical-weight-loss',
-    '/mens-hormone-health',
-    '/womens-hormone-health',
-    '/peptide-therapy',
+    ...programs.map((program) => `/${program.slug}`),
     '/how-it-works',
     '/pricing',
     '/quality-and-safety',

@@ -3,6 +3,14 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  async redirects() {
+    return [
+      { source: '/medical-weight-loss', destination: '/semaglutide', permanent: true },
+      { source: '/mens-hormone-health', destination: '/#treatments', permanent: true },
+      { source: '/womens-hormone-health', destination: '/#treatments', permanent: true },
+      { source: '/peptide-therapy', destination: '/#treatments', permanent: true },
+    ]
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [390, 430, 640, 750, 828, 1080, 1200, 1600, 1920],

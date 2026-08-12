@@ -13,7 +13,7 @@ export default function SiteFooter() {
     <>
       <div className="brand-bottom-banner" aria-hidden="true">
         <div className="container brand-bottom-banner__inner">
-          <span className="brand-bottom-banner__text">CARE THAT CONNECTS. RESULTS THAT LAST.</span>
+          <span className="brand-bottom-banner__text">LICENSED CLINICAL CARE. CLEAR PRICING.</span>
           <span className="brand-bottom-banner__dot" />
         </div>
       </div>
@@ -22,10 +22,10 @@ export default function SiteFooter() {
         <div className="footer__brand-col">
           <Link href="/" className="footer__logo-wrap" aria-label="Nexa Rx home">
             <img
-              src="/brand/primary-logo.webp"
-              alt="Nexa Rx - Personal Care. Real Results."
-              width={160}
-              height={50}
+              src="/brand/nexa-rx-tm-logo-on-dark.webp"
+              alt="Nexa Rx™"
+              width={180}
+              height={49}
               className="footer__logo-img"
             />
           </Link>

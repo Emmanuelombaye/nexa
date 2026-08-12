@@ -6,7 +6,7 @@ import { faqItems } from '../lib/site-data'
 
 const FAQ_CATEGORIES = [
   { id: 'all', label: 'All Questions' },
-  { id: 'care', label: 'Clinical Care & Peptides' },
+  { id: 'care', label: 'Clinical Care & GLP-1' },
   { id: 'pricing', label: 'Pricing & Billing' },
   { id: 'supplements', label: 'Supplements' },
   { id: 'privacy', label: 'Privacy & Account' },
@@ -148,7 +148,7 @@ export default function FaqAccordion() {
                 setSearchQuery(e.target.value)
                 setOpenFaq(-1)
               }}
-              placeholder="Search questions (e.g. prescription, pricing, peptides...)"
+              placeholder="Search questions (e.g. semaglutide, tirzepatide, pricing...)"
               className="faq__search-input"
             />
             {searchQuery && (

@@ -1,6 +1,6 @@
 # Nexa Rx
 
-Personalized telehealth for medical weight management, hormone health, and select prescription therapies.
+Personalized telehealth for semaglutide and tirzepatide weight-management therapy.
 
 Nexa Rx connects eligible adults with licensed clinicians, shows clear pricing before enrollment, and fulfills prescriptions through qualified U.S. pharmacy partners. Dietary supplements are sold in a separate non-prescription shop lane.
 
@@ -40,10 +40,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ### Care programs
 
-- `/medical-weight-loss` — Clinician-guided weight management
-- `/mens-hormone-health` — Testosterone evaluation & care
-- `/womens-hormone-health` — Menopause & hormone care
-- `/peptide-therapy` — Clinician-prescribed peptide therapy
+- `/semaglutide` — Clinician-guided semaglutide therapy
+- `/tirzepatide` — Clinician-guided tirzepatide therapy
 
 ### Core pages
 

@@ -4,10 +4,8 @@ import { media } from '../lib/media'
 import SiteImage from './SiteImage'
 
 const imageBySlug: Record<string, { src: string; alt: string; width: number; height: number }> = {
-  'medical-weight-loss': media.pricingWeight,
-  'mens-hormone-health': media.pricingMens,
-  'womens-hormone-health': media.pricingWomens,
-  'peptide-therapy': media.pricingPeptides,
+  semaglutide: media.pricingSemaglutide,
+  tirzepatide: media.pricingTirzepatide,
 }
 
 export default function PricingGrid() {
@@ -117,7 +115,7 @@ export default function PricingGrid() {
             </details>
 
             <div className="pricing-card__footer">
-              <Link href="/check-eligibility" className="btn btn--primary btn--lg">
+              <Link href={`/check-eligibility?program=${program.slug}`} className="btn btn--primary btn--lg">
                 Check Eligibility
               </Link>
               <Link href={`/${program.slug}`} className="btn btn--outline btn--lg">

@@ -1,5 +1,6 @@
 import { Manrope, Cormorant_Garamond } from 'next/font/google'
 import '../src/index.css'
+import '../src/how-it-works.css'
 import { siteUrl } from '../lib/site-data'
 
 const manrope = Manrope({
@@ -21,9 +22,9 @@ const isPreview = process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'producti
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Nexa Rx | Personalized Telehealth Care',
+  title: 'Nexa Rx | Semaglutide & Tirzepatide Telehealth',
   description:
-    'Connect online with licensed clinicians for medical weight management, hormone health, and select prescription therapies. Availability varies by state.',
+    'Connect online with licensed clinicians for semaglutide and tirzepatide weight-management therapy. Availability varies by state.',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Nexa Rx | Personalized Telehealth Care',
@@ -69,6 +70,7 @@ export const viewport = {
   themeColor: '#0F1722',
   width: 'device-width',
   initialScale: 1,
+  viewportFit: 'cover' as const,
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -78,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     name: 'Nexa Rx',
     url: siteUrl,
     description:
-      'Personalized telehealth for medical weight management, hormone health, and select prescription therapies.',
+      'Personalized telehealth for semaglutide and tirzepatide weight-management therapy.',
     medicalSpecialty: 'Telemedicine',
   }
 

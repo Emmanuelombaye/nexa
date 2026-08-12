@@ -8,7 +8,7 @@ import { pageMetadata } from '../../lib/seo'
 
 export const metadata = pageMetadata({
   title: 'FAQ | Nexa Rx',
-  description: 'Answers to peptide, pricing, eligibility, supplement, and privacy questions for Nexa Rx care programs.',
+  description: 'Answers to GLP-1 therapy, pricing, eligibility, supplement, and privacy questions for Nexa Rx.',
   path: '/faq',
   image: media.faqHero.src,
 })
@@ -24,7 +24,7 @@ export default function Page() {
             <p className="eyebrow">FAQ</p>
             <h1>Clear answers before you enroll.</h1>
             <p className="lede">
-              Peptide disclosures, pricing inclusions, eligibility, supplements, and privacy — explained before you
+              GLP-1 therapy disclosures, pricing inclusions, eligibility, supplements, and privacy — explained before you
               start.
             </p>
           </div>

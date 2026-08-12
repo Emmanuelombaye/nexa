@@ -49,29 +49,17 @@ export const media = {
     width: 1600,
     height: 1000,
   },
-  weightLoss: {
+  semaglutide: {
     src: '/images/treatment-weightloss.webp',
-    alt: 'Clinician-guided weight management lifestyle',
+    alt: 'Clinician-guided semaglutide weight management',
     width: 1400,
     height: 1050,
   },
-  trt: {
-    src: '/images/treatment-trt.webp',
-    alt: "Men's hormone health care",
-    width: 1400,
-    height: 1050,
-  },
-  hrt: {
-    src: '/images/treatment-hrt.webp',
-    alt: "Women's hormone health care",
-    width: 1400,
-    height: 1050,
-  },
-  peptides: {
-    src: '/images/treatment-peptides.webp',
-    alt: 'Clinician-prescribed peptide therapy setting',
-    width: 1400,
-    height: 1050,
+  tirzepatide: {
+    src: '/images/hero-lifestyle.webp',
+    alt: 'Clinician-guided tirzepatide weight management',
+    width: 1600,
+    height: 1200,
   },
   shopProduct: {
     src: '/images/shop-product.webp',
@@ -109,27 +97,15 @@ export const media = {
     width: 1600,
     height: 1200,
   },
-  pricingWeight: {
+  pricingSemaglutide: {
     src: '/images/pricing-weight.webp',
-    alt: 'Weight management program pricing',
+    alt: 'Semaglutide therapy pricing',
     width: 1400,
     height: 788,
   },
-  pricingMens: {
-    src: '/images/pricing-mens.webp',
-    alt: "Men's hormone health program pricing",
-    width: 1400,
-    height: 788,
-  },
-  pricingWomens: {
-    src: '/images/pricing-womens.webp',
-    alt: "Women's hormone health program pricing",
-    width: 1400,
-    height: 788,
-  },
-  pricingPeptides: {
+  pricingTirzepatide: {
     src: '/images/pricing-peptides.webp',
-    alt: 'Peptide therapy pricing confirmed before enrollment',
+    alt: 'Tirzepatide therapy pricing',
     width: 1400,
     height: 788,
   },
@@ -164,34 +140,34 @@ export const media = {
     height: 1200,
   },
   howStep01: {
-    src: '/images/how-step-01.webp',
-    alt: 'Choose a care program',
-    width: 800,
-    height: 800,
+    src: '/images/hiw-step-card-01.webp',
+    alt: 'Patient completing a digital intake with Semaglutide and Tirzepatide options',
+    width: 1800,
+    height: 1200,
   },
   howStep02: {
-    src: '/images/how-step-02.webp',
-    alt: 'Complete secure clinical intake',
-    width: 800,
-    height: 800,
+    src: '/images/hiw-step-card-02.webp',
+    alt: 'Secure identity verification on a clinical laptop',
+    width: 1800,
+    height: 1200,
   },
   howStep03: {
-    src: '/images/how-step-03.webp',
-    alt: 'Meet a licensed clinician',
-    width: 800,
-    height: 800,
+    src: '/images/hiw-step-card-03.webp',
+    alt: 'Licensed physician reviewing a patient chart',
+    width: 1800,
+    height: 1200,
   },
   howStep04: {
-    src: '/images/how-step-04.webp',
-    alt: 'Receive a clinical decision',
-    width: 800,
-    height: 800,
+    src: '/images/hiw-step-card-04.webp',
+    alt: 'Discreet temperature-controlled pharmacy shipment',
+    width: 1800,
+    height: 1200,
   },
   howStep05: {
-    src: '/images/how-step-05.webp',
-    alt: 'Pharmacy fulfillment and discreet delivery',
-    width: 800,
-    height: 800,
+    src: '/images/hiw-step-card-05.webp',
+    alt: 'Patient opening a discreet delivery and starting follow-up care',
+    width: 1800,
+    height: 1200,
   },
   howStep06: {
     src: '/images/how-step-06.webp',
@@ -259,10 +235,8 @@ export const howItWorksStepImages = [
 ]
 
 export const programImages = {
-  'medical-weight-loss': media.weightLoss,
-  'mens-hormone-health': media.trt,
-  'womens-hormone-health': media.hrt,
-  'peptide-therapy': media.peptides,
+  semaglutide: media.semaglutide,
+  tirzepatide: media.tirzepatide,
 }
 
 export const supplementImages = {

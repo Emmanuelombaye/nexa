@@ -20,7 +20,7 @@ export default function EligibilityForm() {
 
   const [currentStep, setCurrentStep] = useState(1)
   const [form, setForm] = useState({
-    program: 'Medical Weight Loss',
+    program: 'Semaglutide',
     email: '',
     firstName: '',
     lastName: '',

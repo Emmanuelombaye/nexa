@@ -1,10 +1,8 @@
 export const siteUrl = 'https://nexamd.com'
 
 export const treatmentLinks = [
-  { href: '/medical-weight-loss', label: 'Medical Weight Loss' },
-  { href: '/mens-hormone-health', label: "Men's Hormone Health" },
-  { href: '/womens-hormone-health', label: "Women's Hormone Health" },
-  { href: '/peptide-therapy', label: 'Peptide Therapy' },
+  { href: '/semaglutide', label: 'Semaglutide' },
+  { href: '/tirzepatide', label: 'Tirzepatide' },
 ]
 
 export const shopLinks = [
@@ -88,39 +86,40 @@ export const pricingBeforeEnrollment = [
 ]
 
 export const pricingComparison = {
-  headers: ['', 'Weight', "Men's", "Women's", 'Peptides'],
+  headers: ['', 'Semaglutide', 'Tirzepatide'],
   rows: [
-    { label: 'Due today to start', values: ['$0', '$0', '$0', '$0'] },
-    { label: 'Clinical evaluation', values: ['Included if prescribed*', 'Included if prescribed*', 'Included if prescribed*', 'Included if prescribed*'] },
-    { label: 'Ongoing messaging', values: ['Yes', 'Yes', 'Yes', 'Yes'] },
-    { label: 'Refill coordination', values: ['Monthly review', 'Monthly review', 'Monthly review', 'Before each renewal'] },
-    { label: 'Labs', values: ['When indicated', 'Required at baseline', 'When indicated', 'When indicated'] },
-    { label: 'Prescription cost', values: ['Separate line item', 'Separate line item', 'Separate line item', 'Separate line item'] },
-    { label: 'Monthly total', values: ['Personalized quote', 'Personalized quote', 'Personalized quote', 'Personalized quote'] },
+    { label: 'Due today to start', values: ['$0', '$0'] },
+    { label: 'Clinical evaluation', values: ['Included if prescribed*', 'Included if prescribed*'] },
+    { label: 'Ongoing messaging', values: ['Yes', 'Yes'] },
+    { label: 'Refill coordination', values: ['Monthly review', 'Monthly review'] },
+    { label: 'Labs', values: ['When indicated', 'When indicated'] },
+    { label: 'Prescription cost', values: ['Separate line item', 'Separate line item'] },
+    { label: 'Monthly total', values: ['Personalized quote', 'Personalized quote'] },
   ],
 }
 
 export const programs = [
   {
-    slug: 'medical-weight-loss',
-    navLabel: 'Medical Weight Loss',
-    category: 'MEDICAL WEIGHT LOSS',
-    title: 'Clinician-Guided Weight Management',
-    description: 'Personalized medical evaluation with approved medication options.',
+    slug: 'semaglutide',
+    navLabel: 'Semaglutide',
+    category: 'GLP-1 WEIGHT MANAGEMENT',
+    title: 'Clinician-Guided Semaglutide Therapy',
+    description:
+      'Online medical evaluation for semaglutide-based weight management. When prescribed, treatment is fulfilled by a licensed U.S. pharmacy with ongoing clinical support. Availability varies by state.',
     price: priceTag,
     priceSubline,
     priceNote,
     highlights: [
-      'Program-first care, not drug-first merchandising',
-      'Approved medication options based on clinical evaluation',
-      'Ongoing clinical support and clear pricing before enrollment',
+      'GLP-1 therapy evaluated by a licensed clinician — not sold over the counter',
+      'FDA-approved brand options or compounded semaglutide when clinically appropriate',
+      'Monthly refill review, secure messaging, and clear pricing before enrollment',
     ],
     medicationStatus: {
       title: 'Medication status',
       points: [
-        'Your clinician may prescribe FDA-approved medication options when medically appropriate.',
-        'Specific products and indications are confirmed after clinical evaluation — not before.',
-        'Compounded alternatives are only considered when clinically appropriate and legally available.',
+        'Semaglutide is a GLP-1 receptor agonist prescribed for chronic weight management when medically appropriate.',
+        'Your clinician may prescribe FDA-approved products (such as Wegovy or Ozempic, when indicated) or compounded semaglutide where legally available.',
+        'Specific product, dose, and formulation are confirmed after clinical evaluation — not before checkout.',
       ],
     },
     ongoingCare: {
@@ -131,92 +130,33 @@ export const programs = [
     },
   },
   {
-    slug: 'mens-hormone-health',
-    navLabel: "Men's Hormone Health",
-    category: "MEN'S HORMONE HEALTH",
-    title: 'Testosterone Evaluation & Care',
-    description: 'Evaluation based on symptoms, medical history, and lab results.',
-    price: priceTag,
-    priceSubline,
-    priceNote,
-    highlights: [
-      'Care begins with evaluation, not a predetermined prescription',
-      'Symptoms, history, and labs reviewed by a licensed clinician',
-      'Follow-up and refill support included in the active program',
-    ],
-    medicationStatus: {
-      title: 'Medication status',
-      points: [
-        'Testosterone and related therapies are prescribed only when clinically indicated.',
-        'Your clinician explains whether a prescribed option is FDA-approved or compounded.',
-        'Labs and monitoring guide dosing — preference alone does not determine treatment.',
-      ],
-    },
-    ongoingCare: {
-      followUp: 'Follow-up visit at 6–12 weeks, then every 3–6 months when clinically indicated.',
-      refills: 'Refill review every 30 days after treatment begins.',
-      labs: 'Baseline labs required; repeat labs at 6–12 weeks and every 6 months when indicated.',
-      messaging: 'Licensed clinician messaging within 2 business days during active care.',
-    },
-  },
-  {
-    slug: 'womens-hormone-health',
-    navLabel: "Women's Hormone Health",
-    category: "WOMEN'S HORMONE HEALTH",
-    title: 'Menopause & Hormone Care',
+    slug: 'tirzepatide',
+    navLabel: 'Tirzepatide',
+    category: 'GLP-1 / GIP WEIGHT MANAGEMENT',
+    title: 'Clinician-Guided Tirzepatide Therapy',
     description:
-      'Personalized evaluation and treatment options based on symptoms, medical history, and lab results.',
+      'Online medical evaluation for tirzepatide-based weight management. Dual GLP-1/GIP therapy when clinically appropriate, fulfilled by a licensed U.S. pharmacy. Availability varies by state.',
     price: priceTag,
     priceSubline,
     priceNote,
     highlights: [
-      'Personalized menopause and hormone evaluation',
-      'Treatment options based on symptoms, history, and labs',
-      'Clear pricing and ongoing clinical support',
+      'Dual-action GLP-1/GIP therapy evaluated by a licensed clinician',
+      'FDA-approved brand options or compounded tirzepatide when clinically appropriate',
+      'Ongoing titration support, refill coordination, and transparent pricing before enrollment',
     ],
     medicationStatus: {
       title: 'Medication status',
       points: [
-        'Hormone therapies are selected after evaluation of symptoms, history, and labs.',
-        'Your clinician reviews FDA-approved and, when appropriate, compounded options.',
-        'Treatment plans are individualized — not ordered from a fixed product menu.',
+        'Tirzepatide activates both GLP-1 and GIP receptors and may be prescribed for chronic weight management when medically appropriate.',
+        'Your clinician may prescribe FDA-approved products (such as Zepbound or Mounjaro, when indicated) or compounded tirzepatide where legally available.',
+        'Dosing, titration, and formulation follow your clinician’s plan — preference alone does not determine treatment.',
       ],
     },
     ongoingCare: {
-      followUp: 'Symptom review at 4–6 weeks, then periodic check-ins based on your care plan.',
+      followUp: 'Licensed clinician review via secure messaging, typically within 2 business days.',
       refills: 'Refill review every 30 days when clinically appropriate.',
-      labs: 'Labs ordered when clinically indicated at baseline and follow-up.',
-      messaging: 'Licensed clinician messaging within 2 business days during active care.',
-    },
-  },
-  {
-    slug: 'peptide-therapy',
-    navLabel: 'Peptide Therapy',
-    category: 'LONGEVITY / RECOVERY THERAPY',
-    title: 'Clinician-Prescribed Peptide Therapy',
-    description:
-      'Online medical evaluation for select peptide therapies. When prescribed, treatment is fulfilled by a qualified U.S. compounding pharmacy or outsourcing facility, as applicable. Availability varies by therapy and state.',
-    price: 'Starting at $[VERIFIED]/month*',
-    priceSubline,
-    priceNote,
-    highlights: [
-      'Prescription-only peptide therapies for eligible patients',
-      'Nexa Rx does not sell research-use-only products',
-      'Fulfilled through applicable licensed U.S. pharmacy channels',
-    ],
-    medicationStatus: {
-      title: 'Medication status',
-      points: [
-        'Peptide therapies require medical evaluation and a valid prescription.',
-        'Compounded peptides are not FDA-approved as finished branded products.',
-        'Fulfillment may use a 503A compounding pharmacy or 503B outsourcing facility, as applicable.',
-      ],
-    },
-    ongoingCare: {
-      followUp: 'Clinician review at 4–8 weeks after starting therapy, then per your prescribed plan.',
-      refills: 'Refill coordinator confirms renewal before each billing cycle.',
-      labs: 'Labs reviewed when clinically indicated for the prescribed therapy.',
-      messaging: 'Treatment monitoring and clinical messaging included in active membership.',
+      labs: 'Baseline labs when indicated; follow-up labs every 3–6 months based on your care plan.',
+      messaging: 'Clinical messaging included in the active program.',
     },
   },
 ]
@@ -225,7 +165,7 @@ export const careSteps = [
   {
     n: '01',
     title: 'Choose a care program',
-    text: "Select medical weight management, men's hormone health, women's hormone health, or peptide therapy.",
+    text: 'Select semaglutide or tirzepatide weight-management therapy based on your goals and clinical eligibility.',
   },
   {
     n: '02',
@@ -251,15 +191,15 @@ export const careSteps = [
     n: '06',
     title: 'Ongoing care',
     text:
-      'Follow-up visits, clinical messaging, refill coordination, and lab cadence are defined in your program plan — weight management includes monthly refill review and periodic labs; hormone programs include scheduled follow-ups and lab monitoring; peptide therapy includes therapy-specific review before each renewal.',
+      'Follow-up visits, clinical messaging, refill coordination, and lab cadence are defined in your program plan — including monthly refill review and periodic labs for both semaglutide and tirzepatide therapy.',
   },
 ]
 
 export const pricingPrograms = [
   {
-    slug: 'medical-weight-loss',
-    title: 'Weight Management Program',
-    subtitle: 'Clinician-guided weight management with approved medication options when clinically appropriate',
+    slug: 'semaglutide',
+    title: 'Semaglutide Therapy',
+    subtitle: 'Clinician-guided GLP-1 weight management with semaglutide when clinically appropriate',
     pricingModel: 'Program care + partner pharmacy',
     dueToday: '$0',
     dueTodayNote: 'Charged for ongoing care only after you review and accept your enrollment summary.',
@@ -277,7 +217,7 @@ export const pricingPrograms = [
     recurring: 'Personalized monthly total shown before enrollment',
     consultationFee:
       'Included when prescribed. A non-refundable evaluation fee applies only if a clinician determines you are not eligible — amount shown before checkout.',
-    medicationCost: 'Separate line item based on prescribed therapy, dosage, and pharmacy.',
+    medicationCost: 'Separate line item based on prescribed semaglutide product, dosage, and pharmacy.',
     labCost: 'Shown before enrollment when ordered through the partner clinical network.',
     shippingCost: 'Discreet delivery and supplies included when listed in your enrollment summary.',
     supportInclusions:
@@ -287,92 +227,34 @@ export const pricingPrograms = [
       'Availability varies by state, clinical evaluation outcome, prescribed therapy, and applicable pharmacy rules.',
   },
   {
-    slug: 'mens-hormone-health',
-    title: "Men's Hormone Health",
-    subtitle: 'Testosterone evaluation, treatment options, and clinical monitoring',
+    slug: 'tirzepatide',
+    title: 'Tirzepatide Therapy',
+    subtitle: 'Clinician-guided GLP-1/GIP weight management with tirzepatide when clinically appropriate',
     pricingModel: 'Program care + partner pharmacy',
     dueToday: '$0',
     dueTodayNote: 'Charged for ongoing care only after you review and accept your enrollment summary.',
     included: [
       'Clinical evaluation when prescribed',
-      'Licensed clinician dosing review',
-      'Ongoing messaging during active care',
+      'Ongoing messaging and refill coordination',
+      'Follow-up visits when clinically appropriate',
     ],
     billedSeparately: [
       'Prescription cost (partner pharmacy)',
-      'Required lab panels and follow-up labs',
+      'Labs when clinically required',
       'Monthly program total in enrollment summary',
     ],
-    costDrivers: ['Prescribed therapy', 'Dosage', 'Lab cadence', 'State'],
+    costDrivers: ['Prescribed therapy', 'Dosage', 'Pharmacy channel', 'State'],
     recurring: 'Personalized monthly total shown before enrollment',
     consultationFee:
-      'Included in active monthly care when prescribed. A non-refundable evaluation fee applies if not eligible — amount shown before checkout.',
-    medicationCost: 'Separate line item based on prescribed therapy and dosage.',
-    labCost: 'Lab diagnostics required — costs and frequency shown before enrollment.',
-    shippingCost: 'Discreet delivery and necessary supplies included when listed in your enrollment summary.',
+      'Included when prescribed. A non-refundable evaluation fee applies only if a clinician determines you are not eligible — amount shown before checkout.',
+    medicationCost: 'Separate line item based on prescribed tirzepatide product, dosage, and pharmacy.',
+    labCost: 'Shown before enrollment when ordered through the partner clinical network.',
+    shippingCost: 'Discreet delivery and supplies included when listed in your enrollment summary.',
     supportInclusions:
-      'Ongoing lab monitoring, licensed clinician dosing review, and clinical messaging during active care.',
-    cancellation: 'No long-term contracts. Cancel prior to the next billing cycle.',
+      'Ongoing follow-up visits, clinical titration planning, clinical messaging, and monthly refill support when clinically appropriate.',
+    cancellation: 'Cancel anytime via the Patient Center prior to your next recurring billing cycle.',
     limitations:
-      'Patient must be 18+. Availability varies by state, clinical indication, and applicable pharmacy rules.',
-  },
-  {
-    slug: 'womens-hormone-health',
-    title: "Women's Hormone Health",
-    subtitle: 'Menopause and hormone evaluation with personalized treatment options',
-    pricingModel: 'Program care + partner pharmacy',
-    dueToday: '$0',
-    dueTodayNote: 'Charged for ongoing care only after you review and accept your enrollment summary.',
-    included: [
-      'Clinical evaluation when prescribed',
-      'Symptom-based titration review',
-      'Ongoing messaging during active care',
-    ],
-    billedSeparately: [
-      'Prescription cost (partner pharmacy)',
-      'Labs when clinically indicated',
-      'Monthly program total in enrollment summary',
-    ],
-    costDrivers: ['Prescribed therapy', 'Dosage', 'Symptom plan', 'State'],
-    recurring: 'Personalized monthly total shown before enrollment',
-    consultationFee:
-      'Included in active monthly care when prescribed. A non-refundable evaluation fee applies if not eligible — amount shown before checkout.',
-    medicationCost: 'Separate line item based on prescribed therapy and dosage.',
-    labCost: 'Diagnostic labs ordered when clinically indicated — costs shown before enrollment.',
-    shippingCost: 'Discreet delivery included when listed in your enrollment summary.',
-    supportInclusions:
-      'Symptom-based titration review, licensed clinician support, and clinical messaging during active care.',
-    cancellation: 'Cancel anytime prior to the next billing cycle.',
-    limitations: 'Subject to clinical eligibility and state pharmacy delivery rules.',
-  },
-  {
-    slug: 'peptide-therapy',
-    title: 'Peptide Therapy',
-    subtitle: 'Clinician-prescribed peptide therapies via qualified U.S. pharmacy channels',
-    pricingModel: 'Program care + compounding pharmacy',
-    dueToday: '$0',
-    dueTodayNote: 'Charged for ongoing care only after you review and accept your enrollment summary.',
-    included: [
-      'Clinical evaluation when prescribed',
-      'Treatment monitoring and refill coordination',
-      'Licensed clinician messaging',
-    ],
-    billedSeparately: [
-      'Prescription cost (503A / 503B channel as applicable)',
-      'Therapy-specific labs when indicated',
-      'Monthly program total in enrollment summary',
-    ],
-    costDrivers: ['Peptide therapy', 'Dosage', 'Pharmacy channel', 'State'],
-    recurring: 'Personalized monthly total shown before enrollment',
-    consultationFee:
-      'Included in membership when prescribed. A non-refundable evaluation fee applies if not eligible — amount shown before checkout.',
-    medicationCost:
-      'Separate line item — final price depends on prescribed therapy, dosage, pharmacy, shipping, and state.',
-    labCost: 'Lab work reviewed when clinically indicated — costs shown before enrollment.',
-    shippingCost: 'Shipping and supplies included when listed in your enrollment summary.',
-    supportInclusions: 'Licensed clinician support, treatment monitoring, and refill coordinator services.',
-    cancellation: 'Cancel subscription before the next recurring billing cycle begins.',
-    limitations: 'State availability varies by specific compound formulation and pharmacy channel.',
+      'Availability varies by state, clinical evaluation outcome, prescribed therapy, and applicable pharmacy rules.',
   },
 ]
 
@@ -382,41 +264,18 @@ export const stateAvailabilityNote =
 const coreStates =
   'AL, AK, AZ, AR, CA, CO, CT, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY, DC'
 
-const peptideAvailable =
-  'AZ, CO, FL, GA, ID, IL, IN, IA, KS, KY, MI, MN, MO, MT, NE, NV, NH, NM, NC, OH, OK, OR, PA, SC, SD, TN, TX, UT, VA, WA, WI, WY, DC'
-
-const peptideReview = 'CA, CT, DE, ME, MD, MA, NJ, NY, RI, VT'
-
-const peptideUnavailable = 'AL, AK, AR, HI, LA, MS, ND, WV'
-
 export const programStateAvailability = [
   {
-    slug: 'medical-weight-loss',
-    label: 'Medical Weight Loss',
+    slug: 'semaglutide',
+    label: 'Semaglutide',
     summary: 'Broad availability across the U.S. with state-specific prescribing and pharmacy rules.',
     groups: [{ status: 'available', states: [coreStates] }],
   },
   {
-    slug: 'mens-hormone-health',
-    label: "Men's Hormone Health",
-    summary: 'Available in most states where testosterone therapy is permitted via telehealth.',
+    slug: 'tirzepatide',
+    label: 'Tirzepatide',
+    summary: 'Broad availability across the U.S. with state-specific prescribing and pharmacy rules.',
     groups: [{ status: 'available', states: [coreStates] }],
-  },
-  {
-    slug: 'womens-hormone-health',
-    label: "Women's Hormone Health",
-    summary: 'Available in most states where hormone therapy is permitted via telehealth.',
-    groups: [{ status: 'available', states: [coreStates] }],
-  },
-  {
-    slug: 'peptide-therapy',
-    label: 'Peptide Therapy',
-    summary: 'More limited than other programs because availability depends on therapy, pharmacy channel, and state rules.',
-    groups: [
-      { status: 'available', states: [peptideAvailable] },
-      { status: 'review', states: [peptideReview] },
-      { status: 'unavailable', states: [peptideUnavailable] },
-    ],
   },
 ]
 
@@ -462,24 +321,20 @@ export const medicalTeamRoles = [
 
 export const faqItems = [
   {
-    q: 'Are Nexa Rx peptide therapies prescription-only?',
-    a: 'Yes. Peptide therapies offered through the Nexa Rx clinical program require a medical evaluation and a valid prescription from a licensed clinician.',
+    q: 'What is the difference between semaglutide and tirzepatide?',
+    a: 'Semaglutide is a GLP-1 receptor agonist. Tirzepatide activates both GLP-1 and GIP receptors. Both may be used for chronic weight management when clinically appropriate, but eligibility, dosing, and side-effect profiles differ. Your licensed clinician determines which therapy — if any — is right for you.',
   },
   {
-    q: 'Does Nexa Rx sell research-use-only peptides?',
-    a: 'No. Nexa Rx does not sell research-use-only products. Peptide therapies offered through the clinical program require a medical evaluation and prescription and are dispensed for eligible patients through the applicable pharmacy channel.',
+    q: 'Are brand names like Wegovy, Ozempic, Zepbound, or Mounjaro prescribed?',
+    a: 'Your clinician may prescribe FDA-approved brand products when medically appropriate and available, or compounded semaglutide or tirzepatide where legally permitted. The specific product is confirmed after your evaluation — not before enrollment.',
   },
   {
-    q: 'Are compounded peptide therapies FDA-approved?',
-    a: 'Compounded medications are not FDA-approved as finished branded products. They are prepared by licensed U.S. compounding pharmacies or outsourcing facilities under applicable federal standards.',
-  },
-  {
-    q: 'What is the difference between a 503A compounding pharmacy and a 503B outsourcing facility?',
-    a: '503A pharmacies compound medications for individual patient prescriptions. 503B outsourcing facilities operate under stricter FDA oversight and can produce larger quantities. The applicable pharmacy channel depends on your prescribed therapy.',
+    q: 'Are compounded GLP-1 therapies FDA-approved?',
+    a: 'Compounded medications are not FDA-approved as finished branded products. They are prepared by licensed U.S. pharmacies under applicable federal and state standards when clinically appropriate and legally available.',
   },
   {
     q: 'Which treatments use FDA-approved medications?',
-    a: 'Our clinicians may prescribe both FDA-approved medications and, where appropriate, compounded therapies. Your clinician will explain the status of any medication prescribed to you.',
+    a: 'Our clinicians may prescribe FDA-approved semaglutide or tirzepatide products and, where appropriate, compounded alternatives. Your clinician will explain the status of any medication prescribed to you.',
   },
   {
     q: 'Which costs are included in the monthly price?',
@@ -490,8 +345,8 @@ export const faqItems = [
     a: 'No. Prescription treatment is not guaranteed. Eligibility and treatment decisions are made solely by a licensed clinician based on your medical evaluation.',
   },
   {
-    q: 'Which states are currently supported for each program?',
-    a: 'Medical weight loss and hormone programs are available in most U.S. states. Peptide therapy has more limited availability by therapy and state — see the state availability section on the Pricing page for the current matrix. Availability is confirmed during eligibility review.',
+    q: 'Which states are currently supported?',
+    a: 'Semaglutide and tirzepatide programs are available in most U.S. states, subject to licensure and pharmacy rules. See the state availability section on the Pricing page and confirm your state during eligibility review.',
   },
   {
     q: 'Are supplements part of my prescription treatment plan?',

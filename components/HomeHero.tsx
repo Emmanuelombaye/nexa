@@ -90,8 +90,8 @@ export default function HomeHero() {
             Your way.
           </h1>
           <p className="lede hero-anim" style={{ '--hero-delay': '150ms' } as React.CSSProperties}>
-            Connect online with a licensed clinician for medical weight management, hormone health, and select
-            prescription therapies. See your options and costs before treatment begins.
+            Connect online with a licensed clinician for semaglutide and tirzepatide weight-management therapy. See your
+            options and costs before treatment begins.
           </p>
           <div className="hero__cta hero-anim" style={{ '--hero-delay': '220ms' } as React.CSSProperties}>
             <Link href="/check-eligibility" className="btn btn--primary btn--lg btn--lift">
@@ -132,15 +132,15 @@ export default function HomeHero() {
           </div>
 
           <article className="hero-feature">
-            <span className="pill">Featured Program</span>
-            <p className="hero-feature__cat">Medical Weight Loss</p>
-            <h2>Clinician-Guided Weight Management</h2>
+            <span className="pill">Featured Treatment</span>
+            <p className="hero-feature__cat">Semaglutide · GLP-1</p>
+            <h2>Clinician-Guided Semaglutide Therapy</h2>
             <p className="hero-feature__blurb">
-              Personalized treatment options, ongoing clinical support, and discreet delivery.
+              GLP-1 weight management with ongoing clinical support, refill coordination, and discreet delivery.
             </p>
             <div className="hero-feature__actions">
-              <Link href="/medical-weight-loss">View Details</Link>
-              <Link href="/check-eligibility" className="btn btn--primary btn--sm">
+              <Link href="/semaglutide">View Semaglutide</Link>
+              <Link href="/check-eligibility?program=semaglutide" className="btn btn--primary btn--sm">
                 Check Eligibility
               </Link>
             </div>

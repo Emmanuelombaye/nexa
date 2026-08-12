@@ -34,9 +34,13 @@ export default function PatientLogin() {
           quality={70}
         />
         <div className="auth__overlay">
-          <p className="logo__word logo--on-dark">
-            Nexa <span className="logo__rx">Rx</span>
-          </p>
+          <img
+            src="/brand/nexa-rx-tm-logo-on-dark.webp"
+            alt="Nexa Rx™"
+            width={180}
+            height={49}
+            className="auth__brand-logo"
+          />
           <h1>Your care, in one place.</h1>
           <p>Licensed clinical care with clear pricing and discreet delivery.</p>
         </div>

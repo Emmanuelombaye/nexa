@@ -1,0 +1,295 @@
+@import './styles/pax-yucca/yucca-clone-sections.css';
+@import './styles/pax-yucca/yucca-home-mirror.css';
+@import './styles/pax-yucca/yucca-treatments-mirror.css';
+@import './styles/pax-yucca/yucca-explore-tabs.css';
+@import './styles/pax-yucca/yucca-explore-index.css';
+@import './styles/pax-yucca/yucca-treatments-utils.css';
+@import './styles/pax-yucca/pax-protocol.css';
+@import './styles/pax-yucca/pax-knowall.css';
+@import './styles/pax-yucca/pax-buttons.css';
+@import './styles/pax-yucca/yucca-retro.css';
+@import './styles/pax-yucca/pax-reviews.css';
+@import './styles/pax-yucca/pax-why.css';
+@import './styles/pax-yucca/nexa-brand-enforce.css';
+@import './styles/pax-yucca/pax-home-brand.css';
+
+/* Nexa program pages — retro explore layout */
+.program-explore,
+.program-explore[data-retro-scope] {
+  --sand: #faf6f0;
+  --forest: #1c3f34;
+  --terracotta: #c17c74;
+  --dune: #e8c5a0;
+  --btn-bg: var(--forest);
+  --btn-text: var(--sand);
+  --font-retro-display: var(--font-display);
+  --font-retro-body: var(--font-body);
+  --color-retro-surface: var(--sand);
+  --color-retro-cream: var(--sand);
+  --color-retro-ink: var(--forest);
+  --color-retro-shadow: var(--forest);
+  background: var(--sand);
+  color: var(--forest);
+  overflow-x: clip;
+}
+
+.program-explore .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.program-explore .explore-hero-guarantee-logo {
+  max-height: 1.25rem;
+  width: auto;
+}
+
+.program-explore .retro-happy,
+.program-explore .retro-home-closing {
+  background: var(--sand);
+}
+
+.program-explore a.retro-protocol__cta,
+.program-explore a.retro-knowall__cta,
+.program-explore a.retro-home-closing-cta,
+.program-explore a.explore-hero-cta {
+  text-decoration: none;
+}
+
+.program-explore a.explore-hero-product {
+  text-decoration: none;
+  color: inherit;
+}
+
+.program-explore .program-care-panel {
+  padding: 4rem 1rem 5rem;
+  background: var(--sand);
+}
+
+.program-explore .program-care-panel__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.program-explore .program-care-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .program-explore .program-care-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.program-explore .program-care-card {
+  border: 2px solid var(--forest);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  background: #fff;
+  box-shadow: 5px 6px 0 0 var(--forest);
+}
+
+.program-explore .program-care-card h3 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.program-explore .program-care-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.program-explore .program-care-card li {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.program-explore .program-care-card li::before {
+  content: '✓';
+  flex-shrink: 0;
+  color: var(--terracotta);
+  font-weight: 700;
+}
+
+.program-explore .program-crosslink {
+  text-align: center;
+  padding: 0 1rem 3rem;
+}
+
+.program-explore .program-crosslink a {
+  color: var(--forest);
+  font-weight: 500;
+}
+
+/* Standalone program pages — reset Pax fixed 1440px explore canvas */
+.program-explore .explore-hero-section {
+  height: auto !important;
+  padding-bottom: 2.5rem !important;
+  overflow: visible !important;
+}
+
+.program-explore .explore-hero-container {
+  position: static !important;
+  left: auto !important;
+  width: min(100% - 2rem, 72rem) !important;
+  max-width: 72rem !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  padding: 0 1rem !important;
+  transform: none !important;
+}
+
+.program-explore .explore-hero-grid {
+  position: static !important;
+  display: grid !important;
+  grid-template-columns: minmax(280px, 504px) minmax(0, 1fr) !important;
+  gap: clamp(1.5rem, 4vw, 3rem) !important;
+  width: 100% !important;
+  height: auto !important;
+  align-items: start !important;
+}
+
+@media (max-width: 899px) {
+  .program-explore .explore-hero-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.program-explore .explore-hero-card[data-card='wl'] {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  max-width: 504px !important;
+  height: auto !important;
+  min-height: 27.5rem !important;
+  margin: 0 auto !important;
+  color: var(--forest) !important;
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--dune) 45%, var(--sand)),
+    color-mix(in oklch, var(--dune) 72%, var(--sand))
+  ) !important;
+  background-size: auto !important;
+  background-position: center !important;
+  border: 2px solid var(--forest);
+  box-shadow: 6px 8px 0 0 var(--forest);
+}
+
+.program-explore .explore-hero-card-vial {
+  display: block;
+  width: min(46%, 210px);
+  height: auto;
+  margin: 0.75rem auto 0.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px color-mix(in oklch, var(--forest) 18%, transparent));
+}
+
+.program-explore .explore-hero-card-title,
+.program-explore .explore-hero-card-footer {
+  color: var(--forest) !important;
+}
+
+.program-explore .explore-hero-content {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+.program-explore .explore-hero-products {
+  position: static !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  width: auto !important;
+  height: auto !important;
+  gap: 1rem 1.5rem !important;
+}
+
+.program-explore .explore-hero-product {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  display: flex !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.program-explore .explore-hero-product-thumb,
+.program-explore .explore-hero-product-copy {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  width: auto !important;
+}
+
+.program-explore .explore-hero-includes {
+  position: static !important;
+  display: grid !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.program-explore .explore-hero-guarantee {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.program-explore .explore-hero-divider,
+.program-explore .explore-hero-pricing,
+.program-explore .explore-hero-cta {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.program-explore .explore-hero-card-price--nexa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  margin: 0.5rem auto;
+  text-align: center;
+}
+
+.program-explore .explore-hero-card-price-main {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--forest);
+}
+
+.program-explore .explore-hero-card-price-sub {
+  font-size: 0.95rem;
+  color: color-mix(in oklch, var(--forest) 70%, transparent);
+}
+
+.program-explore .explore-hero-guarantee-card::before {
+  content: none !important;
+}

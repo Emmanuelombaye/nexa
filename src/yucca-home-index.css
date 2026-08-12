@@ -1,0 +1,127 @@
+@import './styles/pax-yucca/yucca-retro.css';
+@import './styles/pax-yucca/yucca-home-mirror.css';
+@import './styles/pax-yucca/yucca-clone-sections.css';
+@import './styles/pax-yucca/yucca-home-fidelity.css';
+@import './styles/pax-yucca/yucca-goal-treatments.css';
+@import './styles/pax-yucca/yucca-goal-hiw.css';
+@import './styles/pax-yucca/pax-reviews.css';
+@import './styles/pax-yucca/pax-why.css';
+@import './styles/pax-yucca/pax-home-brand.css';
+@import './styles/pax-yucca/pax-home-hero.css';
+@import './styles/pax-yucca/nexa-brand-enforce.css';
+
+/* Nexa-scoped homepage tokens (retro layout) */
+.yucca-home,
+.yucca-home[data-retro-scope] {
+  --sand: #faf6f0;
+  --forest: #1c3f34;
+  --terracotta: #c17c74;
+  --dune: #e8c5a0;
+  --btn-bg: var(--forest);
+  --btn-text: var(--sand);
+  --font-retro-display: var(--font-display);
+  --font-retro-body: var(--font-body);
+  --color-retro-surface: var(--sand);
+  --color-retro-cream: var(--sand);
+  --color-retro-ink: var(--forest);
+  --color-retro-shadow: var(--forest);
+  background: var(--sand);
+  color: var(--forest);
+  overflow-x: clip;
+}
+
+.yucca-home .rounded-retro-card {
+  border-radius: 1.5rem;
+}
+
+.yucca-home .border-retro-ink {
+  border-color: var(--forest);
+}
+
+.yucca-home .border-2 {
+  border-width: 2px;
+  border-style: solid;
+}
+
+.yucca-home .relative {
+  position: relative;
+}
+
+.yucca-home .overflow-hidden {
+  overflow: hidden;
+}
+
+.yucca-home .z-2 {
+  z-index: 2;
+}
+
+.yucca-home.u5-type {
+  letter-spacing: normal;
+}
+
+.yucca-home .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.yucca-home .italic,
+.yucca-home em {
+  font-style: italic;
+}
+
+.yucca-home .retro-home-hero-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.yucca-home .retro-home-hero-contain,
+.yucca-home .pax-home-hero__wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.yucca-home a.retro-home-hero-btn,
+.yucca-home a.goal-product-cta,
+.yucca-home a.retro-home-reviews-cta,
+.yucca-home a.retro-home-closing-cta {
+  text-decoration: none;
+}
+
+/* Hero readability over photography */
+.yucca-home .pax-home-hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--forest) 72%, transparent) 0%,
+      color-mix(in oklch, var(--forest) 28%, transparent) 38%,
+      transparent 52%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in oklch, var(--forest) 18%, transparent) 58%,
+      color-mix(in oklch, var(--forest) 78%, transparent) 100%
+    );
+}
+
+.yucca-home .pax-home-hero__heading {
+  color: var(--sand) !important;
+  text-shadow: 0 2px 18px color-mix(in oklch, var(--forest) 55%, transparent);
+}
+
+.yucca-home .pax-home-hero__subtitle {
+  color: color-mix(in oklch, var(--sand) 90%, transparent) !important;
+  text-shadow: 0 1px 12px color-mix(in oklch, var(--forest) 45%, transparent);
+}
