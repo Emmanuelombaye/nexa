@@ -4,7 +4,7 @@ import { media } from './media'
 export const YUCCA = '/images/yucca-clone'
 
 export const HERO_WORDS = [
-  { text: 'Semaglutide', color: 'var(--navy)' },
+  { text: 'Semaglutide', color: 'var(--teal)' },
   { text: 'Tirzepatide', color: 'var(--teal)' },
 ] as const
 

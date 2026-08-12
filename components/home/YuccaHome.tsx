@@ -111,8 +111,8 @@ function HeroSection() {
         <div className="retro-social-proof__card">
           <div className="retro-social-proof__rating">
             <svg viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M14.4626 5.34993H8.93721L7.23632 0L5.52537 5.34993L0 5.33968L4.4686 8.65007L2.75765 14L7.22625 10.6896L11.6949 14L9.99397 8.65007L14.4626 5.34993Z" fill="#C17C74" />
-              <path d="M10.3764 9.85927L9.99398 8.6499L7.23633 10.6894L10.3764 9.85927Z" fill="#1C3F34" />
+              <path d="M14.4626 5.34993H8.93721L7.23632 0L5.52537 5.34993L0 5.33968L4.4686 8.65007L2.75765 14L7.22625 10.6896L11.6949 14L9.99397 8.65007L14.4626 5.34993Z" fill="#4DAA9A" />
+              <path d="M10.3764 9.85927L9.99398 8.6499L7.23633 10.6894L10.3764 9.85927Z" fill="#0F1722" />
             </svg>
             <strong>4.7</strong>
             <em>Excellent</em>

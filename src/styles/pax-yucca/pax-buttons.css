@@ -47,21 +47,21 @@ a.yx-btn--ghost {
   border: 2px solid var(--forest) !important;
 }
 
-/* —— Hero: invert primary so it reads on forest scrim —— */
+/* —— Hero: Yucca-style accent primary (teal) + light secondary —— */
 .retro-home-hero-btn--primary,
 .yucca-home .retro-home-hero-btn--primary {
-  background: var(--btn-bg-on-dark) !important;
-  color: var(--btn-text-on-dark) !important;
-  border: 2px solid var(--sand) !important;
-  box-shadow: var(--btn-shadow-on-dark) !important;
+  background: var(--teal, #4daa9a) !important;
+  color: var(--forest) !important;
+  border: 2px solid var(--forest) !important;
+  box-shadow: 3px 4px 0 0 var(--forest) !important;
 }
 
 .retro-home-hero-btn--secondary,
 .yucca-home .retro-home-hero-btn--secondary {
-  background: color-mix(in oklch, var(--sand) 92%, transparent) !important;
+  background: color-mix(in oklch, var(--sand) 96%, #fff) !important;
   color: var(--forest) !important;
   border: 2px solid var(--forest) !important;
-  box-shadow: var(--btn-shadow-on-dark) !important;
+  box-shadow: 3px 4px 0 0 var(--forest) !important;
 }
 
 .yucca-home .retro-home-hero-btn-chevron {
