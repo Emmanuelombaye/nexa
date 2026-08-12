@@ -49,8 +49,8 @@ const tickerItems = [
         <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
       </svg>
     ),
-    title: 'Licensed Doctors',
-    desc: 'U.S. board certified',
+    title: 'Licensed Providers',
+    desc: 'U.S. clinical review',
   },
   {
     icon: (
@@ -58,8 +58,8 @@ const tickerItems = [
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
       </svg>
     ),
-    title: '24/7 Care Team',
-    desc: 'Unlimited messaging',
+    title: 'Care Team Support',
+    desc: 'Message after enrollment',
   },
   {
     icon: (

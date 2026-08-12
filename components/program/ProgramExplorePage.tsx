@@ -1,17 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import {
   getProgramExploreContent,
   PROGRAM_INCLUDES,
   PROTOCOL_ICON_LINES,
   PROTOCOL_ICON_PATH,
-  PROTOCOL_ICON_WAVE,
   type ProgramExploreContent,
 } from '../../lib/program-page-data'
-import { PATIENT_RESULTS } from '../../lib/home-data'
-import { RetroClosingSection, RetroReviewsSection, RetroWhySection } from '../retro/RetroShared'
+import { RetroClosingSection, RetroWhySection } from '../retro/RetroShared'
 
 type ProgramInput = {
   slug: string
@@ -29,19 +27,6 @@ type ProgramInput = {
     messaging: string
   }
 }
-
-const METRIC_ARROW = (
-  <svg className="retro-happy__metric-arrow" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-    <path d="M7.5 1.5v12M2.5 8.5l5 5 5-5" stroke="var(--navy)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-)
-
-const PILL_CHECK = (
-  <svg className="retro-happy__pill-check" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-    <path d="M10 2.25L3.5 4.5v5.25c0 3.75 2.6 7.05 6.5 8.25 3.9-1.2 6.5-4.5 6.5-8.25V4.5L10 2.25z" stroke="#ffffff" strokeWidth="1.5" strokeLinejoin="round" />
-    <path d="M7 10.25l2.25 2.25L13.5 8" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-)
 
 function ProtocolIcon({ name }: { name: string }) {
   if (name === PROTOCOL_ICON_PATH) {
@@ -66,7 +51,12 @@ function ProtocolIcon({ name }: { name: string }) {
   return (
     <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
       <circle cx="32" cy="32" r="30" stroke="currentColor" strokeWidth="1.4" />
-      <path d="M13 34c3.2-7 6.4-7 9.6 0s6.4 7 9.6 0 6.4-7 9.6 0 6.4 7 9.6 0" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path
+        d="M13 34c3.2-7 6.4-7 9.6 0s6.4 7 9.6 0 6.4-7 9.6 0 6.4 7 9.6 0"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
     </svg>
   )
 }
@@ -95,16 +85,14 @@ function ExploreHero({
               <span className="explore-hero-card-price-sub">to start</span>
             </div>
             <div className="explore-hero-card-footer flex items-center justify-between gap-3">
-              <div>
-                <strong className="font-medium">20,000+</strong> patients on Nexa Rx
-              </div>
+              <div>Licensed U.S. provider review required</div>
               <div className="flex items-center gap-1.5">
                 <span className="explore-hero-chip inline-flex items-center justify-center rounded-full text-xs font-medium leading-none tracking-tight px-1.5 py-1 whitespace-nowrap bg-pax-chip text-white">
                   {content.chip}
                 </span>
                 <span className="explore-hero-stock inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-xs font-medium leading-none tracking-tight whitespace-nowrap">
                   <span className="explore-stock-dot block w-1.5 h-1.5 rounded-full" />
-                  In Stock
+                  Available
                 </span>
               </div>
             </div>
@@ -198,49 +186,6 @@ function ExploreHero({
   )
 }
 
-function HappyResults() {
-  return (
-    <section className="retro-happy" aria-label="Patient results">
-      <h2 className="retro-happy__heading">
-        Our <em className="retro-happy__heading-accent">patients&rsquo; unstoppable progress</em>
-        <br />&mdash; built to last!
-      </h2>
-      <div className="retro-happy__marquee">
-        <div className="retro-happy__track" role="list">
-          {[0, 1].map((loop) => (
-            <ul key={loop} className="retro-happy__group" role="list">
-              {PATIENT_RESULTS.map((r) => (
-                <li key={`${loop}-${r.name}`} className="retro-happy__card">
-                  <img className="retro-happy__photo" src={r.image} alt={`${r.name} — verified Nexa Rx patient`} loading="lazy" />
-                  <span className="retro-happy__chip retro-happy__chip--before">Before</span>
-                  <span className="retro-happy__chip retro-happy__chip--after">After</span>
-                  <div className="retro-happy__scrim" aria-hidden="true" />
-                  <div className="retro-happy__metric">
-                    <div className="retro-happy__metric-row">
-                      <span className="retro-happy__metric-label">Lost</span>
-                      {METRIC_ARROW}
-                    </div>
-                    <div className="retro-happy__metric-number">
-                      <span className="retro-happy__metric-lbs">{r.lbs}</span>
-                      <span className="retro-happy__metric-unit">lbs</span>
-                    </div>
-                    <div className="retro-happy__metric-time">{r.time}</div>
-                  </div>
-                  <div className="retro-happy__pill">
-                    <span className="retro-happy__pill-name">{r.name}</span>
-                    {PILL_CHECK}
-                    <span className="retro-happy__pill-verified">Verified Nexa Rx Patient</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function ProtocolSection({ content, programSlug }: { content: ProgramExploreContent; programSlug: string }) {
   return (
     <section className="retro-protocol pax-protocol" aria-labelledby={`retro-protocol-heading-${programSlug}`}>
@@ -272,61 +217,6 @@ function ProtocolSection({ content, programSlug }: { content: ProgramExploreCont
           <Link href={`/check-eligibility?program=${programSlug}`} className="retro-protocol__cta pax-protocol__cta">
             Check Eligibility
           </Link>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function CalculatorSection() {
-  const [weight, setWeight] = useState('')
-  const loss = useMemo(() => {
-    const n = Number(weight)
-    if (!Number.isFinite(n) || n <= 0) return null
-    return (n * 0.2).toFixed(1)
-  }, [weight])
-
-  return (
-    <section className="retro-calculator" aria-labelledby="retro-calculator-heading">
-      <div className="retro-calculator__panel">
-        <div className="retro-calculator__left">
-          <h2 id="retro-calculator-heading" className="retro-calculator__heading">
-            Let&rsquo;s see your <em>potential</em> with GLP-1s
-          </h2>
-          <div className="retro-calculator__control">
-            <label className="sr-only" htmlFor="retro-calculator-weight">
-              Enter your weight (lbs)
-            </label>
-            <input
-              id="retro-calculator-weight"
-              className="retro-calculator__input"
-              type="number"
-              inputMode="decimal"
-              min="120"
-              max="400"
-              step="1"
-              placeholder="Enter your weight (lbs)"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="retro-calculator__arrow" aria-hidden="true">
-          <svg width="88" height="16" viewBox="0 0 88 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="6" cy="8" r="4.5" stroke="currentColor" strokeWidth="2" />
-            <path d="M13 8h66" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-            <path d="m73 2 7 6-7 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-        <div className="retro-calculator__right">
-          <span className="retro-calculator__readout-label">
-            You could <em>lose up to</em>
-          </span>
-          <span className="retro-calculator__readout" aria-live="polite">
-            <span>{loss ?? '00.0'}</span>
-            <span className="retro-calculator__readout-unit">lbs</span>
-          </span>
-          <span className="retro-calculator__readout-caption">*Illustrative estimate. Individual results vary.</span>
         </div>
       </div>
     </section>
@@ -514,15 +404,12 @@ export default function ProgramExplorePage({ program }: { program: ProgramInput 
       </section>
 
       <ExploreHero content={content} program={program} />
-      <HappyResults />
 
       <ProtocolSection content={content} programSlug={program.slug} />
-      <CalculatorSection />
       <ClinicalSection content={content} />
       <ExpectSection content={content} />
       <KnowallSection content={content} programSlug={program.slug} />
       <CarePanel program={program} />
-      <RetroReviewsSection ctaHref={`/check-eligibility?program=${program.slug}`} />
       <RetroWhySection />
       <RetroClosingSection
         ctaHref={`/check-eligibility?program=${program.slug}`}

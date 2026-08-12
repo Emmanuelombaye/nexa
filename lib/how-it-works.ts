@@ -109,53 +109,6 @@ export const howWhy = [
   },
 ] as const
 
-export const howStoryCards = [
-  {
-    step: '01',
-    img: media.semaglutide,
-    title: 'Metabolic Renewal',
-    timeline: 'Month 3 · Semaglutide Protocol',
-    quote: 'My physician adjusted my dosing based on bloodwork — not a template.',
-    patient: 'Alex R.',
-    location: 'California',
-    metric: 'Biomarkers Tracked',
-    focus: 'Physician Consult',
-  },
-  {
-    step: '02',
-    img: media.tirzepatide,
-    title: 'Sustained Progress',
-    timeline: 'Month 2 · Tirzepatide Protocol',
-    quote: 'Clear instructions and direct communication with my care team.',
-    patient: 'Morgan S.',
-    location: 'California',
-    metric: 'Custom Dosing',
-    focus: 'Labs & Review',
-  },
-  {
-    step: '03',
-    img: media.packaging,
-    title: 'Discreet Fulfillment',
-    timeline: 'Month 4 · GLP-1 Care',
-    quote: 'Fulfillment was calm, cold-chain shipped, and completely discreet.',
-    patient: 'Blaze B.',
-    location: 'California',
-    metric: '503A Compounded',
-    focus: 'Pharmacy Direct',
-  },
-  {
-    step: '04',
-    img: media.careStarts,
-    title: 'Continuous Vitality',
-    timeline: 'Month 6 · Full Optimization',
-    quote: 'Ongoing physician check-ins kept my goals on track long term.',
-    patient: 'Taylor H.',
-    location: 'California',
-    metric: 'Ongoing MD Oversight',
-    focus: 'Long-Term Care',
-  },
-] as const
-
 export const howFaqPreview = [
   {
     q: 'What is the difference between semaglutide and tirzepatide?',

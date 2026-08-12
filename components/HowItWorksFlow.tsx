@@ -1,16 +1,8 @@
 import Link from 'next/link'
 import HowItWorksStickySteps from './HowItWorksStickySteps'
 import SiteImage from './SiteImage'
-import { howFaqPreview, howStoryCards, howWhy } from '../lib/how-it-works'
+import { howFaqPreview, howWhy } from '../lib/how-it-works'
 import { media } from '../lib/media'
-
-function Stars() {
-  return (
-    <span className="hiw-stars" aria-hidden="true">
-      {'★★★★★'}
-    </span>
-  )
-}
 
 export default function HowItWorksFlow() {
   return (
@@ -22,13 +14,13 @@ export default function HowItWorksFlow() {
           <div className="hiw-story__head" data-reveal="up">
             <span className="hiw-story__badge">
               <span className="hiw-story__badge-dot" aria-hidden="true" />
-              Patient Care Milestones
+              Clinical process
             </span>
             <h2 id="hiw-story-heading" className="hiw-story__title">
-              Every protocol has a <em>story</em>
+              Every plan starts with a <em>provider review</em>
             </h2>
             <p className="hiw-story__sub">
-              Physician-directed care, clear compounding language, and accountable follow-through.
+              Complete intake, clinician review, and pharmacy fulfillment — only when treatment is appropriate.
             </p>
           </div>
 
@@ -49,38 +41,6 @@ export default function HowItWorksFlow() {
                 </div>
                 {idx < 3 ? <span className="hiw-milestone-rail__arrow">→</span> : null}
               </div>
-            ))}
-          </div>
-
-          <div className="hiw-story-grid">
-            {howStoryCards.map((story, i) => (
-              <article
-                key={story.title}
-                className="hiw-story-card"
-                data-reveal="up"
-                style={{ '--delay': `${i * 60}ms` } as React.CSSProperties}
-              >
-                <div className="hiw-story-card__media">
-                  <SiteImage src={story.img.src} alt={story.img.alt} fill sizes="300px" quality={72} />
-                  <span className="hiw-story-card__phase">Phase {story.step}</span>
-                </div>
-                <div className="hiw-story-card__body">
-                  <div className="hiw-story-card__meta">
-                    <span className="hiw-story-card__metric">{story.metric}</span>
-                    <span className="hiw-story-card__focus">{story.focus}</span>
-                  </div>
-                  <h3>{story.title}</h3>
-                  <p className="hiw-story-card__timeline">{story.timeline}</p>
-                  <p className="hiw-story-card__quote">&ldquo;{story.quote}&rdquo;</p>
-                  <div className="hiw-story-card__footer">
-                    <div>
-                      <p className="hiw-story-card__patient">{story.patient}</p>
-                      <p className="hiw-story-card__verified">✓ Verified Patient · {story.location}</p>
-                    </div>
-                    <Stars />
-                  </div>
-                </div>
-              </article>
             ))}
           </div>
         </div>
