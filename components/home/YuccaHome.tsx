@@ -16,7 +16,7 @@ import { RetroClosingSection, RetroReviewsSection, RetroWhySection } from '../re
 
 const METRIC_ARROW = (
   <svg className="retro-happy__metric-arrow" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-    <path d="M7.5 1.5v12M2.5 8.5l5 5 5-5" stroke="var(--forest)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M7.5 1.5v12M2.5 8.5l5 5 5-5" stroke="var(--navy)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
@@ -216,7 +216,7 @@ function TreatmentsSection() {
                   role="tab"
                   aria-selected={selected}
                   className={selected ? 'is-active' : undefined}
-                  style={selected ? ({ backgroundColor: treatment.toneSoft, borderColor: 'var(--forest)' } as CSSProperties) : undefined}
+                  style={selected ? ({ backgroundColor: treatment.toneSoft, borderColor: 'var(--navy)' } as CSSProperties) : undefined}
                   onClick={() => setActiveId(treatment.id)}
                 >
                   {treatment.label}
@@ -240,14 +240,14 @@ function TreatmentsSection() {
                 </span>
                 <span
                   className="goal-product-tag"
-                  style={{ backgroundColor: active.badgeSoft, borderColor: active.badgeTone, color: 'var(--forest)' }}
+                  style={{ backgroundColor: active.badgeSoft, borderColor: active.badgeTone, color: 'var(--navy)' }}
                 >
                   {active.badge}
                 </span>
               </div>
               <div className="goal-product-rating">
                 <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
-                  <path fill="var(--forest)" d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-7.4-4.4-7.4 4.4 1.8-7L1 9.6 8 9z" />
+                  <path fill="var(--teal)" d="M12 2l3 7 7 .6-5.4 4.6 1.8 7-7.4-4.4-7.4 4.4 1.8-7L1 9.6 8 9z" />
                 </svg>
                 {active.rating} · {active.reviews}
               </div>

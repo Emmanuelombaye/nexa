@@ -81,13 +81,13 @@ const patientMenuRows: MenuRow[] = [
     href: '/patient-login',
     heading: 'Patient Login',
     caption: 'Access patient portal',
-    thumb: '/images/yucca-clone/hiw/Licensed-Providers.avif',
+    thumb: '/images/cards/doctor-female.png',
   },
   {
     href: '/pricing',
     heading: 'Pricing',
     caption: 'Clear costs before enrollment',
-    thumb: '/images/yucca-clone/hiw/Treatment-Plan.avif',
+    thumb: '/images/yucca-clone/hiw/home-delivery.avif',
   },
 ]
 
@@ -96,13 +96,17 @@ const shopMenuRows: MenuRow[] = [
     href: '/supplements',
     heading: 'All Supplements',
     caption: 'Shop non-prescription support',
-    thumb: '/images/yucca-clone/hiw/quality-sourcing-verified-compounded-medications-yucca-health.avif',
+    vialBg: 'linear-gradient(135deg, #d7ebe6 0%, #b8d9d2 100%)',
+    thumb: '/images/yucca-clone/nad-plus-longevity-injection-vial-yucca-health.avif',
+    thumbAlt: '',
   },
   {
     href: '/supplements/bundles',
     heading: 'Bundles',
     caption: 'Curated support stacks',
-    thumb: '/images/yucca-clone/hiw/Free-Consultation.avif',
+    vialBg: 'linear-gradient(135deg, #ffe8cc 0%, #f5d7a8 100%)',
+    thumb: '/images/yucca-clone/semaglutide-tirzepatide-glp-1-injection-vials-yucca-health.avif',
+    thumbAlt: '',
   },
 ]
 
@@ -223,6 +227,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
   const [menuOpen, setMenuOpen] = useState(false)
   const [drawerMounted, setDrawerMounted] = useState(false)
   const [portalReady, setPortalReady] = useState(false)
+  const [portalEl, setPortalEl] = useState<HTMLElement | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -230,6 +235,13 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
   const scrollLockY = useRef(0)
 
   useEffect(() => {
+    let root = document.getElementById('mobile-nav-root')
+    if (!root) {
+      root = document.createElement('div')
+      root.id = 'mobile-nav-root'
+      document.documentElement.appendChild(root)
+    }
+    setPortalEl(root)
     setPortalReady(true)
   }, [])
 
@@ -281,6 +293,16 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
     if (menuOpenRef.current) closeMenu()
     else openMenu()
   }
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 1100 && (menuOpenRef.current || drawerMountedRef.current)) {
+        closeMenu()
+      }
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   useEffect(() => {
     if (!menuOpen) return undefined
@@ -409,6 +431,15 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
           <span>NO INSURANCE REQUIRED</span>
           <span className="dot" />
           <span>DISCREET DELIVERY</span>
+          <span className="dot" />
+          <span className="trust-bar__dup">LICENSED CLINICAL CARE</span>
+          <span className="dot trust-bar__dup" />
+          <span className="trust-bar__dup">CLEAR PRICING</span>
+          <span className="dot trust-bar__dup" />
+          <span className="trust-bar__dup">NO INSURANCE REQUIRED</span>
+          <span className="dot trust-bar__dup" />
+          <span className="trust-bar__dup">DISCREET DELIVERY</span>
+          <span className="dot trust-bar__dup" />
         </div>
       </div>
 
@@ -444,8 +475,9 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
               <span className="header__signin-long">Patient Login</span>
               <span className="header__signin-short">Login</span>
             </Link>
-            <Link href="/check-eligibility" className="btn btn--primary header__cta">
-              Check Eligibility
+            <Link href="/check-eligibility" className="btn btn--primary header__cta" aria-label="Check Eligibility">
+              <span className="header__cta-long">Check Eligibility</span>
+              <span className="header__cta-short">Eligibility</span>
             </Link>
             <button
               ref={toggleRef}
@@ -464,7 +496,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
         </div>
       </header>
 
-      {portalReady && drawer ? createPortal(drawer, document.documentElement) : null}
+      {portalReady && portalEl && drawer ? createPortal(drawer, portalEl) : null}
     </div>
   )
 }

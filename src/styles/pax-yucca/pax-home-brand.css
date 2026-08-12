@@ -1,22 +1,23 @@
 /* Nexa Rx — homepage brand kit (retro layout)
- * Sand canvas · Forest ink/CTAs · Terracotta accents · Dune tints
- * Kill: pure white cards · navy/black · salmon · neon mint · cool gray borders
+ * Cloud/Sand canvas · Navy ink/CTAs · Teal accents
+ * Ban: forest green · terracotta · peach dune · purple washes
  */
 
 .yucca-home,
 .yucca-home[data-retro-scope] {
-  --color-retro-surface: var(--sand) !important;
+  --color-retro-surface: var(--cloud, var(--sand)) !important;
   --color-retro-cream: var(--sand) !important;
-  --color-retro-ink: var(--forest) !important;
-  --color-retro-shadow: var(--forest) !important;
-  --color-retro-purple: color-mix(in oklch, var(--dune) 42%, var(--sand)) !important;
-  --color-retro-lavender: color-mix(in oklch, var(--dune) 38%, var(--sand)) !important;
-  --color-retro-yellow: color-mix(in oklch, var(--dune) 70%, var(--sand)) !important;
-  background: var(--sand) !important;
-  color: var(--forest) !important;
+  --color-retro-ink: var(--navy, var(--forest)) !important;
+  --color-retro-shadow: var(--navy, var(--forest)) !important;
+  --color-retro-green: var(--teal, var(--terracotta)) !important;
+  --color-retro-purple: color-mix(in oklch, var(--teal, var(--terracotta)) 18%, var(--sand)) !important;
+  --color-retro-lavender: color-mix(in oklch, var(--teal, var(--terracotta)) 14%, var(--sand)) !important;
+  --color-retro-yellow: color-mix(in oklch, var(--teal, var(--terracotta)) 28%, var(--sand)) !important;
+  background: var(--cloud, var(--sand)) !important;
+  color: var(--navy, var(--forest)) !important;
 }
 
-/* Nav + logo bar — clear white (promo stays forest) */
+/* Nav + logo bar — clear white (promo stays navy) */
 .yx-shell .header,
 .yx-shell .header.scrolled,
 .yx-shell .header .container.yx-header-bar,
@@ -24,33 +25,33 @@
   background: #fff !important;
 }
 
-/* Top promo banner — forest only (no navy hover #2a3540) */
+/* Top promo banner — navy */
 .yucca-home .retro-home-banner,
 .retro-home-banner {
-  background: var(--forest) !important;
-  color: var(--sand) !important;
+  background: var(--navy, var(--forest)) !important;
+  color: var(--cloud, var(--sand)) !important;
 }
 
 .yucca-home .retro-home-banner:hover,
 .retro-home-banner:hover {
-  background: color-mix(in oklch, var(--forest) 88%, var(--dune)) !important;
+  background: color-mix(in oklch, var(--navy, var(--forest)) 88%, var(--teal, var(--terracotta))) !important;
 }
 
 .yucca-home .retro-home-banner__text strong,
 .retro-home-banner__text strong {
-  color: var(--dune) !important;
+  color: var(--teal, var(--terracotta)) !important;
 }
 
 .yucca-home .retro-home-trustbar,
 .retro-home-trustbar {
   background: var(--sand) !important;
-  color: var(--forest) !important;
-  border-bottom-color: color-mix(in oklch, var(--forest) 14%, transparent) !important;
+  color: var(--navy, var(--forest)) !important;
+  border-bottom-color: color-mix(in oklch, var(--navy, var(--forest)) 14%, transparent) !important;
 }
 
 /* Hero section canvas */
 .yucca-home .retro-home-hero-section {
-  background: #fff !important;
+  background: var(--cloud, #fafaf8) !important;
 }
 
 .yucca-home .retro-home-hero-wrap {

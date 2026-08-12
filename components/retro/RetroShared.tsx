@@ -13,7 +13,7 @@ const SHIELD = (
 
 function Stars({ className = '' }: { className?: string }) {
   return (
-    <span className={className} aria-hidden="true" style={{ color: '#c17c74', letterSpacing: '0.08em' }}>
+    <span className={className} aria-hidden="true" style={{ color: 'var(--teal, #4DAA9A)', letterSpacing: '0.08em' }}>
       ★★★★★
     </span>
   )

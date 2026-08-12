@@ -32,7 +32,7 @@ type ProgramInput = {
 
 const METRIC_ARROW = (
   <svg className="retro-happy__metric-arrow" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-    <path d="M7.5 1.5v12M2.5 8.5l5 5 5-5" stroke="var(--forest)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M7.5 1.5v12M2.5 8.5l5 5 5-5" stroke="var(--navy)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 

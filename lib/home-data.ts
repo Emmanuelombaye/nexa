@@ -4,8 +4,8 @@ import { media } from './media'
 export const YUCCA = '/images/yucca-clone'
 
 export const HERO_WORDS = [
-  { text: 'Semaglutide', color: 'var(--forest)' },
-  { text: 'Tirzepatide', color: 'var(--terracotta)' },
+  { text: 'Semaglutide', color: 'var(--navy)' },
+  { text: 'Tirzepatide', color: 'var(--teal)' },
 ] as const
 
 export const PATIENT_RESULTS = [
@@ -32,11 +32,11 @@ export const HOME_TREATMENTS = [
   {
     id: 'semaglutide',
     label: 'Semaglutide',
-    tone: 'var(--forest)',
-    toneSoft: 'color-mix(in oklch, var(--forest) 18%, transparent)',
+    tone: 'var(--navy)',
+    toneSoft: 'color-mix(in oklch, var(--navy) 18%, transparent)',
     badge: 'Most Popular',
-    badgeTone: 'var(--terracotta)',
-    badgeSoft: 'color-mix(in oklch, var(--terracotta) 18%, transparent)',
+    badgeTone: 'var(--teal)',
+    badgeSoft: 'color-mix(in oklch, var(--teal) 18%, transparent)',
     title: 'Personalized Semaglutide',
     resultStat: '20%',
     description:
@@ -56,11 +56,11 @@ export const HOME_TREATMENTS = [
   {
     id: 'tirzepatide',
     label: 'Tirzepatide',
-    tone: 'var(--terracotta)',
-    toneSoft: 'color-mix(in oklch, var(--terracotta) 18%, transparent)',
+    tone: 'var(--teal)',
+    toneSoft: 'color-mix(in oklch, var(--teal) 18%, transparent)',
     badge: 'Dual Pathway',
-    badgeTone: 'var(--terracotta)',
-    badgeSoft: 'color-mix(in oklch, var(--terracotta) 16%, transparent)',
+    badgeTone: 'var(--teal)',
+    badgeSoft: 'color-mix(in oklch, var(--teal) 16%, transparent)',
     title: 'Personalized Tirzepatide',
     resultStat: '20%',
     description:

@@ -13,23 +13,27 @@
 @import './styles/pax-yucca/nexa-brand-enforce.css';
 @import './styles/pax-yucca/pax-home-brand.css';
 
-/* Nexa program pages — retro explore layout */
+/* Nexa program pages — retro explore layout → Nexa navy/teal/sand/cloud */
 .program-explore,
 .program-explore[data-retro-scope] {
-  --sand: #faf6f0;
-  --forest: #1c3f34;
-  --terracotta: #c17c74;
-  --dune: #e8c5a0;
-  --btn-bg: var(--forest);
-  --btn-text: var(--sand);
+  --sand: #F2EFEA;
+  --cloud: #FAFAF8;
+  --navy: #0F1722;
+  --teal: #4DAA9A;
+  --forest: #0F1722; /* legacy alias → navy */
+  --terracotta: #4DAA9A; /* legacy alias → teal */
+  --dune: #E8E4DC; /* soft neutral tint, not peach */
+  --btn-bg: var(--navy);
+  --btn-text: #FAFAF8;
   --font-retro-display: var(--font-display);
   --font-retro-body: var(--font-body);
-  --color-retro-surface: var(--sand);
+  --color-retro-surface: var(--cloud);
   --color-retro-cream: var(--sand);
-  --color-retro-ink: var(--forest);
-  --color-retro-shadow: var(--forest);
-  background: var(--sand);
-  color: var(--forest);
+  --color-retro-ink: var(--navy);
+  --color-retro-shadow: var(--navy);
+  --color-retro-green: var(--teal);
+  background: var(--cloud);
+  color: var(--navy);
   overflow-x: clip;
 }
 
