@@ -70,9 +70,6 @@ function HeroSection() {
                 <br />
                 treatment that works
               </div>
-              <p className="retro-home-hero-subtitle pax-home-hero__subtitle hero-reveal hero-reveal--fade-up italic">
-                designed around you.
-              </p>
             </div>
             <div className="retro-home-hero-bottom hero-reveal hero-reveal--fade-up">
               <div className="retro-home-hero-cta-group">
