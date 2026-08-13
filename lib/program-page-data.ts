@@ -71,7 +71,7 @@ export const PROGRAM_EXPLORE: Record<ProgramSlug, ProgramExploreContent> = {
     chip: 'GLP-1',
     blurb:
       'A weekly GLP-1 injection designed to support appetite regulation and steady weight management through a single clinically studied pathway.',
-    priceBadge: `${YUCCA}/lowest-price-ever-badge-6-mo.png`,
+    priceBadge: '',
     priceBadgeAlt: 'Starting at $0 to begin — itemized quote before enrollment',
     productThumb: `${YUCCA}/expt-wl-sema.jpg`,
     productName: 'GLP-1 (Semaglutide)',
@@ -156,7 +156,7 @@ export const PROGRAM_EXPLORE: Record<ProgramSlug, ProgramExploreContent> = {
     chip: 'Dual Pathway',
     blurb:
       'A weekly dual-action GLP-1 + GIP injection for appetite regulation support when clinically appropriate.',
-    priceBadge: `${YUCCA}/lowest-price-ever-badge-6-mo.png`,
+    priceBadge: '',
     priceBadgeAlt: 'Starting at $0 to begin — itemized quote before enrollment',
     productThumb: `${YUCCA}/expt-wl-tirz.jpg`,
     productName: 'GLP-1 + GIP (Tirzepatide)',
