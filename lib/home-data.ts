@@ -10,7 +10,7 @@ export const HERO_WORDS = [
 
 export const HOME_WHY_MEDIA = {
   vials: `${YUCCA}/expt-tirz-sema-vials-together.png`,
-  portal: `${YUCCA}/hiw/yucca-health-patient-portal-dashboard-semaglutide-mobile.avif`,
+  portal: `${YUCCA}/hiw/yucca-health-patient-portal-dashboard-semaglutide-mobile.avif?v=nologo2`,
 } as const
 
 export const HOME_CLOSING_IMAGE = `${YUCCA}/cta-personalized-treatments-wellness-portrait-yucca-health.avif`
