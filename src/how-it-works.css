@@ -227,6 +227,116 @@
   }
 }
 
+.hiw-process {
+  margin-top: 4.5rem;
+  padding: 2.75rem 1.25rem 2.85rem;
+  border-radius: 28px;
+  background: #f4f6f3;
+  border: 1px solid rgba(15, 23, 34, 0.08);
+}
+
+@media (min-width: 768px) {
+  .hiw-process {
+    padding: 3rem 1.75rem 3.15rem;
+  }
+}
+
+.hiw-process__head {
+  max-width: 36rem;
+  margin: 0 auto 1.75rem;
+  text-align: center;
+}
+
+.hiw-process__eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-deep, #1a5c4a);
+}
+
+.hiw-process__title {
+  margin: 0.55rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4.4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.hiw-process__title em {
+  font-style: italic;
+  color: var(--teal-deep, #1a5c4a);
+}
+
+.hiw-process__sub {
+  margin: 0.75rem auto 0;
+  max-width: 28rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: rgba(15, 23, 34, 0.72);
+}
+
+.hiw-process__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .hiw-process__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .hiw-process__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+.hiw-process-card {
+  min-width: 0;
+  padding: 1.15rem 1.15rem 1.2rem;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(15, 23, 34, 0.08);
+}
+
+.hiw-process-card__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 1.65rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--navy, #0f1722);
+  color: #fff;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.hiw-process-card h3 {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.hiw-process-card p {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: rgba(15, 23, 34, 0.68);
+}
+
 .hiw-story {
   padding: 4rem 0;
   background: #fafbf9;

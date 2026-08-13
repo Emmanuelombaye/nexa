@@ -9,40 +9,34 @@ export default function HowItWorksFlow() {
     <div className="hiw-flow">
       <HowItWorksStickySteps />
 
-      <section className="hiw-story" aria-labelledby="hiw-story-heading">
+      <section className="hiw-process" aria-labelledby="hiw-process-title">
         <div className="container">
-          <div className="hiw-story__head" data-reveal="up">
-            <span className="hiw-story__badge">
-              <span className="hiw-story__badge-dot" aria-hidden="true" />
-              Clinical process
-            </span>
-            <h2 id="hiw-story-heading" className="hiw-story__title">
+          <div className="hiw-process__head">
+            <p className="hiw-process__eyebrow">Clinical process</p>
+            <h2 className="hiw-process__title" id="hiw-process-title">
               Every plan starts with a <em>provider review</em>
             </h2>
-            <p className="hiw-story__sub">
+            <p className="hiw-process__sub">
               Complete intake, clinician review, and pharmacy fulfillment — only when treatment is appropriate.
             </p>
           </div>
 
-          <div className="hiw-milestone-rail" aria-hidden="true">
+          <ol className="hiw-process__grid">
             {[
-              { phase: 'Phase 01', title: 'Intake & Lab Review' },
-              { phase: 'Phase 02', title: 'MD Consultation' },
-              { phase: 'Phase 03', title: '503A Compounding' },
-              { phase: 'Phase 04', title: 'Ongoing Oversight' },
-            ].map((step, idx) => (
-              <div key={step.phase} className="hiw-milestone-rail__item">
-                <div className="hiw-milestone-rail__copy">
-                  <span className="hiw-milestone-rail__num">0{idx + 1}</span>
-                  <div>
-                    <p className="hiw-milestone-rail__phase">{step.phase}</p>
-                    <p className="hiw-milestone-rail__label">{step.title}</p>
-                  </div>
-                </div>
-                {idx < 3 ? <span className="hiw-milestone-rail__arrow">→</span> : null}
-              </div>
+              { step: '01', title: 'Intake & lab review', meta: 'Secure questionnaire' },
+              { step: '02', title: 'Licensed provider review', meta: 'Typically within 24 hours' },
+              { step: '03', title: 'Pharmacy fulfillment', meta: 'When prescribed' },
+              { step: '04', title: 'Ongoing care', meta: 'Follow-up & support' },
+            ].map((item) => (
+              <li key={item.step} className="hiw-process-card">
+                <span className="hiw-process-card__n" aria-hidden="true">
+                  {item.step}
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.meta}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
