@@ -80,7 +80,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 Checkout ({product.subscribePrice}/mo)
               </Link>
               <Link href="/supplements" className="btn btn--outline btn--lg">
-                All Supplements
+                Back to Shop
               </Link>
             </div>
           </div>

@@ -242,13 +242,9 @@ export const programImages = {
 export const supplementImages = {
   'metabolic-support': media.supplementMetabolic,
   'sleep-recovery': media.supplementSleep,
-  'hydration-electrolyte': media.supplementHydration,
-  'omega-balance': media.supplementOmega,
 }
 
 export const bundleImages = {
   'metabolic-support': media.bundleMetabolic,
   'sleep-recovery': media.bundleSleep,
-  'hydration-electrolyte': media.bundleHydration,
-  'omega-balance': media.bundleOmega,
 }
