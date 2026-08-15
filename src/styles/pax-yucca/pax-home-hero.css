@@ -8,6 +8,21 @@
   min-height: clamp(34rem, 72vw, 42rem);
 }
 
+/* Frameless full-bleed hero — image covers the whole header, no card chrome */
+.yucca-home .pax-home-hero--bleed {
+  padding: 0 !important;
+  background: var(--navy, #0f1722) !important;
+}
+
+.yucca-home .pax-home-hero__card--bleed {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  min-height: clamp(34rem, 88vh, 52rem);
+  width: 100%;
+}
+
 .yucca-home .pax-home-hero__media {
   position: absolute;
   inset: 0;
@@ -68,6 +83,10 @@
 @media (min-width: 768px) {
   .yucca-home .pax-home-hero__card {
     min-height: 42rem;
+  }
+
+  .yucca-home .pax-home-hero__card--bleed {
+    min-height: clamp(38rem, 88vh, 54rem);
   }
 
   .yucca-home .pax-home-hero__photo {

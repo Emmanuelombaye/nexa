@@ -6,9 +6,8 @@ export const treatmentLinks = [
 ]
 
 export const shopLinks = [
-  { href: '/supplements', label: 'Shop' },
-  { href: '/supplements/subscribe-and-save', label: 'Subscribe & Save' },
-  { href: '/supplements/order-support', label: 'Order Support' },
+  { href: '/semaglutide', label: 'Semaglutide' },
+  { href: '/tirzepatide', label: 'Tirzepatide' },
 ]
 
 const priceTag = '$0 to start'

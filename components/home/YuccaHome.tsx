@@ -24,8 +24,8 @@ function HeroSection() {
   const word = useHeroTyper()
 
   return (
-    <section className="retro-home-hero-section pax-home-hero" data-hero-reveal data-revealed="true">
-      <div className="retro-home-hero-card pax-home-hero__card relative overflow-hidden rounded-retro-card border-2 border-retro-ink">
+    <section className="retro-home-hero-section pax-home-hero pax-home-hero--bleed" data-hero-reveal data-revealed="true">
+      <div className="retro-home-hero-card pax-home-hero__card pax-home-hero__card--bleed relative overflow-hidden">
         <div className="pax-home-hero__media" aria-hidden="true">
           <img
             className="pax-home-hero__photo"

@@ -93,20 +93,20 @@ const patientMenuRows: MenuRow[] = [
 
 const shopMenuRows: MenuRow[] = [
   {
-    href: '/supplements',
-    heading: 'Shop',
-    caption: 'Two focused dietary supplements',
-    vialBg: 'linear-gradient(135deg, #d7ebe6 0%, #b8d9d2 100%)',
-    thumb: '/images/supplement-metabolic.webp',
-    thumbAlt: 'Metabolic Support Daily',
+    href: '/semaglutide',
+    heading: 'Semaglutide',
+    caption: 'GLP-1 weight management',
+    thumb: '/images/yucca-clone/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif',
+    thumbAlt: 'Personalized Semaglutide vial',
+    vialBg: 'linear-gradient(135deg, #d4e8e4 0%, #b8d9d2 100%)',
   },
   {
-    href: '/supplements/subscribe-and-save',
-    heading: 'Subscribe & Save',
-    caption: 'Clear recurring terms before pay',
-    vialBg: 'linear-gradient(135deg, #e8f0f4 0%, #c9d9e3 100%)',
-    thumb: '/images/supplement-sleep.webp',
-    thumbAlt: 'Sleep + Recovery Complex',
+    href: '/tirzepatide',
+    heading: 'Tirzepatide',
+    caption: 'GLP-1 / GIP weight management',
+    thumb: '/images/yucca-clone/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif',
+    thumbAlt: 'Personalized Tirzepatide vial',
+    vialBg: 'linear-gradient(135deg, #ffcb9b 0%, #ffc38c 100%)',
   },
 ]
 
@@ -462,7 +462,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
                 {item.label}
               </Link>
             ))}
-            <NavDropdown label="Shop" href="/supplements" items={shopLinks} align="right" />
+            <NavDropdown label="Shop" href="/#treatments" items={shopLinks} align="right" />
             {endLinks.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}
