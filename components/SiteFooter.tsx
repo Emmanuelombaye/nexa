@@ -3,10 +3,12 @@ import { shopLinks, treatmentLinks } from '../lib/site-data'
 
 const legalLinks = [
   { href: '/privacy', label: 'Privacy Policy' },
-  { href: '/terms', label: 'Terms of Service' },
+  { href: '/terms', label: 'Terms of Use' },
+  { href: '/states-we-serve', label: 'States We Serve' },
   { href: '/telehealth-consent', label: 'Telehealth Consent' },
   { href: '/hipaa', label: 'HIPAA Notice' },
   { href: '/medical-disclaimer', label: 'Medical Disclaimer' },
+  { href: '/patient-safety', label: 'Patient Safety' },
   { href: '/supplement-terms', label: 'Supplement Terms' },
 ]
 

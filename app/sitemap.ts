@@ -17,9 +17,11 @@ export default function sitemap() {
     '/check-eligibility',
     '/privacy',
     '/terms',
+    '/states-we-serve',
     '/telehealth-consent',
     '/hipaa',
     '/medical-disclaimer',
+    '/patient-safety',
     '/supplement-terms',
     ...supplements.map((item) => `/supplements/${item.slug}`),
   ]
@@ -36,6 +38,8 @@ export default function sitemap() {
             route.includes('consent') ||
             route.includes('hipaa') ||
             route.includes('medical-disclaimer') ||
+            route.includes('states-we-serve') ||
+            route.includes('patient-safety') ||
             route.includes('supplement-terms')
           ? 0.4
           : route.startsWith('/supplements/') && route !== '/supplements'
