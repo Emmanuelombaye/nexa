@@ -1,11 +1,11 @@
 'use client'
 
 const items = [
-  'Board-certified physicians',
-  'Nationwide telehealth',
-  'Licensed 503A compounding',
-  'California supply chain',
-  'Physician-directed protocols',
+  'U.S.-licensed providers',
+  'Availability varies by state',
+  'Licensed pharmacy partners',
+  'Compounded ≠ FDA-approved',
+  'Provider-directed protocols',
 ] as const
 
 export default function HowItWorksTrustTicker() {

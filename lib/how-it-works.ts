@@ -45,9 +45,9 @@ export const howSteps: HowStep[] = [
   },
   {
     n: '03',
-    title: 'Physician',
+    title: 'Provider',
     titleItalic: 'review',
-    body: 'A board-certified physician reviews your history and labs as needed. If clarification is required, your care team follows up. Protocols are designed around your biology.',
+    body: 'A U.S.-licensed clinician reviews your history and labs as needed. If clarification is required, your care team follows up. Protocols are personalized; treatment is not guaranteed.',
     image: {
       src: media.howStep03.src,
       alt: media.howStep03.alt,
@@ -55,13 +55,13 @@ export const howSteps: HowStep[] = [
       height: media.howStep03.height,
       sizes: '(max-width: 1024px) 92vw, 50vw',
     },
-    chips: ['Board-certified', 'Labs when indicated', 'No one-size plan'],
+    chips: ['Licensed clinician', 'Labs when indicated', 'No one-size plan'],
   },
   {
     n: '04',
-    title: 'Compound &',
-    titleItalic: 'ship',
-    body: 'When clinically indicated, prescriptions are prepared through our licensed 503A compounding pharmacy and shipped with clear instructions — California supply chain accountability from created to shipped.',
+    title: 'Pharmacy',
+    titleItalic: 'fulfillment',
+    body: 'When clinically indicated, prescriptions may be prepared by a licensed U.S. partner pharmacy and shipped with clear instructions. Nexa Rx is not a pharmacy and does not compound or dispense medications.',
     image: {
       src: media.howStep04.src,
       alt: media.howStep04.alt,
@@ -69,7 +69,7 @@ export const howSteps: HowStep[] = [
       height: media.howStep04.height,
       sizes: '(max-width: 1024px) 92vw, 50vw',
     },
-    chips: ['503A pharmacy', 'Clear instructions', 'CA supply chain'],
+    chips: ['Partner pharmacy', 'Clear instructions', 'If prescribed'],
     callout: {
       value: 'When indicated',
       label: 'Compounded medications are not FDA-approved drug products.',
@@ -95,12 +95,12 @@ export const howWhy = [
   {
     image: media.brandLifestyle,
     title: 'Transparent & trusted',
-    body: 'Licensed 503A compounding with clear clinical language — never vague wellness claims.',
+    body: 'Licensed partner pharmacies with clear clinical language — never vague wellness claims.',
   },
   {
     image: media.careJourney,
     title: 'Tailored personalized care',
-    body: 'Protocols built around your labs and goals, decided with your physician.',
+    body: 'Protocols built around your labs and goals, decided with your licensed clinician.',
   },
   {
     image: media.heroLifestyle,

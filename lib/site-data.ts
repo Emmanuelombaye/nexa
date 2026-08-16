@@ -301,7 +301,7 @@ export const medicalTeamRoles = [
   },
   {
     title: 'Licensed clinicians',
-    text: 'Board-certified or licensed physicians and advanced practice providers conduct medical evaluations and make treatment decisions.',
+    text: 'Licensed physicians and advanced practice providers conduct medical evaluations and make treatment decisions.',
   },
   {
     title: 'Care coordination',
