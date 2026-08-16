@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, type CSSProperties } from 'react'
 import {
   getProgramExploreContent,
+  NEXA_VIAL,
   PROGRAM_INCLUDES,
   PROTOCOL_ICON_LINES,
   PROTOCOL_ICON_PATH,
@@ -26,6 +27,15 @@ type ProgramInput = {
     labs: string
     messaging: string
   }
+  medicationStatus?: {
+    title: string
+    points: string[]
+  }
+}
+
+function priceParts(price: string) {
+  const cleaned = price.replace(/\s+to start$/i, '').trim()
+  return { main: cleaned || price, hasToStart: /to start/i.test(price) || cleaned !== price }
 }
 
 function ProtocolIcon({ name }: { name: string }) {
@@ -68,6 +78,8 @@ function ExploreHero({
   content: ProgramExploreContent
   program: ProgramInput
 }) {
+  const pricing = priceParts(program.price)
+
   return (
     <section className="explore-hero-section bg-white pb-10">
       <div className="explore-hero-container u-container">
@@ -79,10 +91,23 @@ function ExploreHero({
             <h2 className="explore-hero-card-title mx-auto m-0 text-center text-[1.75rem] tablet:text-[2.5rem] desktop:text-[2.625rem] leading-[1] tracking-[-0.04em] font-medium max-w-[15ch]">
               {content.cardTitle}
             </h2>
-            <img src={content.vialImage} alt="" className="explore-hero-card-vial" loading="lazy" />
+            <div className="explore-hero-vial-stage" aria-hidden="true">
+              <img
+                src={content.alternateProduct.thumb}
+                alt=""
+                className="explore-hero-card-vial explore-hero-card-vial--back"
+                loading="lazy"
+              />
+              <img
+                src={content.vialImage}
+                alt=""
+                className="explore-hero-card-vial explore-hero-card-vial--front"
+                loading="lazy"
+              />
+            </div>
             <div className="explore-hero-card-price explore-hero-card-price--nexa" aria-label={content.priceBadgeAlt}>
-              <span className="explore-hero-card-price-main">{program.price}</span>
-              <span className="explore-hero-card-price-sub">to start</span>
+              <span className="explore-hero-card-price-main">{pricing.main}</span>
+              {pricing.hasToStart ? <span className="explore-hero-card-price-sub">to start</span> : null}
             </div>
             <div className="explore-hero-card-footer flex items-center justify-between gap-3">
               <div>Licensed U.S. provider review required</div>
@@ -195,8 +220,9 @@ function ProtocolSection({ content, programSlug }: { content: ProgramExploreCont
             {content.protocol.heading}
           </h2>
           <p className="retro-protocol__sub">{content.protocol.sub}</p>
-          <div className="retro-protocol__vials" aria-hidden="true">
-            <img className="retro-protocol__vials-img" src={content.protocol.vials} alt="" loading="lazy" />
+          <div className="retro-protocol__vials nexa-protocol-vials" aria-hidden="true">
+            <img className="nexa-protocol-vials__back" src={content.alternateProduct.thumb} alt="" loading="lazy" />
+            <img className="nexa-protocol-vials__front" src={content.vialImage} alt="" loading="lazy" />
           </div>
         </div>
         <div className="retro-protocol__right">
@@ -224,6 +250,8 @@ function ProtocolSection({ content, programSlug }: { content: ProgramExploreCont
 }
 
 function ClinicalSection({ content }: { content: ProgramExploreContent }) {
+  const featuredIsTirz = content.slug === 'tirzepatide'
+
   return (
     <section className="retro-clinical retro-clinical--weight-loss" aria-labelledby="retro-clinical-heading">
       <div className="retro-clinical__inner">
@@ -242,11 +270,19 @@ function ClinicalSection({ content }: { content: ProgramExploreContent }) {
             ))}
           </div>
         </div>
-        <div className="retro-clinical__visual" aria-hidden="true">
-          <img className="retro-clinical__vial retro-clinical__vial--sema" src={content.clinical.vialImage} alt="" loading="lazy" />
-          {content.clinical.secondaryVial ? (
-            <img className="retro-clinical__vial retro-clinical__vial--tirz" src={content.clinical.secondaryVial} alt="" loading="lazy" />
-          ) : null}
+        <div className="retro-clinical__visual" aria-hidden="true" data-featured={content.slug}>
+          <img
+            className={`retro-clinical__vial ${featuredIsTirz ? 'retro-clinical__vial--front' : 'retro-clinical__vial--back'}`}
+            src={NEXA_VIAL.tirzepatide}
+            alt=""
+            loading="lazy"
+          />
+          <img
+            className={`retro-clinical__vial ${featuredIsTirz ? 'retro-clinical__vial--back' : 'retro-clinical__vial--front'}`}
+            src={NEXA_VIAL.semaglutide}
+            alt=""
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
@@ -364,7 +400,7 @@ function CarePanel({ program }: { program: ProgramInput }) {
             Everything included in your {program.navLabel} program
           </h2>
         </header>
-        <div className="program-care-grid">
+        <div className={`program-care-grid${program.medicationStatus ? ' program-care-grid--3' : ''}`}>
           <article className="program-care-card">
             <h3>Program highlights</h3>
             <ul>
@@ -384,6 +420,16 @@ function CarePanel({ program }: { program: ProgramInput }) {
               ))}
             </ul>
           </article>
+          {program.medicationStatus ? (
+            <article className="program-care-card">
+              <h3>{program.medicationStatus.title}</h3>
+              <ul>
+                {program.medicationStatus.points.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ) : null}
         </div>
       </div>
     </section>

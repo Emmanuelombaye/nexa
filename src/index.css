@@ -2586,6 +2586,87 @@ body.is-nav-locked .mobile-sticky-cta {
   max-width: 24rem;
 }
 
+.footer__address,
+.footer__contact-lines {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.85rem;
+  font-style: normal;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: rgba(242, 244, 247, 0.72);
+}
+
+.footer__contact-lines {
+  margin-top: 0.65rem;
+}
+
+.footer__trust {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0 0 1.75rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #fff;
+}
+
+.footer__trust-item img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.footer__trust-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.footer__trust-mark--hipaa {
+  font-size: 0.55rem;
+}
+
+.footer__trust-kicker {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(242, 244, 247, 0.55);
+  margin-bottom: 0.15rem;
+}
+
+.footer__trust-item strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+@media (min-width: 768px) {
+  .footer__trust {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
 .footer h4 {
   color: #fff;
   font-size: 0.75rem;

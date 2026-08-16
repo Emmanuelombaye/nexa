@@ -4,6 +4,13 @@ const PROTOCOL_ICON_WAVE = 'wave'
 const PROTOCOL_ICON_PATH = 'path'
 const PROTOCOL_ICON_LINES = 'lines'
 
+/** Logo-free Nexa product vials (illustrative — not pharmacy packaging) */
+export const NEXA_VIAL = {
+  semaglutide: '/images/nexa/vial-semaglutide.webp?v=3',
+  tirzepatide: '/images/nexa/vial-tirzepatide.webp?v=3',
+  pair: `${YUCCA}/expt-tirz-sema-vials-together.png`,
+} as const
+
 export type ProgramSlug = 'semaglutide' | 'tirzepatide'
 
 export type ProgramExploreContent = {
@@ -73,20 +80,20 @@ export const PROGRAM_EXPLORE: Record<ProgramSlug, ProgramExploreContent> = {
       'A weekly GLP-1 injection designed to support appetite regulation and steady weight management through a single clinically studied pathway.',
     priceBadge: '',
     priceBadgeAlt: 'Starting at $0 to begin — itemized quote before enrollment',
-    productThumb: `${YUCCA}/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif`,
+    productThumb: NEXA_VIAL.semaglutide,
     productName: 'GLP-1 (Semaglutide)',
     productDesc: 'Weekly GLP-1 pathway.',
     alternateProduct: {
       href: '/tirzepatide',
-      thumb: `${YUCCA}/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif`,
+      thumb: NEXA_VIAL.tirzepatide,
       name: 'GLP-1 + GIP (Tirzepatide)',
       desc: 'Dual-pathway option.',
     },
-    vialImage: `${YUCCA}/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif`,
+    vialImage: NEXA_VIAL.semaglutide,
     protocol: {
       heading: "Your body isn't working against you. It just needs the right signal.",
-      sub: 'Semaglutide works through the GLP-1 pathway your body already uses to regulate hunger — with dosing reviewed by a licensed clinician.',
-      vials: `${YUCCA}/expt-tirz-sema-vials-together.png`,
+      sub: 'Semaglutide works through the GLP-1 pathway your body already uses to regulate hunger — with dosing reviewed by a licensed Nexa Rx clinician.',
+      vials: NEXA_VIAL.pair,
       cards: [
         {
           icon: PROTOCOL_ICON_WAVE,
@@ -106,14 +113,14 @@ export const PROGRAM_EXPLORE: Record<ProgramSlug, ProgramExploreContent> = {
       ],
     },
     clinical: {
-      eyebrow: 'Personalized Semaglutide · GLP-1',
+      eyebrow: 'Nexa Rx · Personalized Semaglutide · GLP-1',
       heading: ['A clinically studied', 'approach to weight', 'management.'],
       paragraphs: [
         'Semaglutide acts on a single GLP-1 pathway — a foundation for gradual, sustainable progress when medically appropriate.',
-        'Your dosing protocol is reviewed and prescribed by a licensed U.S. provider, adjusted as you progress.',
+        'At Nexa Rx, your dosing protocol is reviewed and prescribed by a licensed U.S. provider, then adjusted as you progress — with an itemized quote before you enroll.',
       ],
-      vialImage: `${YUCCA}/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif`,
-      secondaryVial: `${YUCCA}/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif`,
+      vialImage: NEXA_VIAL.semaglutide,
+      secondaryVial: NEXA_VIAL.tirzepatide,
     },
     expect: SHARED_EXPECT,
     faqs: [
@@ -158,20 +165,20 @@ export const PROGRAM_EXPLORE: Record<ProgramSlug, ProgramExploreContent> = {
       'A weekly dual-action GLP-1 + GIP injection for appetite regulation support when clinically appropriate.',
     priceBadge: '',
     priceBadgeAlt: 'Starting at $0 to begin — itemized quote before enrollment',
-    productThumb: `${YUCCA}/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif`,
+    productThumb: NEXA_VIAL.tirzepatide,
     productName: 'GLP-1 + GIP (Tirzepatide)',
     productDesc: 'Dual-pathway weekly support.',
     alternateProduct: {
       href: '/semaglutide',
-      thumb: `${YUCCA}/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif`,
+      thumb: NEXA_VIAL.semaglutide,
       name: 'GLP-1 (Semaglutide)',
       desc: 'Weekly GLP-1 pathway.',
     },
-    vialImage: `${YUCCA}/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif`,
+    vialImage: NEXA_VIAL.tirzepatide,
     protocol: {
       heading: 'Dual pathways. One provider-guided protocol.',
-      sub: 'Tirzepatide activates GLP-1 and GIP receptors — supporting appetite regulation through a broader metabolic signal when your clinician determines it is appropriate.',
-      vials: `${YUCCA}/expt-tirz-sema-vials-together.png`,
+      sub: 'Tirzepatide activates GLP-1 and GIP receptors — supporting appetite regulation through a broader metabolic signal when your Nexa Rx clinician determines it is appropriate.',
+      vials: NEXA_VIAL.pair,
       cards: [
         {
           icon: PROTOCOL_ICON_WAVE,
@@ -191,14 +198,14 @@ export const PROGRAM_EXPLORE: Record<ProgramSlug, ProgramExploreContent> = {
       ],
     },
     clinical: {
-      eyebrow: 'Personalized Tirzepatide · GLP-1 + GIP',
+      eyebrow: 'Nexa Rx · Personalized Tirzepatide · GLP-1 + GIP',
       heading: ['A dual-action', 'approach to weight', 'management.'],
       paragraphs: [
         'Tirzepatide activates both GLP-1 and GIP receptors for stronger appetite regulation and a broader metabolic response when medically appropriate.',
-        'Your dosing protocol is reviewed and prescribed by a licensed U.S. provider, adjusted as you progress.',
+        'At Nexa Rx, your dosing protocol is reviewed and prescribed by a licensed U.S. provider, then adjusted as you progress — with clear pricing before enrollment.',
       ],
-      vialImage: `${YUCCA}/personalized-tirzepatide-glp-1-injection-vial-yucca-health.avif`,
-      secondaryVial: `${YUCCA}/personalized-semaglutide-glp-1-injection-vial-yucca-health.avif`,
+      vialImage: NEXA_VIAL.tirzepatide,
+      secondaryVial: NEXA_VIAL.semaglutide,
     },
     expect: SHARED_EXPECT,
     faqs: [
