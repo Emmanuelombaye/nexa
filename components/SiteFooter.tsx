@@ -9,6 +9,8 @@ const legalLinks = [
   { href: '/hipaa', label: 'HIPAA Notice' },
   { href: '/medical-disclaimer', label: 'Medical Disclaimer' },
   { href: '/patient-safety', label: 'Patient Safety' },
+  { href: '/shipping', label: 'Shipping & Fulfillment' },
+  { href: '/refund-policy', label: 'Refund Policy' },
   { href: '/supplement-terms', label: 'Supplement Terms' },
 ]
 
@@ -93,11 +95,17 @@ export default function SiteFooter() {
             treatment, provider licensure, pharmacy fulfillment, and patient eligibility.
           </p>
           <p className="footer__legal">
-            <strong>Pharmacy &amp; fulfillment:</strong> If prescription treatment is clinically appropriate, medication
-            may be fulfilled through a licensed dispensing pharmacy pursuant to a patient-specific prescription.
-            Compounded medications are not FDA-approved as finished branded products. Product imagery is illustrative;
-            actual packaging and labeling may differ. Dietary supplements are non-prescription products sold separately
-            from clinical care. *Timing not guaranteed.
+            <strong>Pharmacy &amp; fulfillment:</strong> NexaRx® is not a pharmacy, drug manufacturer, outsourcing
+            facility, or compounding facility, and does not compound, manufacture, dispense, or physically fulfill
+            medications. If prescription treatment is clinically appropriate, medication may be fulfilled through a
+            licensed dispensing pharmacy pursuant to a patient-specific prescription. Compounded medications are not
+            FDA-approved as finished branded products. *Timing not guaranteed.
+          </p>
+          <p className="footer__legal">
+            <strong>Product imagery:</strong> Displayed product imagery is intended solely for illustrative purposes and
+            is not intended to imply that NexaRx® compounds, manufactures, dispenses, or physically fulfills medications.
+            Actual medication packaging and pharmacy labeling may differ. Dietary supplements are non-prescription
+            products sold separately from clinical care.
           </p>
         </div>
       </footer>

@@ -14,26 +14,22 @@ interface PageMetadataOptions {
   image?: string | typeof defaultOgImage
 }
 
+/** Build title, description, canonical, and Open Graph link-preview metadata (no social account tags). */
 export function pageMetadata({ title, description, path, image = defaultOgImage }: PageMetadataOptions) {
   const ogImage = typeof image === 'string' ? { ...defaultOgImage, url: image } : image
+  const fullTitle = title.includes('Nexa') ? title : `${title} | Nexa Rx`
 
   return {
-    title,
+    title: fullTitle,
     description,
     alternates: { canonical: path },
     openGraph: {
-      title,
+      title: fullTitle,
       description,
       url: `${siteUrl}${path}`,
       siteName: 'Nexa Rx',
-      type: 'website',
+      type: 'website' as const,
       images: [ogImage],
-    },
-    twitter: {
-      card: 'summary_large_image' as const,
-      title,
-      description,
-      images: [ogImage.url],
     },
   }
 }

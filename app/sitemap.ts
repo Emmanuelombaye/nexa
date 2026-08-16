@@ -22,6 +22,8 @@ export default function sitemap() {
     '/hipaa',
     '/medical-disclaimer',
     '/patient-safety',
+    '/shipping',
+    '/refund-policy',
     '/supplement-terms',
     ...supplements.map((item) => `/supplements/${item.slug}`),
   ]

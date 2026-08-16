@@ -41,12 +41,6 @@ export const metadata = {
       },
     ],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Nexa Rx | Personalized Telehealth Care',
-    description: 'Licensed clinical care. Clear pricing. Qualified U.S. pharmacy fulfillment.',
-    images: ['/images/hero-home-desktop.webp'],
-  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -60,8 +54,8 @@ export const metadata = {
       { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
-  authors: [{ name: 'Ombaye' }],
-  creator: 'Ombaye',
+  authors: [{ name: 'Nexa RX LLC' }],
+  creator: 'Nexa RX LLC',
   publisher: 'Nexa Rx',
   robots: isPreview ? { index: false, follow: true } : { index: true, follow: true },
 }
