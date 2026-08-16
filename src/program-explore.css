@@ -211,6 +211,14 @@
   margin: 0.35rem auto 0.15rem;
 }
 
+.program-explore .explore-hero-vial-stage--solo {
+  width: min(58%, 220px);
+  height: clamp(230px, 44vw, 300px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .program-explore .explore-hero-vial-stage .explore-hero-card-vial {
   position: absolute;
   margin: 0;
@@ -218,6 +226,15 @@
   width: auto;
   max-width: none;
   object-fit: contain;
+}
+
+.program-explore .explore-hero-card-vial--solo {
+  position: static !important;
+  height: 100% !important;
+  width: auto !important;
+  max-height: 100%;
+  margin: 0 auto !important;
+  filter: drop-shadow(0 14px 22px color-mix(in oklch, var(--forest) 18%, transparent));
 }
 
 .program-explore .explore-hero-card-vial--back {
@@ -237,6 +254,24 @@
   z-index: 2;
   transform: rotate(-3deg);
   filter: drop-shadow(0 12px 20px color-mix(in oklch, var(--forest) 20%, transparent));
+}
+
+.program-explore .retro-clinical__visual--solo {
+  width: min(220px, 48vw) !important;
+  height: auto !important;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.program-explore .retro-clinical__visual .retro-clinical__vial--solo {
+  position: static !important;
+  width: min(200px, 100%) !important;
+  height: auto !important;
+  left: auto !important;
+  top: auto !important;
+  filter: drop-shadow(0 16px 28px color-mix(in oklch, var(--forest) 16%, transparent));
 }
 
 .program-explore .retro-clinical__visual .retro-clinical__vial--front {
@@ -348,6 +383,14 @@
   margin: 2rem auto 0;
 }
 
+.program-explore .nexa-protocol-vials--solo {
+  width: min(220px, 55%);
+  height: clamp(300px, 38vw, 380px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .program-explore .nexa-protocol-vials img {
   position: absolute;
   height: 100%;
@@ -355,6 +398,14 @@
   object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+.program-explore .nexa-protocol-vials__solo {
+  position: static !important;
+  height: 100% !important;
+  width: auto !important;
+  max-width: 100%;
+  filter: drop-shadow(0 16px 28px color-mix(in oklch, var(--forest) 16%, transparent));
 }
 
 .program-explore .nexa-protocol-vials__back {

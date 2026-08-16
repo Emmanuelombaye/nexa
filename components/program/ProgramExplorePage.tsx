@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useState, type CSSProperties } from 'react'
 import {
   getProgramExploreContent,
-  NEXA_VIAL,
   PROGRAM_INCLUDES,
   PROTOCOL_ICON_LINES,
   PROTOCOL_ICON_PATH,
@@ -91,17 +90,11 @@ function ExploreHero({
             <h2 className="explore-hero-card-title mx-auto m-0 text-center text-[1.75rem] tablet:text-[2.5rem] desktop:text-[2.625rem] leading-[1] tracking-[-0.04em] font-medium max-w-[15ch]">
               {content.cardTitle}
             </h2>
-            <div className="explore-hero-vial-stage" aria-hidden="true">
-              <img
-                src={content.alternateProduct.thumb}
-                alt=""
-                className="explore-hero-card-vial explore-hero-card-vial--back"
-                loading="lazy"
-              />
+            <div className="explore-hero-vial-stage explore-hero-vial-stage--solo" aria-hidden="true">
               <img
                 src={content.vialImage}
                 alt=""
-                className="explore-hero-card-vial explore-hero-card-vial--front"
+                className="explore-hero-card-vial explore-hero-card-vial--solo"
                 loading="lazy"
               />
             </div>
@@ -220,9 +213,8 @@ function ProtocolSection({ content, programSlug }: { content: ProgramExploreCont
             {content.protocol.heading}
           </h2>
           <p className="retro-protocol__sub">{content.protocol.sub}</p>
-          <div className="retro-protocol__vials nexa-protocol-vials" aria-hidden="true">
-            <img className="nexa-protocol-vials__back" src={content.alternateProduct.thumb} alt="" loading="lazy" />
-            <img className="nexa-protocol-vials__front" src={content.vialImage} alt="" loading="lazy" />
+          <div className="retro-protocol__vials nexa-protocol-vials nexa-protocol-vials--solo" aria-hidden="true">
+            <img className="nexa-protocol-vials__solo" src={content.vialImage} alt="" loading="lazy" />
           </div>
         </div>
         <div className="retro-protocol__right">
@@ -250,8 +242,6 @@ function ProtocolSection({ content, programSlug }: { content: ProgramExploreCont
 }
 
 function ClinicalSection({ content }: { content: ProgramExploreContent }) {
-  const featuredIsTirz = content.slug === 'tirzepatide'
-
   return (
     <section className="retro-clinical retro-clinical--weight-loss" aria-labelledby="retro-clinical-heading">
       <div className="retro-clinical__inner">
@@ -270,19 +260,8 @@ function ClinicalSection({ content }: { content: ProgramExploreContent }) {
             ))}
           </div>
         </div>
-        <div className="retro-clinical__visual" aria-hidden="true" data-featured={content.slug}>
-          <img
-            className={`retro-clinical__vial ${featuredIsTirz ? 'retro-clinical__vial--front' : 'retro-clinical__vial--back'}`}
-            src={NEXA_VIAL.tirzepatide}
-            alt=""
-            loading="lazy"
-          />
-          <img
-            className={`retro-clinical__vial ${featuredIsTirz ? 'retro-clinical__vial--back' : 'retro-clinical__vial--front'}`}
-            src={NEXA_VIAL.semaglutide}
-            alt=""
-            loading="lazy"
-          />
+        <div className="retro-clinical__visual retro-clinical__visual--solo" aria-hidden="true" data-featured={content.slug}>
+          <img className="retro-clinical__vial retro-clinical__vial--solo" src={content.clinical.vialImage} alt="" loading="lazy" />
         </div>
       </div>
     </section>
