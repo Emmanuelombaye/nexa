@@ -57,17 +57,17 @@ const SHARED_EXPECT = {
     {
       tag: 'Week 1 → 4 · Your body is adjusting',
       text: 'You start on a low dose — intentionally. Your treatment is introduced gradually so your body can adapt. Some patients notice appetite changes early; others take a few more weeks. Both are normal. Your clinician is available throughout.',
-      img: `${YUCCA}/GLP1-Retro/expect-week-1-4.avif`,
+      img: '/images/nexa/expect-week-1-4.webp?v=1',
     },
     {
       tag: 'Week 4 → 12 · The protocol starts to settle',
       text: 'As titration continues, your clinician monitors how you respond. Appetite signals and dosing may be adjusted based on your individual course — experiences vary, and treatment is not guaranteed to produce a specific outcome.',
-      img: `${YUCCA}/GLP1-Retro/expect-week-4-12.avif`,
+      img: '/images/nexa/expect-week-4-12.webp?v=1',
     },
     {
       tag: 'Month 3+ · Calibrated to you',
       text: 'Your clinician fine-tunes your plan with real precision based on your response. The focus shifts from adjustment to consistency, and maintainable progress becomes the rhythm.',
-      img: `${YUCCA}/GLP1-Retro/expect-month-3.avif`,
+      img: '/images/nexa/expect-month-3.webp?v=1',
     },
   ],
 }
