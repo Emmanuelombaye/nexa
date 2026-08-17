@@ -204,18 +204,38 @@ function ExploreHero({
   )
 }
 
+const PROTOCOL_PEOPLE = '/images/nexa/protocol-people.webp?v=1'
+const CLINICAL_PEOPLE = '/images/nexa/clinical-people.webp?v=1'
+
+function splitProtocolHeading(heading: string) {
+  const i = heading.indexOf('. ')
+  if (i === -1) return { lead: heading, accent: '' }
+  return { lead: heading.slice(0, i + 1), accent: heading.slice(i + 2) }
+}
+
 function ProtocolSection({ content, programSlug }: { content: ProgramExploreContent; programSlug: string }) {
+  const { lead, accent } = splitProtocolHeading(content.protocol.heading)
   return (
     <section className="retro-protocol pax-protocol" aria-labelledby={`retro-protocol-heading-${programSlug}`}>
       <div className="retro-protocol__inner">
-        <div className="retro-protocol__left">
-          <h2 id={`retro-protocol-heading-${programSlug}`} className="retro-protocol__heading">
-            {content.protocol.heading}
-          </h2>
-          <p className="retro-protocol__sub">{content.protocol.sub}</p>
-          <div className="retro-protocol__vials nexa-protocol-vials nexa-protocol-vials--solo" aria-hidden="true">
-            <img className="nexa-protocol-vials__solo" src={content.vialImage} alt="" loading="lazy" />
-          </div>
+        <div className="retro-protocol__left nexa-protocol-stage">
+          <article className="nexa-protocol-card">
+            <img
+              className="nexa-protocol-card__photo"
+              src={PROTOCOL_PEOPLE}
+              alt=""
+              width={1024}
+              height={1536}
+              loading="lazy"
+            />
+            <div className="nexa-protocol-card__copy">
+              <h2 id={`retro-protocol-heading-${programSlug}`} className="retro-protocol__heading nexa-protocol-card__heading">
+                <span className="nexa-protocol-card__lead">{lead}</span>
+                {accent ? <span className="nexa-protocol-card__accent">{accent}</span> : null}
+              </h2>
+              <p className="retro-protocol__sub nexa-protocol-card__sub">{content.protocol.sub}</p>
+            </div>
+          </article>
         </div>
         <div className="retro-protocol__right">
           {content.protocol.cards.map((c, i) => (
@@ -260,8 +280,15 @@ function ClinicalSection({ content }: { content: ProgramExploreContent }) {
             ))}
           </div>
         </div>
-        <div className="retro-clinical__visual retro-clinical__visual--solo" aria-hidden="true" data-featured={content.slug}>
-          <img className="retro-clinical__vial retro-clinical__vial--solo" src={content.clinical.vialImage} alt="" loading="lazy" />
+        <div className="retro-clinical__visual retro-clinical__visual--people" aria-hidden="true">
+          <img
+            className="nexa-clinical-people"
+            src={CLINICAL_PEOPLE}
+            alt=""
+            width={1024}
+            height={1536}
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
