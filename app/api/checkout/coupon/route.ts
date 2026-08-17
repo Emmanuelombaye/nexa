@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Select a valid care program to continue.' }, { status: 400 })
   }
 
-  const result = await validateVcoCoupon(body.code, programSlug)
+  const code = typeof body.code === 'string' ? body.code : ''
+  const result = await validateVcoCoupon(code, programSlug)
   return NextResponse.json(result.json, { status: result.status })
 }
