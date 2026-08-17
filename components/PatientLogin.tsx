@@ -14,6 +14,17 @@ export default function PatientLogin() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault()
+    let paid = false
+    try {
+      const checkout = JSON.parse(localStorage.getItem('nexa_checkout_status_v1') || 'null') as { paid?: boolean } | null
+      paid = Boolean(checkout?.paid)
+    } catch {
+      paid = false
+    }
+    if (!paid) {
+      setError('Complete eligibility and checkout first. Patient Login opens after payment.')
+      return
+    }
     if (!email.trim() || password.length < 4) {
       setError('Enter email and a password (4+ characters).')
       return
@@ -51,7 +62,7 @@ export default function PatientLogin() {
         </Link>
         <h2>Patient Login</h2>
         <p className="auth__hint">
-          New here? <Link href="/check-eligibility">Check eligibility first</Link> — no account before enrollment.
+          New here? <Link href="/check-eligibility">Check eligibility and complete checkout first</Link>. Patient Login opens after payment.
         </p>
         <form className="flow-form" onSubmit={submit}>
           <label>

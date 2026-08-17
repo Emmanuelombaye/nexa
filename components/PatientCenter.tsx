@@ -59,7 +59,15 @@ export default function PatientCenter() {
     let cancelled = false
     setOrdersLoading(true)
     setOrdersError('')
-    fetch(`/api/orders?email=${encodeURIComponent(lookupEmail)}`)
+    let orderId = ''
+    try {
+      orderId = localStorage.getItem('nexa_order_id_v1') || ''
+    } catch {
+      orderId = ''
+    }
+    const params = new URLSearchParams({ email: lookupEmail })
+    if (orderId) params.set('orderId', orderId)
+    fetch(`/api/orders?${params.toString()}`)
       .then(async (res) => {
         const data = (await res.json().catch(() => ({}))) as { orders?: PatientOrder[]; error?: string }
         if (cancelled) return
@@ -88,13 +96,10 @@ export default function PatientCenter() {
     return (
       <div className="portal-empty">
         <h1>Patient Center</h1>
-        <p>Complete eligibility check or log in to continue.</p>
+        <p>Complete eligibility and checkout first. Patient Center opens after payment.</p>
         <div className="flow-nav">
           <Link href="/check-eligibility" className="btn btn--primary">
             Check Eligibility
-          </Link>
-          <Link href="/patient-login" className="btn btn--outline">
-            Patient Login
           </Link>
         </div>
       </div>

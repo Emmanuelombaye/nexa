@@ -74,9 +74,9 @@ const patientMenuRows: MenuRow[] = [
     vialBg: 'linear-gradient(135deg, #e8e4dc 0%, #d4e8e4 100%)',
   },
   {
-    href: '/patient-login',
+    href: '/check-eligibility',
     heading: 'Patient Login',
-    caption: 'Access patient portal',
+    caption: 'Complete checkout first',
     thumb: '/images/pax-hiw-step-2.png',
   },
 ]
@@ -464,7 +464,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
           </nav>
 
           <div className="header__actions">
-            <Link href="/patient-login" className="header__signin">
+            <Link href="/check-eligibility" className="header__signin">
               <span className="header__signin-long">Patient Login</span>
               <span className="header__signin-short">Login</span>
             </Link>

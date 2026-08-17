@@ -78,7 +78,7 @@ export default function SiteFooter() {
             <h4>Support</h4>
             <Link href="/medical-team">Medical Team</Link>
             <Link href="/check-eligibility">Check Eligibility</Link>
-            <Link href="/patient-login">Patient Login</Link>
+            <Link href="/check-eligibility">Patient Login</Link>
             <Link href="/patient-safety">Patient Safety</Link>
             <a href="mailto:support@nexarx.com">support@nexarx.com</a>
             <p className="footer__contact-lines">
