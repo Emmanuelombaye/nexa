@@ -28,7 +28,7 @@ const treatmentMenuRows: MenuRow[] = [
     href: '/tirzepatide',
     heading: 'GLP-1 + GIP (Tirzepatide)',
     caption: 'Weight Loss',
-    thumb: '/images/nexa/vial-tirzepatide.webp?v=4',
+    thumb: '/images/nexa/vial-tirzepatide.webp?v=5',
     thumbAlt: 'Personalized Tirzepatide vial',
     vialBg: 'linear-gradient(135deg, #d4e8e4 0%, #b8d9d2 100%)',
   },
@@ -36,7 +36,7 @@ const treatmentMenuRows: MenuRow[] = [
     href: '/semaglutide',
     heading: 'GLP-1 (Semaglutide)',
     caption: 'Weight Loss',
-    thumb: '/images/nexa/vial-semaglutide.webp?v=4',
+    thumb: '/images/nexa/vial-semaglutide.webp?v=5',
     thumbAlt: 'Personalized Semaglutide vial',
     vialBg: 'linear-gradient(135deg, #e8e4dc 0%, #d4e8e4 100%)',
   },
@@ -45,9 +45,9 @@ const treatmentMenuRows: MenuRow[] = [
     heading: 'All Treatments',
     caption: 'Explore all options',
     allThumbs: [
-      '/images/nexa/vial-tirzepatide.webp?v=4',
-      '/images/nexa/vial-semaglutide.webp?v=4',
-      '/images/nexa/vial-tirzepatide.webp?v=4',
+      '/images/nexa/vial-tirzepatide.webp?v=5',
+      '/images/nexa/vial-semaglutide.webp?v=5',
+      '/images/nexa/vial-tirzepatide.webp?v=5',
     ],
   },
 ]
@@ -69,7 +69,7 @@ const patientMenuRows: MenuRow[] = [
     href: '/check-eligibility',
     heading: 'Check Eligibility',
     caption: 'See if you qualify',
-    thumb: '/images/nexa/vial-semaglutide.webp?v=4',
+    thumb: '/images/nexa/vial-semaglutide.webp?v=5',
     thumbAlt: '',
     vialBg: 'linear-gradient(135deg, #e8e4dc 0%, #d4e8e4 100%)',
   },
@@ -77,7 +77,7 @@ const patientMenuRows: MenuRow[] = [
     href: '/patient-login',
     heading: 'Patient Login',
     caption: 'Access patient portal',
-    thumb: '/images/cards/doctor-female.png',
+    thumb: '/images/pax-hiw-step-2.png',
   },
 ]
 

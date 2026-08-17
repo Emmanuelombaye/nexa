@@ -113,19 +113,21 @@
 .yx-clone .pax-knowall .pax-knowall__rail-stage {
   display: grid;
   place-items: center;
-  min-height: 10.5rem;
+  min-height: 14.5rem;
+  padding: 0.85rem 0.5rem 0.4rem;
   border-radius: 1rem;
-  background: color-mix(in oklch, #fff 7%, transparent);
+  background: #000;
   overflow: hidden;
 }
 
 .yx-clone .pax-knowall .pax-knowall__rail-vial {
   display: block;
-  width: min(8.25rem, 52%);
+  width: min(11.5rem, 78%);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.4));
-  transform: rotate(-3deg);
+  object-position: center bottom;
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.45));
+  transform: none;
 }
 
 .yx-clone .pax-knowall .pax-knowall__rail-copy {

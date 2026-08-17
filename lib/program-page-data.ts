@@ -6,10 +6,10 @@ const PROTOCOL_ICON_LINES = 'lines'
 
 /** Logo-free Nexa product vials — MensRx/MintRx studio style (illustrative) */
 export const NEXA_VIAL = {
-  semaglutide: '/images/nexa/vial-semaglutide.webp?v=4',
-  tirzepatide: '/images/nexa/vial-tirzepatide.webp?v=4',
-  semaglutideStudio: '/images/nexa/vial-semaglutide-studio.webp?v=4',
-  tirzepatideStudio: '/images/nexa/vial-tirzepatide-studio.webp?v=4',
+  semaglutide: '/images/nexa/vial-semaglutide.webp?v=5',
+  tirzepatide: '/images/nexa/vial-tirzepatide.webp?v=5',
+  semaglutideStudio: '/images/nexa/vial-semaglutide-studio.webp?v=5',
+  tirzepatideStudio: '/images/nexa/vial-tirzepatide-studio.webp?v=5',
   pair: `${YUCCA}/expt-tirz-sema-vials-together.png`,
 } as const
 
