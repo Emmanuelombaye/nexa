@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isValidAdultDob, isValidEmail, isValidPhone } from '../../../../lib/intake'
 import { isCheckoutProgramSlug } from '../../../../lib/checkout'
-import { fetchVcoProducts, getVcoConfig, publicCheckoutError, resolveProgramProduct } from '../../../../lib/vco'
+import {
+  fetchVcoProducts,
+  getVcoConfig,
+  publicCheckoutError,
+  resolveProgramProduct,
+  sanitizeCouponCode,
+} from '../../../../lib/vco'
 
 function originFromRequest(req: NextRequest) {
   const forwardedHost = req.headers.get('x-forwarded-host')
@@ -65,6 +71,7 @@ export async function POST(req: NextRequest) {
   }
 
   const origin = originFromRequest(req)
+  const couponCode = sanitizeCouponCode(body.couponCode)
 
   try {
     const res = await fetch(`${baseUrl}/api/commerce/v1/checkout/session`, {
@@ -81,6 +88,7 @@ export async function POST(req: NextRequest) {
           ...intakeAnswers,
           programSlug,
         },
+        ...(couponCode ? { couponCode } : {}),
         successUrl: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
         cancelUrl: `${origin}/check-eligibility?canceled=1&program=${encodeURIComponent(programSlug)}`,
       }),

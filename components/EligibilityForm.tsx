@@ -51,6 +51,14 @@ export default function EligibilityForm() {
 
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [couponInput, setCouponInput] = useState('')
+  const [appliedCoupon, setAppliedCoupon] = useState<{
+    code: string
+    discountAmountCents?: number
+    finalAmountCents?: number
+  } | null>(null)
+  const [couponBusy, setCouponBusy] = useState(false)
+  const [couponMessage, setCouponMessage] = useState('')
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -83,6 +91,59 @@ export default function EligibilityForm() {
     () => programs.find((program) => program.title === form.program || program.navLabel === form.program),
     [form.program],
   )
+
+  const programSlug = selectedProgram?.slug || ''
+
+  const applyCoupon = async () => {
+    const code = couponInput.trim()
+    if (!code) {
+      setCouponMessage('Enter a promo code.')
+      setAppliedCoupon(null)
+      return
+    }
+    if (!programSlug) {
+      setCouponMessage('Select a care program first.')
+      return
+    }
+
+    setCouponBusy(true)
+    setCouponMessage('')
+    try {
+      const res = await fetch('/api/checkout/coupon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, programSlug }),
+      })
+      const data = (await res.json().catch(() => ({}))) as {
+        valid?: boolean
+        code?: string
+        discountAmountCents?: number
+        finalAmountCents?: number
+        error?: string
+      }
+      if (!res.ok || data.valid !== true) {
+        setAppliedCoupon(null)
+        setCouponMessage(data.error || 'This code is not valid for this order.')
+        return
+      }
+      setAppliedCoupon({
+        code: data.code || code,
+        discountAmountCents: data.discountAmountCents,
+        finalAmountCents: data.finalAmountCents,
+      })
+      setCouponMessage('Promo code applied.')
+    } catch {
+      setAppliedCoupon(null)
+      setCouponMessage('We could not check this code right now. Please try again.')
+    } finally {
+      setCouponBusy(false)
+    }
+  }
+
+  const clearCoupon = () => {
+    setAppliedCoupon(null)
+    setCouponMessage('')
+  }
 
   const availabilityStatus = useMemo(() => {
     if (!selectedProgram || !form.state.trim()) return null
@@ -224,6 +285,7 @@ export default function EligibilityForm() {
             authorizeClinicianReview: form.authorizeReview,
             source: 'nexa-rx-eligibility',
           },
+          ...(appliedCoupon?.code ? { couponCode: appliedCoupon.code } : {}),
         }),
       })
 
@@ -565,6 +627,49 @@ export default function EligibilityForm() {
                       {form.city}, {form.state} {form.zip}
                     </strong>
                   </div>
+                </div>
+                <div className="flow-coupon">
+                  <label className="flow-coupon__label" htmlFor="nexa-coupon">
+                    Promo code <span className="flow-coupon__optional">(optional)</span>
+                  </label>
+                  <div className="flow-coupon__row">
+                    <input
+                      id="nexa-coupon"
+                      type="text"
+                      value={couponInput}
+                      onChange={(e) => {
+                        setCouponInput(e.target.value)
+                        if (appliedCoupon) clearCoupon()
+                      }}
+                      placeholder="Enter code"
+                      autoComplete="off"
+                      disabled={couponBusy || submitting}
+                    />
+                    <button
+                      type="button"
+                      className="btn btn--outline"
+                      onClick={applyCoupon}
+                      disabled={couponBusy || submitting || !couponInput.trim()}
+                    >
+                      {couponBusy ? 'Checking…' : 'Apply'}
+                    </button>
+                  </div>
+                  {appliedCoupon && (
+                    <p className="flow-coupon__success">
+                      {appliedCoupon.code} applied
+                      {typeof appliedCoupon.discountAmountCents === 'number'
+                        ? ` — saves $${(appliedCoupon.discountAmountCents / 100).toFixed(2)}`
+                        : ''}
+                      {typeof appliedCoupon.finalAmountCents === 'number'
+                        ? ` (total $${(appliedCoupon.finalAmountCents / 100).toFixed(2)})`
+                        : ''}
+                    </p>
+                  )}
+                  {couponMessage && !appliedCoupon && (
+                    <p className="flow-coupon__hint" role="status">
+                      {couponMessage}
+                    </p>
+                  )}
                 </div>
                 <p className="hero__stats-note" style={{ marginTop: '1rem' }}>
                   You will complete payment securely with Stripe. Submitting this intake does not guarantee a

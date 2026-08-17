@@ -13,10 +13,31 @@ interface IntakeDraft {
   program?: string
 }
 
+type PatientOrder = {
+  id: string
+  status: string
+  clinicalStatus: string
+  productName: string
+  trackingNumber: string
+  carrier: string
+  createdAt: string
+}
+
+function formatClinicalStatus(value: string) {
+  return value.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+}
+
+function formatOrderStatus(value: string) {
+  return value.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+}
+
 export default function PatientCenter() {
   const [session, setSession] = useState<PatientSession | null>(null)
   const [draft, setDraft] = useState<IntakeDraft | null>(null)
   const [paid, setPaid] = useState(false)
+  const [orders, setOrders] = useState<PatientOrder[]>([])
+  const [ordersLoading, setOrdersLoading] = useState(false)
+  const [ordersError, setOrdersError] = useState('')
 
   useEffect(() => {
     try {
@@ -30,6 +51,38 @@ export default function PatientCenter() {
       setPaid(false)
     }
   }, [])
+
+  const lookupEmail = (draft?.email || session?.email || '').trim()
+
+  useEffect(() => {
+    if (!lookupEmail) return
+    let cancelled = false
+    setOrdersLoading(true)
+    setOrdersError('')
+    fetch(`/api/orders?email=${encodeURIComponent(lookupEmail)}`)
+      .then(async (res) => {
+        const data = (await res.json().catch(() => ({}))) as { orders?: PatientOrder[]; error?: string }
+        if (cancelled) return
+        if (!res.ok) {
+          setOrders([])
+          setOrdersError(data.error || 'We could not load your orders right now.')
+          return
+        }
+        setOrders(Array.isArray(data.orders) ? data.orders : [])
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setOrders([])
+          setOrdersError('We could not load your orders right now.')
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setOrdersLoading(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [lookupEmail])
 
   if (!session && !draft) {
     return (
@@ -50,6 +103,7 @@ export default function PatientCenter() {
 
   const name = draft?.name?.split(' ')[0] || session?.email?.split('@')[0] || 'Member'
   const program = draft?.program || 'Your care plan'
+  const latestOrder = orders[0]
 
   return (
     <div className="portal">
@@ -62,16 +116,49 @@ export default function PatientCenter() {
         <div className="portal-grid">
           <article className="portal-card">
             <h2>Current program</h2>
-            <p className="portal-stat">{program}</p>
+            <p className="portal-stat">{latestOrder?.productName || program}</p>
             <span className="pill">{paid ? 'Payment received' : 'Pending clinician review'}</span>
           </article>
           <article className="portal-card">
-            <h2>Next step</h2>
+            <h2>Clinical review</h2>
+            <p className="portal-stat">
+              {latestOrder ? formatClinicalStatus(latestOrder.clinicalStatus) : paid ? 'In review' : 'Pending'}
+            </p>
             <p>
               {paid
                 ? 'A licensed clinician will review your intake. Watch your email for updates, typically within 24 hours.*'
                 : 'Watch your email for review updates. Typical review window is within 24 hours.*'}
             </p>
+          </article>
+          <article className="portal-card portal-card--wide">
+            <h2>Orders &amp; tracking</h2>
+            {ordersLoading && <p>Loading your orders…</p>}
+            {!ordersLoading && ordersError && <p>{ordersError}</p>}
+            {!ordersLoading && !ordersError && orders.length === 0 && (
+              <p>No orders found yet for this device. Complete checkout to see clinician review and shipping updates here.</p>
+            )}
+            {!ordersLoading && orders.length > 0 && (
+              <ul className="portal-order-list">
+                {orders.map((order) => (
+                  <li key={order.id || `${order.productName}-${order.createdAt}`} className="portal-order-item">
+                    <div>
+                      <strong>{order.productName}</strong>
+                      <p>
+                        Order {formatOrderStatus(order.status)} · Clinical {formatClinicalStatus(order.clinicalStatus)}
+                      </p>
+                    </div>
+                    {order.trackingNumber ? (
+                      <p className="portal-order-tracking">
+                        {order.carrier ? `${order.carrier}: ` : 'Tracking: '}
+                        {order.trackingNumber}
+                      </p>
+                    ) : (
+                      <p className="portal-order-tracking">Tracking will appear after fulfillment.</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
           </article>
           <article className="portal-card portal-card--wide">
             <h2>Care team</h2>

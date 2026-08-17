@@ -15,6 +15,7 @@ export type CheckoutRequestBody = {
   programSlug: CheckoutProgramSlug
   patientInfo: CheckoutPatientInfo
   intakeAnswers: Record<string, string | boolean | number>
+  couponCode?: string
 }
 
 export function isCheckoutProgramSlug(value: unknown): value is CheckoutProgramSlug {
