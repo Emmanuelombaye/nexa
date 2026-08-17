@@ -1,52 +1,217 @@
-/* Pax FAQ / knowall — weight-loss explore (vial image untouched) */
+/* Program FAQ / knowall — consult-rail + accordion (self-contained layout) */
 
-.yx-clone .pax-knowall {
+.yx-clone .pax-knowall,
+.program-explore .pax-knowall {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
   background:
-    radial-gradient(90% 70% at 12% 8%, color-mix(in oklch, var(--dune) 18%, transparent), transparent 55%),
+    radial-gradient(70% 55% at 8% 0%, color-mix(in oklch, var(--teal, var(--terracotta)) 14%, transparent), transparent 58%),
+    radial-gradient(55% 45% at 92% 100%, color-mix(in oklch, var(--navy, var(--forest)) 6%, transparent), transparent 60%),
     var(--sand) !important;
+  padding: clamp(3.5rem, 7vw, 5.5rem) 1rem !important;
 }
 
+.yx-clone .pax-knowall .pax-knowall__inner,
+.program-explore .pax-knowall .pax-knowall__inner,
 .yx-clone .pax-knowall .retro-knowall__inner {
-  gap: clamp(1.75rem, 4vw, 3rem) !important;
-  align-items: start !important;
+  width: min(100%, 72rem);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  align-items: stretch !important;
+}
+
+.yx-clone .pax-knowall .pax-knowall__head {
+  max-width: 46rem;
 }
 
 .yx-clone .pax-knowall .pax-knowall__eyebrow {
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.75rem;
   font-family: var(--font-body, inherit);
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--terracotta);
+  color: var(--teal, var(--terracotta));
 }
 
-.yx-clone .pax-knowall .retro-knowall__heading {
-  margin: 0 0 1.25rem !important;
-  max-width: 16ch;
+.yx-clone .pax-knowall .pax-knowall__head-row {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 900px) {
+  .yx-clone .pax-knowall .pax-knowall__head-row {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: end;
+    gap: 2rem;
+    max-width: none;
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__head {
+    max-width: none;
+  }
+}
+
+.yx-clone .pax-knowall .retro-knowall__heading,
+.yx-clone .pax-knowall .pax-knowall__heading {
+  margin: 0 !important;
+  max-width: 14ch;
   font-family: var(--font-display) !important;
-  font-size: clamp(1.85rem, 3.2vw, 2.65rem) !important;
+  font-size: clamp(2rem, 4vw, 3rem) !important;
   font-weight: 400 !important;
-  letter-spacing: var(--tracking-display, -0.02em) !important;
-  line-height: 1.08 !important;
-  color: var(--forest) !important;
+  letter-spacing: var(--tracking-display, -0.03em) !important;
+  line-height: 1.05 !important;
+  color: var(--navy, var(--forest)) !important;
 }
 
+.yx-clone .pax-knowall .pax-knowall__lede {
+  margin: 0;
+  max-width: 36ch;
+  font-family: var(--font-body, inherit);
+  font-size: clamp(0.98rem, 1.4vw, 1.1rem);
+  line-height: 1.55;
+  color: color-mix(in oklch, var(--navy, var(--forest)) 68%, transparent);
+}
+
+.yx-clone .pax-knowall .pax-knowall__body {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .yx-clone .pax-knowall .pax-knowall__body {
+    grid-template-columns: minmax(15.5rem, 19rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+}
+
+/* Product consult rail */
+.yx-clone .pax-knowall .pax-knowall__rail {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem 1.2rem 1.35rem;
+  border-radius: 1.35rem;
+  background:
+    linear-gradient(165deg, color-mix(in oklch, var(--navy, var(--forest)) 92%, var(--teal, var(--terracotta))) 0%, var(--navy, var(--forest)) 72%);
+  color: var(--cloud, #fafaf8);
+  box-shadow:
+    0 1px 0 color-mix(in oklch, #fff 12%, transparent) inset,
+    0 22px 40px -28px color-mix(in oklch, var(--navy, var(--forest)) 55%, transparent);
+}
+
+@media (min-width: 960px) {
+  .yx-clone .pax-knowall .pax-knowall__rail {
+    position: sticky;
+    top: 5.5rem;
+  }
+}
+
+.yx-clone .pax-knowall .pax-knowall__rail-stage {
+  display: grid;
+  place-items: center;
+  min-height: 10.5rem;
+  border-radius: 1rem;
+  background: color-mix(in oklch, #fff 7%, transparent);
+  overflow: hidden;
+}
+
+.yx-clone .pax-knowall .pax-knowall__rail-vial {
+  display: block;
+  width: min(8.25rem, 52%);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.4));
+  transform: rotate(-3deg);
+}
+
+.yx-clone .pax-knowall .pax-knowall__rail-copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.yx-clone .pax-knowall .pax-knowall__rail-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in oklch, var(--teal, var(--terracotta)) 85%, white);
+}
+
+.yx-clone .pax-knowall .pax-knowall__rail-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #fafaf8;
+}
+
+.yx-clone .pax-knowall .pax-knowall__rail-note {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: color-mix(in oklch, #fafaf8 72%, transparent);
+}
+
+.yx-clone .pax-knowall .pax-knowall__cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 3rem !important;
+  height: auto !important;
+  margin-top: 0.25rem !important;
+  padding: 0 1.25rem !important;
+  border: none !important;
+  border-radius: 999px !important;
+  background: var(--teal, var(--terracotta)) !important;
+  color: var(--navy, var(--forest)) !important;
+  box-shadow: none !important;
+  font-family: var(--font-display) !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: transform 0.25s ease, opacity 0.2s ease, background 0.2s ease !important;
+}
+
+.yx-clone .pax-knowall .pax-knowall__cta:hover,
+.yx-clone .pax-knowall .pax-knowall__cta:active {
+  opacity: 0.94;
+  transform: translateY(-1px) !important;
+  background: color-mix(in oklch, var(--teal, var(--terracotta)) 88%, white) !important;
+}
+
+.yx-clone .pax-knowall .pax-knowall__more {
+  display: inline-flex;
+  justify-content: center;
+  margin-top: 0.15rem;
+  font-size: 0.92rem;
+  color: color-mix(in oklch, #fafaf8 78%, transparent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.yx-clone .pax-knowall .pax-knowall__more:hover {
+  color: #fff;
+}
+
+/* Hide legacy oversized vial if any residual markup remains */
 .yx-clone .pax-knowall .retro-knowall__vial,
 .yx-clone .pax-knowall .retro-knowall__vial--wl {
-  display: block !important;
-  width: min(280px, 88%) !important;
-  max-width: 280px !important;
-  height: auto !important;
-  margin: 0.5rem 0 0 !important;
-  border-radius: 18px;
-  object-fit: contain;
+  display: none !important;
 }
 
+/* Accordion */
 .yx-clone .pax-knowall .pax-knowall__list {
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.75rem !important;
+  gap: 0.65rem !important;
   list-style: none !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -55,19 +220,17 @@
 .yx-clone .pax-knowall .pax-knowall__item {
   --i: 0;
   position: relative;
-  border: 1px solid color-mix(in oklch, var(--forest) 12%, transparent) !important;
-  border-bottom: 1px solid color-mix(in oklch, var(--forest) 12%, transparent) !important;
-  border-radius: 18px !important;
+  border: 1px solid color-mix(in oklch, var(--navy, var(--forest)) 12%, transparent) !important;
+  border-radius: 1.05rem !important;
   background:
     linear-gradient(
       135deg,
-      color-mix(in oklch, var(--dune) 16%, transparent) 0%,
-      transparent 48%
-    ),
-    #fff !important;
+      color-mix(in oklch, var(--cloud, #fafaf8) 88%, white) 0%,
+      color-mix(in oklch, var(--sand) 40%, white) 100%
+    ) !important;
   box-shadow:
-    0 1px 0 color-mix(in oklch, #fff 65%, transparent) inset,
-    0 10px 26px -16px color-mix(in oklch, var(--forest) 22%, transparent) !important;
+    0 1px 0 color-mix(in oklch, #fff 70%, transparent) inset,
+    0 10px 24px -18px color-mix(in oklch, var(--navy, var(--forest)) 20%, transparent) !important;
   overflow: hidden;
   isolation: isolate;
   transition:
@@ -83,45 +246,40 @@
   content: '';
   position: absolute;
   z-index: 1;
-  inset: 10px auto 10px 0;
+  inset: 12px auto 12px 0;
   width: 3px;
   border-radius: 0 3px 3px 0;
   background: linear-gradient(
     180deg,
-    var(--terracotta),
-    color-mix(in oklch, var(--forest) 75%, var(--dune))
+    var(--teal, var(--terracotta)),
+    color-mix(in oklch, var(--navy, var(--forest)) 70%, var(--teal, var(--terracotta)))
   );
   opacity: 0;
   transition: opacity 0.3s ease, inset 0.3s ease;
 }
 
 .yx-clone .pax-knowall .pax-knowall__item[data-open='true'] {
-  border-color: color-mix(in oklch, var(--forest) 24%, transparent) !important;
+  border-color: color-mix(in oklch, var(--navy, var(--forest)) 22%, transparent) !important;
   background:
     linear-gradient(
       145deg,
-      color-mix(in oklch, var(--dune) 28%, transparent) 0%,
-      transparent 50%
+      color-mix(in oklch, var(--teal, var(--terracotta)) 10%, transparent) 0%,
+      transparent 46%
     ),
-    linear-gradient(
-      180deg,
-      #fff 0%,
-      color-mix(in oklch, var(--sand) 90%, white) 100%
-    ) !important;
+    #fff !important;
   box-shadow:
     0 1px 0 color-mix(in oklch, #fff 75%, transparent) inset,
-    0 16px 34px -18px color-mix(in oklch, var(--forest) 30%, transparent),
-    0 6px 14px -10px color-mix(in oklch, var(--terracotta) 18%, transparent) !important;
+    0 16px 34px -18px color-mix(in oklch, var(--navy, var(--forest)) 26%, transparent) !important;
 }
 
 .yx-clone .pax-knowall .pax-knowall__item[data-open='true']::before {
   opacity: 1;
-  inset: 8px auto 8px 0;
+  inset: 10px auto 10px 0;
 }
 
 .yx-clone .pax-knowall .pax-knowall__item:hover {
   transform: translateY(-2px);
-  border-color: color-mix(in oklch, var(--forest) 22%, transparent) !important;
+  border-color: color-mix(in oklch, var(--navy, var(--forest)) 20%, transparent) !important;
 }
 
 .yx-clone .pax-knowall .pax-knowall__toggle {
@@ -130,12 +288,12 @@
   align-items: start !important;
   gap: 0.85rem !important;
   width: 100% !important;
-  padding: 1.05rem 1.15rem 1.05rem 1.25rem !important;
+  padding: 1.05rem 1.15rem 1.05rem 1.2rem !important;
   background: transparent !important;
   border: 0 !important;
   text-align: left !important;
   font: inherit !important;
-  color: var(--forest) !important;
+  color: var(--navy, var(--forest)) !important;
   cursor: pointer !important;
 }
 
@@ -144,25 +302,21 @@
   align-items: center;
   justify-content: center;
   min-width: 2rem;
-  margin-top: 0.15rem;
+  margin-top: 0.2rem;
   font-family: var(--font-display);
   font-size: 0.72rem;
   letter-spacing: 0.1em;
-  color: var(--terracotta);
+  color: var(--teal, var(--terracotta));
   line-height: 1;
 }
 
 .yx-clone .pax-knowall .retro-knowall__question {
   font-family: var(--font-display) !important;
-  font-size: clamp(1.02rem, 1.6vw, 1.18rem) !important;
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem) !important;
   font-weight: 400 !important;
-  letter-spacing: var(--tracking-display, -0.01em) !important;
+  letter-spacing: var(--tracking-display, -0.015em) !important;
   line-height: 1.28 !important;
-  color: var(--forest) !important;
-}
-
-.yx-clone .pax-knowall .pax-knowall__item[data-open='true'] .retro-knowall__question {
-  color: var(--forest) !important;
+  color: var(--navy, var(--forest)) !important;
 }
 
 .yx-clone .pax-knowall .pax-knowall__icon {
@@ -173,11 +327,9 @@
   height: 2rem !important;
   margin-top: 0.05rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in oklch, var(--forest) 14%, transparent);
-  background:
-    radial-gradient(circle at 30% 25%, color-mix(in oklch, #fff 65%, transparent), transparent 55%),
-    color-mix(in oklch, var(--sand) 70%, var(--dune));
-  color: var(--forest) !important;
+  border: 1px solid color-mix(in oklch, var(--navy, var(--forest)) 14%, transparent);
+  background: color-mix(in oklch, var(--sand) 55%, white);
+  color: var(--navy, var(--forest)) !important;
   font-size: 1.15rem !important;
   font-weight: 400 !important;
   line-height: 1 !important;
@@ -190,8 +342,8 @@
 }
 
 .yx-clone .pax-knowall .pax-knowall__item[data-open='true'] .pax-knowall__icon {
-  background: var(--forest);
-  border-color: var(--forest);
+  background: var(--navy, var(--forest));
+  border-color: var(--navy, var(--forest));
   color: var(--sand) !important;
   transform: rotate(180deg);
 }
@@ -205,59 +357,24 @@
 }
 
 .yx-clone .pax-knowall .retro-knowall__panel {
-  padding: 0 1.15rem 0 3.1rem !important;
-  color: color-mix(in oklch, var(--forest) 72%, transparent) !important;
-  font-size: 0.94rem !important;
+  padding: 0 1.15rem 0 3.05rem !important;
+  color: color-mix(in oklch, var(--navy, var(--forest)) 72%, transparent) !important;
+  font-size: 0.95rem !important;
   line-height: 1.58 !important;
 }
 
 .yx-clone .pax-knowall .pax-knowall__item[data-open='true'] .retro-knowall__panel {
-  padding-bottom: 1.2rem !important;
+  padding-bottom: 1.15rem !important;
 }
 
 .yx-clone .pax-knowall .pax-knowall__item[data-open='true'] .pax-knowall__toggle {
-  padding-bottom: 0.55rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 .yx-clone .pax-knowall .retro-knowall__answer p {
   margin: 0 !important;
-  max-width: 48ch;
+  max-width: 52ch;
   font-family: var(--font-body, inherit) !important;
-}
-
-.yx-clone .pax-knowall .pax-knowall__cta {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  min-height: 3.25rem !important;
-  height: auto !important;
-  margin-top: 1rem !important;
-  padding: 0 1.5rem !important;
-  border: none !important;
-  border-radius: 999px !important;
-  background: var(--btn-bg, var(--forest)) !important;
-  color: var(--btn-text, var(--sand)) !important;
-  box-shadow:
-    0 1px 0 color-mix(in oklch, #fff 18%, transparent) inset,
-    0 10px 24px -12px color-mix(in oklch, var(--forest) 45%, transparent) !important;
-  font-family: var(--font-display) !important;
-  font-size: 1.05rem !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.01em !important;
-  cursor: pointer;
-  transition: transform 0.25s ease, opacity 0.2s ease, box-shadow 0.25s ease !important;
-  animation: pax-knowall-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 0.32s;
-}
-
-.yx-clone .pax-knowall .pax-knowall__cta:hover,
-.yx-clone .pax-knowall .pax-knowall__cta:active {
-  opacity: var(--btn-hover-opacity, 0.92);
-  transform: translateY(-2px) !important;
-  box-shadow:
-    0 1px 0 color-mix(in oklch, #fff 22%, transparent) inset,
-    0 14px 28px -12px color-mix(in oklch, var(--forest) 50%, transparent) !important;
 }
 
 @keyframes pax-knowall-rise {
@@ -272,8 +389,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .yx-clone .pax-knowall .pax-knowall__item,
-  .yx-clone .pax-knowall .pax-knowall__cta {
+  .yx-clone .pax-knowall .pax-knowall__item {
     animation: none;
   }
 
@@ -283,14 +399,54 @@
   }
 }
 
-@media (max-width: 900px) {
-  .yx-clone .pax-knowall .retro-knowall__heading {
+@media (max-width: 959px) {
+  .yx-clone .pax-knowall .retro-knowall__heading,
+  .yx-clone .pax-knowall .pax-knowall__heading {
     max-width: none;
   }
 
-  .yx-clone .pax-knowall .retro-knowall__vial,
-  .yx-clone .pax-knowall .retro-knowall__vial--wl {
-    margin-inline: auto !important;
+  /* Questions first on small screens — rail is supporting context */
+  .yx-clone .pax-knowall .pax-knowall__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__list {
+    order: 1;
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__rail {
+    order: 2;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'stage copy'
+      'cta cta'
+      'more more';
+    align-items: center;
+    column-gap: 1rem;
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__rail-stage {
+    grid-area: stage;
+    min-height: 7.5rem;
+    width: 7.25rem;
+    padding: 0.5rem;
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__rail-vial {
+    width: min(5.25rem, 78%);
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__rail-copy {
+    grid-area: copy;
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__cta {
+    grid-area: cta;
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__more {
+    grid-area: more;
   }
 
   .yx-clone .pax-knowall .retro-knowall__panel {
@@ -298,7 +454,21 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 560px) {
+  .yx-clone .pax-knowall .pax-knowall__rail {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'stage'
+      'copy'
+      'cta'
+      'more';
+  }
+
+  .yx-clone .pax-knowall .pax-knowall__rail-stage {
+    width: 100%;
+    min-height: 9rem;
+  }
+
   .yx-clone .pax-knowall .pax-knowall__toggle {
     gap: 0.65rem !important;
     padding: 0.95rem 1rem 0.95rem 1.05rem !important;

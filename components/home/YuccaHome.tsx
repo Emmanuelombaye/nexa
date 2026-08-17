@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useState } from 'react'
 import {
   HERO_WORDS,
   HOME_FAQS,
@@ -84,7 +84,7 @@ function TreatmentsSection() {
           <h2>
             <em>Personalized treatments</em> reviewed by licensed providers
           </h2>
-          <p>Choose Semaglutide or Tirzepatide, then complete a medical intake.</p>
+          <p>Choose Tirzepatide or Semaglutide, then complete a medical intake.</p>
         </div>
 
         <div className="goal-tablist-wrap">
@@ -98,7 +98,6 @@ function TreatmentsSection() {
                   role="tab"
                   aria-selected={selected}
                   className={selected ? 'is-active' : undefined}
-                  style={selected ? ({ backgroundColor: treatment.toneSoft, borderColor: 'var(--navy)' } as CSSProperties) : undefined}
                   onClick={() => setActiveId(treatment.id)}
                 >
                   {treatment.label}

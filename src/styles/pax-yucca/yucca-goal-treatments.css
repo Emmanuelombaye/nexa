@@ -185,34 +185,48 @@
 
 .goal-product-top {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 0.5rem;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 0.75rem 1rem;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .goal-product-vial {
   position: relative;
-  height: 168px;
+  height: 196px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(ellipse at 50% 88%, color-mix(in oklch, var(--teal) 22%, transparent) 0%, transparent 62%),
+    linear-gradient(165deg, color-mix(in oklch, var(--sand) 88%, var(--dune)) 0%, color-mix(in oklch, var(--dune) 35%, var(--sand)) 100%);
+  border: 1.5px solid color-mix(in oklch, var(--forest) 14%, transparent);
+  overflow: hidden;
 }
 
 .goal-vial {
-  position: absolute;
-  height: 100%;
+  position: relative;
+  height: 92%;
   width: auto;
-  max-width: 100%;
+  max-width: 72%;
   object-fit: contain;
-  object-position: left center;
+  object-position: bottom center;
+  filter: drop-shadow(0 10px 18px color-mix(in oklch, var(--forest) 18%, transparent));
 }
 
 .goal-vial--back {
-  left: 28%;
+  position: absolute;
+  left: 18%;
+  bottom: 4%;
   z-index: 1;
-  opacity: 0.95;
+  height: 78%;
+  max-width: 48%;
+  opacity: 0.88;
 }
 
 .goal-vial--front {
-  left: 0;
+  position: relative;
   z-index: 2;
 }
 
@@ -309,9 +323,9 @@
 
   .goal-cutouts {
     display: flex;
-    min-height: 280px;
-    height: 42vw;
-    max-height: 360px;
+    min-height: 220px;
+    height: 36vw;
+    max-height: 280px;
     z-index: 0;
   }
 
@@ -322,7 +336,7 @@
   }
 
   .goal-cutouts-pair {
-    width: min(92%, 420px);
+    width: min(88%, 380px);
     left: 50%;
     right: auto;
     transform: translateX(-50%);
@@ -331,28 +345,31 @@
   .goal-product-card {
     position: relative;
     z-index: 2;
-    margin-top: -4.5rem;
+    margin-top: -3.25rem;
     margin-bottom: 1.5rem;
   }
 
-  .goal-tablist {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    border-radius: 1.25rem;
+  .goal-tablist-wrap {
+    margin-bottom: 0.85rem;
   }
 
-  .goal-tablist::-webkit-scrollbar {
-    display: none;
+  .goal-tablist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    border-radius: 1.15rem;
+    gap: 4px;
   }
 
   .goal-tablist button {
-    flex: 0 0 auto;
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    padding: 0.7rem 0.55rem;
+    font-size: 0.9rem;
+    text-align: center;
   }
 }
 
@@ -362,12 +379,20 @@
   }
 
   .goal-product-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.65rem;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 0.7rem;
+    align-items: stretch;
   }
 
   .goal-product-vial {
-    height: 140px;
+    height: 168px;
+  }
+
+  .goal-product-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.45rem;
   }
 
   .goal-product-ctas {

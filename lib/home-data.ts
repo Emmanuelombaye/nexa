@@ -15,27 +15,8 @@ export const HOME_WHY_MEDIA = {
 
 export const HOME_CLOSING_IMAGE = `${YUCCA}/cta-personalized-treatments-wellness-portrait-yucca-health.avif`
 
+/** Yucca Treatments order: Tirzepatide first, then Semaglutide */
 export const HOME_TREATMENTS = [
-  {
-    id: 'semaglutide',
-    label: 'Semaglutide',
-    tone: 'var(--navy)',
-    toneSoft: 'color-mix(in oklch, var(--navy) 18%, transparent)',
-    badge: 'GLP-1',
-    badgeTone: 'var(--teal)',
-    badgeSoft: 'color-mix(in oklch, var(--teal) 18%, transparent)',
-    title: 'Personalized Semaglutide',
-    description:
-      'A weekly GLP-1 injection that may support weight management by helping regulate appetite — prescribed only after a licensed provider reviews your intake.',
-    detail: 'GLP-1 (Semaglutide) · Provider-guided dosing.',
-    price: '$0',
-    period: ' to start',
-    priceNote: 'Itemized quote before enrollment',
-    vials: ['/images/nexa/vial-semaglutide.webp?v=4'],
-    cutoutPair: `${YUCCA}/pax-glp1-couple-cutout.avif`,
-    learnHref: '/semaglutide',
-    program: 'semaglutide',
-  },
   {
     id: 'tirzepatide',
     label: 'Tirzepatide',
@@ -55,6 +36,26 @@ export const HOME_TREATMENTS = [
     cutoutPair: `${YUCCA}/pax-glp1-couple-cutout-tirz.avif`,
     learnHref: '/tirzepatide',
     program: 'tirzepatide',
+  },
+  {
+    id: 'semaglutide',
+    label: 'Semaglutide',
+    tone: 'var(--navy)',
+    toneSoft: 'color-mix(in oklch, var(--navy) 18%, transparent)',
+    badge: 'GLP-1',
+    badgeTone: 'var(--teal)',
+    badgeSoft: 'color-mix(in oklch, var(--teal) 18%, transparent)',
+    title: 'Personalized Semaglutide',
+    description:
+      'A weekly GLP-1 injection that may support weight management by helping regulate appetite — prescribed only after a licensed provider reviews your intake.',
+    detail: 'GLP-1 (Semaglutide) · Provider-guided dosing.',
+    price: '$0',
+    period: ' to start',
+    priceNote: 'Itemized quote before enrollment',
+    vials: ['/images/nexa/vial-semaglutide.webp?v=4'],
+    cutoutPair: `${YUCCA}/pax-glp1-couple-cutout.avif`,
+    learnHref: '/semaglutide',
+    program: 'semaglutide',
   },
 ] as const
 

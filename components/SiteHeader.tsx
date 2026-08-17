@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { shopLinks } from '../lib/site-data'
 
 const midLinks = [
   { href: '/how-it-works', label: 'How It Works' },
@@ -12,18 +11,6 @@ const midLinks = [
 ]
 
 const endLinks = [{ href: '/faq', label: 'FAQ' }]
-
-interface NavLinkItem {
-  href: string
-  label: string
-}
-
-interface NavDropdownProps {
-  label: string
-  href: string
-  items: NavLinkItem[]
-  align?: 'left' | 'right'
-}
 
 interface MenuRow {
   href: string
@@ -35,10 +22,11 @@ interface MenuRow {
   allThumbs?: string[]
 }
 
+/** Yucca Treatments mega order: Tirzepatide, Semaglutide, then All */
 const treatmentMenuRows: MenuRow[] = [
   {
     href: '/tirzepatide',
-    heading: 'Tirzepatide',
+    heading: 'GLP-1 + GIP (Tirzepatide)',
     caption: 'Weight Loss',
     thumb: '/images/nexa/vial-tirzepatide.webp?v=4',
     thumbAlt: 'Personalized Tirzepatide vial',
@@ -46,7 +34,7 @@ const treatmentMenuRows: MenuRow[] = [
   },
   {
     href: '/semaglutide',
-    heading: 'Semaglutide',
+    heading: 'GLP-1 (Semaglutide)',
     caption: 'Weight Loss',
     thumb: '/images/nexa/vial-semaglutide.webp?v=4',
     thumbAlt: 'Personalized Semaglutide vial',
@@ -57,9 +45,9 @@ const treatmentMenuRows: MenuRow[] = [
     heading: 'All Treatments',
     caption: 'Explore all options',
     allThumbs: [
-      '/images/nexa/vial-semaglutide.webp?v=4',
       '/images/nexa/vial-tirzepatide.webp?v=4',
       '/images/nexa/vial-semaglutide.webp?v=4',
+      '/images/nexa/vial-tirzepatide.webp?v=4',
     ],
   },
 ]
@@ -72,10 +60,18 @@ const patientMenuRows: MenuRow[] = [
     thumb: '/images/yucca-clone/hiw/How-it-works.avif',
   },
   {
+    href: '/faq',
+    heading: 'FAQ',
+    caption: 'Clear answers before you begin',
+    thumb: '/images/yucca-clone/hiw/Get-Started.avif',
+  },
+  {
     href: '/check-eligibility',
     heading: 'Check Eligibility',
     caption: 'See if you qualify',
-    thumb: '/images/yucca-clone/hiw/Get-Started.avif',
+    thumb: '/images/nexa/vial-semaglutide.webp?v=4',
+    thumbAlt: '',
+    vialBg: 'linear-gradient(135deg, #e8e4dc 0%, #d4e8e4 100%)',
   },
   {
     href: '/patient-login',
@@ -83,34 +79,12 @@ const patientMenuRows: MenuRow[] = [
     caption: 'Access patient portal',
     thumb: '/images/cards/doctor-female.png',
   },
-  {
-    href: '/pricing',
-    heading: 'Pricing',
-    caption: 'Clear costs before enrollment',
-    thumb: '/images/yucca-clone/hiw/home-delivery.avif',
-  },
 ]
 
-const shopMenuRows: MenuRow[] = [
-  {
-    href: '/semaglutide',
-    heading: 'Semaglutide',
-    caption: 'GLP-1 weight management',
-    thumb: '/images/nexa/vial-semaglutide.webp?v=4',
-    thumbAlt: 'Personalized Semaglutide vial',
-    vialBg: 'linear-gradient(135deg, #e8e4dc 0%, #d4e8e4 100%)',
-  },
-  {
-    href: '/tirzepatide',
-    heading: 'Tirzepatide',
-    caption: 'GLP-1 / GIP weight management',
-    thumb: '/images/nexa/vial-tirzepatide.webp?v=4',
-    thumbAlt: 'Personalized Tirzepatide vial',
-    vialBg: 'linear-gradient(135deg, #d4e8e4 0%, #b8d9d2 100%)',
-  },
-]
+/** Shop dropdown mirrors Yucca Treatments mega — same two vials + All */
+const shopMenuRows: MenuRow[] = treatmentMenuRows
 
-function NavDropdown({ label, href, items, align = 'left' }: NavDropdownProps) {
+function ShopTreatmentsDropdown({ align = 'right' }: { align?: 'left' | 'right' }) {
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const menuId = useId()
@@ -130,7 +104,7 @@ function NavDropdown({ label, href, items, align = 'left' }: NavDropdownProps) {
 
   const scheduleClose = () => {
     clearCloseTimer()
-    closeTimer.current = setTimeout(() => setOpen(false), 120)
+    closeTimer.current = setTimeout(() => setOpen(false), 140)
   }
 
   useEffect(() => () => clearCloseTimer(), [])
@@ -157,13 +131,13 @@ function NavDropdown({ label, href, items, align = 'left' }: NavDropdownProps) {
 
   return (
     <div
-      className={`nav-dropdown ${align === 'right' ? 'nav-dropdown--right' : ''} ${open ? 'is-open' : ''}`}
+      className={`nav-dropdown nav-dropdown--mega ${align === 'right' ? 'nav-dropdown--right' : ''} ${open ? 'is-open' : ''}`}
       ref={rootRef}
       onMouseEnter={openMenu}
       onMouseLeave={scheduleClose}
     >
       <Link
-        href={href}
+        href="/#treatments"
         className="nav-dropdown__trigger"
         aria-haspopup="true"
         aria-expanded={open}
@@ -171,21 +145,72 @@ function NavDropdown({ label, href, items, align = 'left' }: NavDropdownProps) {
         onClick={() => setOpen(false)}
         onFocus={openMenu}
       >
-        <span>{label}</span>
+        <span>Shop</span>
         <span className="nav-dropdown__chevron" aria-hidden="true" />
       </Link>
-      <div id={menuId} className="nav-dropdown__menu" role="menu">
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            role="menuitem"
-            onClick={() => setOpen(false)}
-            onFocus={openMenu}
-          >
-            {item.label}
-          </Link>
-        ))}
+      <div id={menuId} className="nav-dropdown__mega" role="menu">
+        <div className="nav-dropdown__mega-col">
+          <p className="nav-dropdown__mega-label">Explore Treatments</p>
+          <ul className="nav-dropdown__mega-list" role="list">
+            {shopMenuRows.map((row) => (
+              <li key={row.href}>
+                <Link
+                  href={row.href}
+                  className="nav-dropdown__mega-row"
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  onFocus={openMenu}
+                >
+                  {row.allThumbs?.length ? (
+                    <span className="nav-dropdown__mega-thumb nav-dropdown__mega-thumb--all" aria-hidden="true">
+                      {row.allThumbs.map((src, index) => (
+                        <img key={`${src}-${index}`} src={src} alt="" />
+                      ))}
+                    </span>
+                  ) : (
+                    <span
+                      className="nav-dropdown__mega-thumb nav-dropdown__mega-thumb--vial"
+                      style={{ background: row.vialBg }}
+                      aria-hidden="true"
+                    >
+                      <img src={row.thumb} alt="" loading="lazy" />
+                    </span>
+                  )}
+                  <span className="nav-dropdown__mega-text">
+                    <span className="nav-dropdown__mega-heading">{row.heading}</span>
+                    <span className="nav-dropdown__mega-caption">{row.caption}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="nav-dropdown__mega-col nav-dropdown__mega-col--patients">
+          <p className="nav-dropdown__mega-label">For Patients</p>
+          <ul className="nav-dropdown__mega-list" role="list">
+            {patientMenuRows.slice(0, 4).map((row) => (
+              <li key={row.href}>
+                <Link
+                  href={row.href}
+                  className="nav-dropdown__mega-row nav-dropdown__mega-row--plain"
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  onFocus={openMenu}
+                >
+                  {row.thumb ? (
+                    <img src={row.thumb} alt="" aria-hidden="true" className="nav-dropdown__mega-thumb" loading="lazy" />
+                  ) : (
+                    <span className="nav-dropdown__mega-thumb nav-dropdown__mega-thumb--plain" aria-hidden="true" />
+                  )}
+                  <span className="nav-dropdown__mega-text">
+                    <span className="nav-dropdown__mega-heading">{row.heading}</span>
+                    <span className="nav-dropdown__mega-caption">{row.caption}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )
@@ -225,14 +250,14 @@ function MobileMenuRow({ row, onNavigate }: { row: MenuRow; onNavigate: () => vo
 
 export default function SiteHeader({ variant = 'default' }: { variant?: string }) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [drawerMounted, setDrawerMounted] = useState(false)
   const [portalReady, setPortalReady] = useState(false)
   const [portalEl, setPortalEl] = useState<HTMLElement | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const scrollLockY = useRef(0)
+  const menuOpenRef = useRef(false)
+  menuOpenRef.current = menuOpen
 
   useEffect(() => {
     let root = document.getElementById('mobile-nav-root')
@@ -240,6 +265,8 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
       root = document.createElement('div')
       root.id = 'mobile-nav-root'
       document.documentElement.appendChild(root)
+    } else {
+      root.replaceChildren()
     }
     setPortalEl(root)
     setPortalReady(true)
@@ -252,11 +279,6 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const menuOpenRef = useRef(false)
-  const drawerMountedRef = useRef(false)
-  menuOpenRef.current = menuOpen
-  drawerMountedRef.current = drawerMounted
-
   const unlockScroll = () => {
     const html = document.documentElement
     const body = document.body
@@ -267,37 +289,18 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
   }
 
   const closeMenu = () => {
-    if (!menuOpenRef.current && !drawerMountedRef.current) return
+    if (!menuOpenRef.current) return
     setMenuOpen(false)
-    if (closeTimer.current) clearTimeout(closeTimer.current)
-    closeTimer.current = setTimeout(() => {
-      setDrawerMounted(false)
-      unlockScroll()
-      toggleRef.current?.focus({ preventScroll: true })
-      closeTimer.current = null
-    }, 300)
-  }
-
-  const openMenu = () => {
-    if (closeTimer.current) {
-      clearTimeout(closeTimer.current)
-      closeTimer.current = null
-    }
-    setDrawerMounted(true)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setMenuOpen(true))
-    })
   }
 
   const toggleMenu = () => {
-    if (menuOpenRef.current) closeMenu()
-    else openMenu()
+    setMenuOpen((open) => !open)
   }
 
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth >= 1100 && (menuOpenRef.current || drawerMountedRef.current)) {
-        closeMenu()
+      if (window.innerWidth >= 1100 && menuOpenRef.current) {
+        setMenuOpen(false)
       }
     }
     window.addEventListener('resize', onResize)
@@ -308,38 +311,39 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
     if (!menuOpen) return undefined
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeMenu()
+      if (event.key === 'Escape') setMenuOpen(false)
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [menuOpen])
 
   useEffect(() => {
-    if (!drawerMounted) return undefined
-
-    if (menuOpen) {
-      scrollLockY.current = window.scrollY
-      document.documentElement.classList.add('is-nav-locked')
-      document.body.classList.add('is-nav-locked')
-      document.body.style.top = `-${scrollLockY.current}px`
-      const frame = requestAnimationFrame(() => {
-        closeRef.current?.focus({ preventScroll: true })
-      })
-      return () => cancelAnimationFrame(frame)
+    if (!menuOpen) {
+      unlockScroll()
+      return undefined
     }
 
-    return undefined
-  }, [menuOpen, drawerMounted])
+    scrollLockY.current = window.scrollY
+    document.documentElement.classList.add('is-nav-locked')
+    document.body.classList.add('is-nav-locked')
+    document.body.style.top = `-${scrollLockY.current}px`
+    const frame = requestAnimationFrame(() => {
+      closeRef.current?.focus({ preventScroll: true })
+    })
+    return () => {
+      cancelAnimationFrame(frame)
+      unlockScroll()
+    }
+  }, [menuOpen])
 
   useEffect(
     () => () => {
-      if (closeTimer.current) clearTimeout(closeTimer.current)
       unlockScroll()
     },
     [],
   )
 
-  const drawer = drawerMounted ? (
+  const drawer = (
     <div
       id="mobile-nav-panel"
       className={`mobile-nav ${menuOpen ? 'is-open' : ''}`}
@@ -385,18 +389,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
             <p className="mobile-nav__menu-label">Explore Treatments</p>
             <ul className="mobile-nav__menu-list" role="list">
               {treatmentMenuRows.map((row) => (
-                <li key={row.href}>
-                  <MobileMenuRow row={row} onNavigate={closeMenu} />
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="mobile-nav__menu-group">
-            <p className="mobile-nav__menu-label">Shop</p>
-            <ul className="mobile-nav__menu-list" role="list">
-              {shopMenuRows.map((row) => (
-                <li key={row.href}>
+                <li key={`treat-${row.href}`}>
                   <MobileMenuRow row={row} onNavigate={closeMenu} />
                 </li>
               ))}
@@ -407,7 +400,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
             <p className="mobile-nav__menu-label">For Patients</p>
             <ul className="mobile-nav__menu-list" role="list">
               {patientMenuRows.map((row) => (
-                <li key={row.href}>
+                <li key={`patient-${row.href}`}>
                   <MobileMenuRow row={row} onNavigate={closeMenu} />
                 </li>
               ))}
@@ -416,7 +409,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
         </div>
       </div>
     </div>
-  ) : null
+  )
 
   return (
     <div
@@ -462,7 +455,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
                 {item.label}
               </Link>
             ))}
-            <NavDropdown label="Shop" href="/#treatments" items={shopLinks} align="right" />
+            <ShopTreatmentsDropdown align="right" />
             {endLinks.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}
@@ -496,7 +489,7 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
         </div>
       </header>
 
-      {portalReady && portalEl && drawer ? createPortal(drawer, portalEl) : null}
+      {portalReady && portalEl && menuOpen ? createPortal(drawer, portalEl) : null}
     </div>
   )
 }

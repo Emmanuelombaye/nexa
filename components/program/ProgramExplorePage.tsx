@@ -310,15 +310,38 @@ function KnowallSection({ content, programSlug }: { content: ProgramExploreConte
 
   return (
     <section className="retro-knowall pax-knowall" aria-labelledby="retro-knowall-heading" data-knowall="">
-      <div className="retro-knowall__inner">
-        <div className="retro-knowall__left">
+      <div className="retro-knowall__inner pax-knowall__inner">
+        <header className="pax-knowall__head">
           <p className="pax-knowall__eyebrow">Before you begin</p>
-          <h2 id="retro-knowall-heading" className="retro-knowall__heading">
-            Common questions before you begin.
-          </h2>
-          <img className="retro-knowall__vial retro-knowall__vial--wl" src={content.vialImage} alt="" loading="lazy" />
-        </div>
-        <div className="retro-knowall__right">
+          <div className="pax-knowall__head-row">
+            <h2 id="retro-knowall-heading" className="retro-knowall__heading pax-knowall__heading">
+              Straight answers before you enroll.
+            </h2>
+            <p className="pax-knowall__lede">
+              Clinical review, pricing, and delivery — the questions patients ask most before starting{' '}
+              {content.productName}.
+            </p>
+          </div>
+        </header>
+
+        <div className="pax-knowall__body">
+          <aside className="pax-knowall__rail">
+            <div className="pax-knowall__rail-stage" aria-hidden="true">
+              <img className="pax-knowall__rail-vial" src={content.vialImage} alt="" loading="lazy" />
+            </div>
+            <div className="pax-knowall__rail-copy">
+              <p className="pax-knowall__rail-kicker">{content.chip}</p>
+              <p className="pax-knowall__rail-title">{content.productName}</p>
+              <p className="pax-knowall__rail-note">Licensed provider review before any prescription ships.</p>
+            </div>
+            <Link href={`/check-eligibility?program=${programSlug}`} className="retro-knowall__cta pax-knowall__cta">
+              Check Eligibility
+            </Link>
+            <Link href="/faq" className="pax-knowall__more">
+              See all FAQs →
+            </Link>
+          </aside>
+
           <ul className="retro-knowall__list pax-knowall__list" role="list">
             {content.faqs.map((f, i) => {
               const open = openFaq === i
@@ -331,7 +354,12 @@ function KnowallSection({ content, programSlug }: { content: ProgramExploreConte
                   data-step={String(i + 1).padStart(2, '0')}
                   style={{ '--i': i } as CSSProperties}
                 >
-                  <button type="button" className="retro-knowall__toggle pax-knowall__toggle" aria-expanded={open} onClick={() => setOpenFaq(open ? -1 : i)}>
+                  <button
+                    type="button"
+                    className="retro-knowall__toggle pax-knowall__toggle"
+                    aria-expanded={open}
+                    onClick={() => setOpenFaq(open ? -1 : i)}
+                  >
                     <span className="pax-knowall__n" aria-hidden="true">
                       {String(i + 1).padStart(2, '0')}
                     </span>
@@ -351,9 +379,6 @@ function KnowallSection({ content, programSlug }: { content: ProgramExploreConte
               )
             })}
           </ul>
-          <Link href={`/check-eligibility?program=${programSlug}`} className="retro-knowall__cta pax-knowall__cta">
-            Check Eligibility
-          </Link>
         </div>
       </div>
     </section>

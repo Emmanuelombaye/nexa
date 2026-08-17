@@ -441,3 +441,23 @@
 .program-explore .explore-hero-guarantee-card::before {
   content: none !important;
 }
+
+/* Knowall rail CTA — teal on navy (overrides shared marketing CTA chrome) */
+.program-explore .pax-knowall .pax-knowall__rail .pax-knowall__cta,
+.program-explore.yx-clone .pax-knowall .pax-knowall__rail .pax-knowall__cta {
+  background: var(--teal) !important;
+  color: var(--navy) !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 999px !important;
+  transform: none !important;
+}
+
+.program-explore .pax-knowall .pax-knowall__rail .pax-knowall__cta:hover,
+.program-explore.yx-clone .pax-knowall .pax-knowall__rail .pax-knowall__cta:hover,
+.program-explore .pax-knowall .pax-knowall__rail .pax-knowall__cta:active,
+.program-explore.yx-clone .pax-knowall .pax-knowall__rail .pax-knowall__cta:active {
+  background: color-mix(in oklch, var(--teal) 88%, white) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: none !important;
+}
