@@ -10,6 +10,8 @@ interface SiteImageProps {
   className?: string
   sizes?: string
   quality?: number
+  objectFit?: 'cover' | 'contain'
+  objectPosition?: string
 }
 
 export default function SiteImage({
@@ -22,6 +24,8 @@ export default function SiteImage({
   className = '',
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px',
   quality = 72,
+  objectFit = 'cover',
+  objectPosition = 'center',
 }: SiteImageProps) {
   if (fill) {
     return (
@@ -33,7 +37,7 @@ export default function SiteImage({
         quality={quality}
         priority={priority}
         fill
-        style={{ objectFit: 'cover' }}
+        style={{ objectFit, objectPosition }}
       />
     )
   }

@@ -339,6 +339,8 @@ export default function EligibilityForm() {
                       fill
                       sizes="(max-width: 640px) 100vw, 300px"
                       quality={75}
+                      objectFit="contain"
+                      objectPosition="center center"
                     />
                   )}
                   {selected && (

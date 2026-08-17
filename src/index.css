@@ -3511,20 +3511,26 @@ body.is-nav-locked .mobile-sticky-cta {
 .flow-treat-card__media {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  height: 125px;
-  background-color: var(--sand);
+  height: 168px;
+  flex: 0 0 auto;
+  background:
+    linear-gradient(180deg, rgba(245, 241, 235, 0.65) 0%, var(--sand) 100%);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.flow-treat-card__media img {
-  object-fit: cover;
-  object-position: center 25%;
+.flow-treat-card__media img,
+.flow-treat-card__media .site-image {
+  object-fit: contain;
+  object-position: center center;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.flow-treat-card:hover .flow-treat-card__media img {
-  transform: scale(1.05);
+.flow-treat-card:hover .flow-treat-card__media img,
+.flow-treat-card:hover .flow-treat-card__media .site-image {
+  transform: scale(1.02);
 }
 
 .flow-treat-card__selected-badge {
@@ -6926,6 +6932,72 @@ html.js [data-reveal="tilt"]:not(.is-in) {
   margin-top: 1.75rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--line);
+}
+
+.flow-nav-actions .btn:only-child {
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .eligibility-layout {
+    gap: 1.35rem;
+  }
+
+  .eligibility-layout__copy h1 {
+    font-size: clamp(1.85rem, 8.5vw, 2.35rem);
+  }
+
+  .flow-treats-grid {
+    gap: 0.85rem;
+  }
+
+  .flow-treat-card__media {
+    height: 152px;
+  }
+
+  .flow-treat-card__content {
+    padding: 0.85rem 0.9rem 0.95rem;
+  }
+
+  .flow-treat-card__cat {
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    padding: 0.18rem 0.5rem;
+  }
+
+  .flow-treat-card__title {
+    font-size: 1rem;
+  }
+
+  .flow-stepper-container {
+    padding: 1.15rem 1rem 1.35rem;
+    border-radius: 1.1rem;
+    margin-top: 0.75rem;
+  }
+
+  .flow-nav-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .flow-nav-actions .btn {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .flow-coupon__row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .flow-coupon__row .btn {
+    width: 100%;
+  }
+
+  .pricing-page {
+    padding: 2rem 0 calc(3.5rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* State Availability Component Top-Notch Styling */
