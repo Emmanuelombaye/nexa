@@ -2829,6 +2829,14 @@ body.is-nav-locked .mobile-sticky-cta {
   font-size: 0.55rem;
 }
 
+.footer__trust-mark--pending {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, #4daa9a 70%, #fff);
+  border-color: color-mix(in srgb, #4daa9a 35%, rgba(255, 255, 255, 0.22));
+  background: color-mix(in srgb, #4daa9a 12%, rgba(255, 255, 255, 0.04));
+}
+
 .footer__trust-kicker {
   display: block;
   font-size: 0.68rem;

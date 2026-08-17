@@ -91,10 +91,12 @@ export default function SiteFooter() {
 
         <div className="container footer__trust" aria-label="Trust signals">
           <div className="footer__trust-item">
-            <img src="/images/yucca-clone/legit-script-img.avif" alt="" width={40} height={40} loading="lazy" />
+            <span className="footer__trust-mark footer__trust-mark--pending" aria-hidden="true">
+              LS
+            </span>
             <div>
-              <span className="footer__trust-kicker">Verified</span>
-              <strong>LegitScript Certified</strong>
+              <span className="footer__trust-kicker">Pending review</span>
+              <strong>LegitScript certification — not yet verified</strong>
             </div>
           </div>
           <div className="footer__trust-item">
