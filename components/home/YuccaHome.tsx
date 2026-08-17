@@ -20,51 +20,149 @@ function useHeroTyper() {
   return HERO_WORDS[index]
 }
 
+function HeroChevron() {
+  return (
+    <span className="nexa-hims-hero__chevron" aria-hidden="true">
+      <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.2 2.2L8.2 6.2L4.2 10.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  )
+}
+
 function HeroSection() {
   const word = useHeroTyper()
 
   return (
-    <section className="retro-home-hero-section pax-home-hero pax-home-hero--bleed" data-hero-reveal data-revealed="true">
-      <div className="retro-home-hero-card pax-home-hero__card pax-home-hero__card--bleed relative overflow-hidden">
-        <div className="pax-home-hero__media" aria-hidden="true">
-          <img
-            className="pax-home-hero__photo"
-            src={media.heroHomeDesktop.src}
-            alt=""
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="pax-home-hero__wash" />
-          <div className="pax-home-hero__scrim" />
-        </div>
-        <div className="retro-home-hero-contain relative z-2">
-          <div className="retro-home-hero-wrap pax-home-hero__wrap relative z-2">
-            <div className="retro-home-hero-top">
-              <h1 className="sr-only">Provider-guided GLP-1 treatment</h1>
-              <div className="retro-home-hero-heading pax-home-hero__heading hero-reveal hero-reveal--fade-up">
-                <span className="italic pax-home-hero__word" style={{ color: word.color }}>
-                  {word.text}
-                </span>
-                <br />
-                with provider review
+    <section className="retro-home-hero-section nexa-hims-hero" data-hero-reveal data-revealed="true">
+      <div className="nexa-hims-hero__phone">
+        <div className="retro-home-hero-card pax-home-hero pax-home-hero--bleed pax-home-hero__card pax-home-hero__card--bleed relative overflow-hidden">
+          <div className="pax-home-hero__media" aria-hidden="true">
+            <picture>
+              <source media="(max-width: 767px)" srcSet={media.heroHomeMobile.src} />
+              <img
+                className="pax-home-hero__photo"
+                src={media.heroHomeDesktop.src}
+                alt=""
+                loading="eager"
+                fetchPriority="high"
+              />
+            </picture>
+            <div className="pax-home-hero__wash" />
+            <div className="pax-home-hero__scrim" />
+          </div>
+          <div className="retro-home-hero-contain relative z-2">
+            <div className="retro-home-hero-wrap pax-home-hero__wrap relative z-2">
+              <div className="retro-home-hero-top">
+                <h1 className="sr-only">Provider-guided GLP-1 treatment</h1>
+                <div className="retro-home-hero-heading pax-home-hero__heading hero-reveal hero-reveal--fade-up">
+                  <span className="italic pax-home-hero__word" style={{ color: word.color }}>
+                    {word.text}
+                  </span>
+                  <br />
+                  with provider review
+                </div>
               </div>
-            </div>
-            <div className="retro-home-hero-bottom hero-reveal hero-reveal--fade-up">
-              <div className="retro-home-hero-cta-group">
-                <div className="retro-home-hero-primary-wrap">
-                  <Link href="/check-eligibility?program=semaglutide" className="retro-home-hero-btn retro-home-hero-btn--primary">
-                    Check Eligibility — $0 to start
+              <div className="retro-home-hero-bottom hero-reveal hero-reveal--fade-up">
+                <div className="retro-home-hero-cta-group">
+                  <div className="retro-home-hero-primary-wrap">
+                    <Link href="/check-eligibility?program=semaglutide" className="retro-home-hero-btn retro-home-hero-btn--primary">
+                      Check Eligibility — $0 to start
+                    </Link>
+                  </div>
+                  <Link href="/#treatments" className="retro-home-hero-btn retro-home-hero-btn--secondary">
+                    <span>Explore Treatments</span>
+                    <span className="retro-home-hero-btn-chevron" aria-hidden="true">
+                      <svg viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.799805 0.799988L5.79981 5.79999L0.799805 10.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
                   </Link>
                 </div>
-                <Link href="/#treatments" className="retro-home-hero-btn retro-home-hero-btn--secondary">
-                  <span>Explore Treatments</span>
-                  <span className="retro-home-hero-btn-chevron" aria-hidden="true">
-                    <svg viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M0.799805 0.799988L5.79981 5.79999L0.799805 10.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </Link>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="nexa-hims-hero__desk">
+        <div className="nexa-hims-hero__contain">
+          <h1 className="nexa-hims-hero__title">
+            The care you’ve
+            <br />
+            always deserved
+          </h1>
+
+          <div className="nexa-hims-hero__grid">
+            <Link href="/#treatments" className="nexa-hims-hero__feature nexa-hims-hero__feature--rx">
+              <div className="nexa-hims-hero__feature-copy">
+                <h2>Start your weight loss today</h2>
+                <p>
+                  Find your Rx match
+                  <HeroChevron />
+                </p>
+              </div>
+              <div className="nexa-hims-hero__vials" aria-hidden="true">
+                <img src="/images/nexa/vial-tirzepatide.webp?v=5" alt="" />
+                <img src="/images/nexa/vial-semaglutide.webp?v=5" alt="" />
+              </div>
+            </Link>
+
+            <Link href="/check-eligibility" className="nexa-hims-hero__feature nexa-hims-hero__feature--life">
+              <img
+                className="nexa-hims-hero__life-photo"
+                src="/images/nexa/protocol-people.webp"
+                alt=""
+              />
+              <div className="nexa-hims-hero__feature-copy nexa-hims-hero__feature-copy--on-photo">
+                <h2>See if treatment is right for you</h2>
+                <p>
+                  Check eligibility
+                  <HeroChevron />
+                </p>
+              </div>
+            </Link>
+
+            <div className="nexa-hims-hero__tiles">
+              <Link href="/tirzepatide" className="nexa-hims-hero__tile">
+                <span className="nexa-hims-hero__tile-copy">
+                  <strong>Start Tirzepatide</strong>
+                  <HeroChevron />
+                </span>
+                <span className="nexa-hims-hero__tile-media nexa-hims-hero__tile-media--vial">
+                  <img src="/images/nexa/vial-tirzepatide.webp?v=5" alt="" />
+                </span>
+              </Link>
+
+              <Link href="/semaglutide" className="nexa-hims-hero__tile">
+                <span className="nexa-hims-hero__tile-copy">
+                  <strong>Start Semaglutide</strong>
+                  <HeroChevron />
+                </span>
+                <span className="nexa-hims-hero__tile-media nexa-hims-hero__tile-media--vial">
+                  <img src="/images/nexa/vial-semaglutide.webp?v=5" alt="" />
+                </span>
+              </Link>
+
+              <Link href="/how-it-works" className="nexa-hims-hero__tile">
+                <span className="nexa-hims-hero__tile-copy">
+                  <strong>See how it works</strong>
+                  <HeroChevron />
+                </span>
+                <span className="nexa-hims-hero__tile-media">
+                  <img src="/images/yucca-clone/hiw/How-it-works.avif" alt="" />
+                </span>
+              </Link>
+
+              <Link href="/pricing" className="nexa-hims-hero__tile">
+                <span className="nexa-hims-hero__tile-copy">
+                  <strong>See clear pricing</strong>
+                  <HeroChevron />
+                </span>
+                <span className="nexa-hims-hero__tile-media">
+                  <img src="/images/yucca-clone/hiw/Get-Started.avif" alt="" />
+                </span>
+              </Link>
             </div>
           </div>
         </div>

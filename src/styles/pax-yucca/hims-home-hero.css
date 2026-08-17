@@ -1,0 +1,280 @@
+/* Hims-style desktop hero + Yucca phone hero. Scoped to homepage only. */
+
+.yucca-home .nexa-hims-hero {
+  padding: 0 !important;
+  background: var(--cloud, #fafaf8) !important;
+}
+
+.yucca-home .nexa-hims-hero__desk {
+  display: none;
+}
+
+.yucca-home .nexa-hims-hero__phone .pax-home-hero__media picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.yucca-home .nexa-hims-hero__phone .pax-home-hero--bleed {
+  padding: 0 !important;
+}
+
+@media (min-width: 900px) {
+  .yucca-home .nexa-hims-hero__phone {
+    display: none;
+  }
+
+  .yucca-home .nexa-hims-hero__desk {
+    display: block;
+  }
+}
+
+.yucca-home .nexa-hims-hero__contain {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 8px 0 56px;
+}
+
+.yucca-home .nexa-hims-hero__title {
+  margin: 0 0 1.15rem;
+  color: var(--navy, #0f1722);
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4.6vw, 4.35rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.yucca-home .nexa-hims-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.yucca-home .nexa-hims-hero__tiles {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.yucca-home .nexa-hims-hero__feature,
+.yucca-home .nexa-hims-hero__tile {
+  position: relative;
+  display: flex;
+  text-decoration: none;
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.yucca-home .nexa-hims-hero__feature:hover,
+.yucca-home .nexa-hims-hero__tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -18px color-mix(in oklch, var(--navy) 40%, transparent);
+}
+
+.yucca-home .nexa-hims-hero__feature--rx {
+  background:
+    radial-gradient(120% 90% at 88% 70%, color-mix(in oklch, var(--teal) 28%, transparent) 0%, transparent 55%),
+    linear-gradient(160deg, #1a2734 0%, var(--navy, #0f1722) 58%, #0b121a 100%);
+  color: var(--sand, #f2efea);
+  min-height: 300px;
+  padding: 28px 28px 22px;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.yucca-home .nexa-hims-hero__feature--life {
+  min-height: 300px;
+  color: #fff;
+  background: #2a221c;
+}
+
+.yucca-home .nexa-hims-hero__life-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  z-index: 0;
+}
+
+.yucca-home .nexa-hims-hero__feature--life::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 34, 0.08) 0%, rgba(15, 23, 34, 0.18) 42%, rgba(15, 23, 34, 0.72) 100%);
+  pointer-events: none;
+}
+
+.yucca-home .nexa-hims-hero__feature-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-width: 0;
+  max-width: 58%;
+  align-self: stretch;
+}
+
+.yucca-home .nexa-hims-hero__feature-copy--on-photo {
+  padding: 28px 28px 22px;
+  max-width: 70%;
+}
+
+.yucca-home .nexa-hims-hero__feature-copy h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 2.4vw, 2.55rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: inherit;
+  text-wrap: balance;
+}
+
+.yucca-home .nexa-hims-hero__feature-copy p {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: inherit;
+}
+
+.yucca-home .nexa-hims-hero__chevron {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.yucca-home .nexa-hims-hero__chevron svg {
+  width: 100%;
+  height: 100%;
+}
+
+.yucca-home .nexa-hims-hero__vials {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  bottom: 10px;
+  top: 72px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 46%;
+  pointer-events: none;
+}
+
+.yucca-home .nexa-hims-hero__vials img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 48%;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+}
+
+.yucca-home .nexa-hims-hero__tile {
+  min-height: 132px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px 16px 22px;
+  background: color-mix(in oklch, var(--sand, #f2efea) 86%, #fff);
+  color: var(--navy, #0f1722);
+  border: 1px solid color-mix(in oklch, var(--navy) 8%, transparent);
+}
+
+.yucca-home .nexa-hims-hero__tile-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  flex: 1 1 auto;
+  align-self: stretch;
+  padding-block: 6px;
+}
+
+.yucca-home .nexa-hims-hero__tile-copy strong {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.yucca-home .nexa-hims-hero__tile .nexa-hims-hero__chevron {
+  color: color-mix(in oklch, var(--navy) 45%, transparent);
+}
+
+.yucca-home .nexa-hims-hero__tile-media {
+  flex: 0 0 42%;
+  width: 42%;
+  height: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.yucca-home .nexa-hims-hero__tile-media img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.yucca-home .nexa-hims-hero__tile-media--vial {
+  background: transparent;
+}
+
+@media (max-width: 767px) {
+  .yucca-home .nexa-hims-hero__phone .pax-home-hero__photo {
+    object-position: center 22%;
+  }
+}
+
+@media (min-width: 1100px) {
+  .yucca-home .nexa-hims-hero__feature--rx,
+  .yucca-home .nexa-hims-hero__feature--life {
+    min-height: 340px;
+  }
+
+  .yucca-home .nexa-hims-hero__tile {
+    min-height: 140px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yucca-home .nexa-hims-hero__feature,
+  .yucca-home .nexa-hims-hero__tile {
+    transition: none;
+  }
+
+  .yucca-home .nexa-hims-hero__feature:hover,
+  .yucca-home .nexa-hims-hero__tile:hover {
+    transform: none;
+  }
+}

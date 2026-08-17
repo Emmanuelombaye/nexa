@@ -216,33 +216,33 @@ function ShopTreatmentsDropdown({ align = 'right' }: { align?: 'left' | 'right' 
   )
 }
 
-function MobileMenuRow({ row, onNavigate }: { row: MenuRow; onNavigate: () => void }) {
-  const isVial = Boolean(row.vialBg)
+function MobileNavCard({ row, onNavigate }: { row: MenuRow; onNavigate: () => void }) {
   const isAll = Boolean(row.allThumbs?.length)
 
   return (
-    <Link href={row.href} className="mobile-nav__menu-row" onClick={onNavigate}>
+    <Link
+      href={row.href}
+      className={`mobile-nav__card ${isAll ? 'mobile-nav__card--wide' : ''}`}
+      onClick={onNavigate}
+    >
       {isAll ? (
-        <span className="mobile-nav__menu-thumb mobile-nav__menu-thumb--all" aria-hidden="true">
-          {row.allThumbs!.map((src, index) => (
+        <span className="mobile-nav__card-media mobile-nav__card-media--all" aria-hidden="true">
+          {row.allThumbs!.slice(0, 2).map((src, index) => (
             <img key={`${src}-${index}`} src={src} alt="" />
           ))}
         </span>
-      ) : isVial ? (
-        <span
-          className="mobile-nav__menu-thumb mobile-nav__menu-thumb--vial"
-          style={{ background: row.vialBg }}
-        >
-          <img src={row.thumb} alt={row.thumbAlt || ''} loading="lazy" />
-        </span>
-      ) : row.thumb ? (
-        <img src={row.thumb} alt="" aria-hidden="true" className="mobile-nav__menu-thumb" loading="lazy" />
       ) : (
-        <span className="mobile-nav__menu-thumb mobile-nav__menu-thumb--plain" aria-hidden="true" />
+        <span
+          className="mobile-nav__card-media"
+          style={row.vialBg ? { background: row.vialBg } : undefined}
+          aria-hidden="true"
+        >
+          {row.thumb ? <img src={row.thumb} alt="" loading="lazy" /> : null}
+        </span>
       )}
-      <span className="mobile-nav__menu-text">
-        <span className="mobile-nav__menu-heading">{row.heading}</span>
-        <span className="mobile-nav__menu-caption">{row.caption}</span>
+      <span className="mobile-nav__card-text">
+        <span className="mobile-nav__card-heading">{row.heading}</span>
+        <span className="mobile-nav__card-caption">{row.caption}</span>
       </span>
     </Link>
   )
@@ -386,26 +386,42 @@ export default function SiteHeader({ variant = 'default' }: { variant?: string }
 
         <div className="mobile-nav__menu">
           <section className="mobile-nav__menu-group">
-            <p className="mobile-nav__menu-label">Explore Treatments</p>
-            <ul className="mobile-nav__menu-list" role="list">
+            <p className="mobile-nav__menu-label">Treatments</p>
+            <div className="mobile-nav__cards">
               {treatmentMenuRows.map((row) => (
-                <li key={`treat-${row.href}`}>
-                  <MobileMenuRow row={row} onNavigate={closeMenu} />
+                <MobileNavCard key={`treat-${row.heading}`} row={row} onNavigate={closeMenu} />
+              ))}
+            </div>
+          </section>
+
+          <section className="mobile-nav__menu-group">
+            <p className="mobile-nav__menu-label">For patients</p>
+            <ul className="mobile-nav__text-list" role="list">
+              {[
+                { href: '/how-it-works', label: 'How It Works' },
+                { href: '/pricing', label: 'Pricing' },
+                { href: '/quality-and-safety', label: 'Quality & Safety' },
+                { href: '/faq', label: 'FAQ' },
+                { href: '/check-eligibility', label: 'Patient Login' },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="mobile-nav__text-link" onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
+                    <span>{item.label}</span>
+                    <span className="mobile-nav__text-chevron" aria-hidden="true" />
+                  </Link>
                 </li>
               ))}
             </ul>
           </section>
 
-          <section className="mobile-nav__menu-group">
-            <p className="mobile-nav__menu-label">For Patients</p>
-            <ul className="mobile-nav__menu-list" role="list">
-              {patientMenuRows.map((row) => (
-                <li key={`patient-${row.href}`}>
-                  <MobileMenuRow row={row} onNavigate={closeMenu} />
-                </li>
-              ))}
-            </ul>
-          </section>
+          <Link
+            href="/check-eligibility"
+            className="btn btn--primary mobile-nav__cta"
+            onClick={closeMenu}
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            Check Eligibility
+          </Link>
         </div>
       </div>
     </div>
