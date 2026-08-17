@@ -289,10 +289,15 @@ export default function EligibilityForm() {
         }),
       })
 
-      const data = (await res.json().catch(() => ({}))) as { error?: string; checkoutUrl?: string }
+      const data = (await res.json().catch(() => ({}))) as { error?: string; checkoutUrl?: string; orderId?: string }
       if (!res.ok || !data.checkoutUrl) {
         setError(data.error || 'We could not start checkout. Please try again.')
         return
+      }
+      try {
+        if (data.orderId) localStorage.setItem('nexa_order_id_v1', data.orderId)
+      } catch {
+        /* ignore private-mode storage failures */
       }
 
       window.location.href = data.checkoutUrl

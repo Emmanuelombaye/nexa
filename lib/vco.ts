@@ -26,8 +26,11 @@ export function getVcoConfig(): VcoConfig {
   return { baseUrl, brandId, apiKey }
 }
 
-function vcoHeaders(apiKey: string) {
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+export function vcoHeaders(apiKey: string, brandId: string) {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'x-brand-id': brandId,
+  }
   if (apiKey) headers.Authorization = `Bearer ${apiKey}`
   return headers
 }
@@ -35,7 +38,7 @@ function vcoHeaders(apiKey: string) {
 export async function fetchVcoProducts(): Promise<VcoProduct[]> {
   const { baseUrl, brandId, apiKey } = getVcoConfig()
   const res = await fetch(`${baseUrl}/api/commerce/v1/products?brandId=${encodeURIComponent(brandId)}`, {
-    headers: vcoHeaders(apiKey),
+    headers: vcoHeaders(apiKey, brandId),
     cache: 'no-store',
   })
 
@@ -45,6 +48,39 @@ export async function fetchVcoProducts(): Promise<VcoProduct[]> {
 
   const data = (await res.json()) as { products?: VcoProduct[] }
   return Array.isArray(data.products) ? data.products : []
+}
+
+export async function fetchVcoProductBySlug(slug: string): Promise<VcoProduct | null> {
+  const { baseUrl, brandId, apiKey } = getVcoConfig()
+  const res = await fetch(
+    `${baseUrl}/api/commerce/v1/products/${encodeURIComponent(slug)}?brandId=${encodeURIComponent(brandId)}`,
+    {
+      headers: vcoHeaders(apiKey, brandId),
+      cache: 'no-store',
+    },
+  )
+  if (!res.ok) return null
+  const data = (await res.json().catch(() => ({}))) as { product?: VcoProduct } & VcoProduct
+  if (data.product && typeof data.product === 'object') return data.product
+  if (data.id) return data
+  return null
+}
+
+export async function resolveCheckoutProduct(programSlug: CheckoutProgramSlug): Promise<VcoProduct | null> {
+  try {
+    const fromList = resolveProgramProduct(await fetchVcoProducts(), programSlug)
+    if (fromList?.id) return fromList
+  } catch {
+    // Fall through to slug lookup if the catalog list is unavailable.
+  }
+
+  const sku = programSlug === 'tirzepatide' ? 'STORE-TIRZ' : 'STORE-SEMA'
+  const candidates = [sku, programSlug, `${programSlug}-weekly-injections`]
+  for (const slug of candidates) {
+    const product = await fetchVcoProductBySlug(slug)
+    if (product?.id) return product
+  }
+  return null
 }
 
 export function resolveProgramProduct(products: VcoProduct[], programSlug: CheckoutProgramSlug): VcoProduct | null {
@@ -124,8 +160,7 @@ export async function validateVcoCoupon(code: string, programSlug: CheckoutProgr
 
   let cartTotalCents = 0
   try {
-    const products = await fetchVcoProducts()
-    const product = resolveProgramProduct(products, programSlug)
+    const product = await resolveCheckoutProduct(programSlug)
     if (!product?.id) {
       return { status: 404, json: { error: 'This care program is not available for checkout right now.' } }
     }
@@ -137,7 +172,7 @@ export async function validateVcoCoupon(code: string, programSlug: CheckoutProgr
   try {
     const res = await fetch(`${baseUrl}/api/commerce/v1/coupons/validate`, {
       method: 'POST',
-      headers: vcoHeaders(apiKey),
+      headers: vcoHeaders(apiKey, brandId),
       body: JSON.stringify({ brandId, code: sanitized, cartTotalCents }),
     })
     const data = (await res.json().catch(() => ({}))) as Record<string, unknown>
@@ -190,30 +225,49 @@ function mapPublicOrder(raw: Record<string, unknown>): PublicPatientOrder {
   }
 }
 
-export async function fetchPatientOrders(email: string): Promise<{
+export async function fetchPatientOrders(
+  email: string,
+  orderId = '',
+): Promise<{
   status: number
   json: { orders: PublicPatientOrder[] } | { error: string }
 }> {
-  const { baseUrl, apiKey } = getVcoConfig()
+  const { baseUrl, brandId, apiKey } = getVcoConfig()
   if (!apiKey) {
     return { status: 503, json: { error: 'Order lookup is unavailable right now. Please try again shortly.' } }
   }
 
+  const params = new URLSearchParams({ email, brandId })
+  if (orderId) params.set('order_id', orderId)
+
   try {
-    const res = await fetch(`${baseUrl}/api/v1/orders/patient?email=${encodeURIComponent(email)}`, {
-      headers: vcoHeaders(apiKey),
+    const res = await fetch(`${baseUrl}/api/v1/orders/patient?${params.toString()}`, {
+      headers: vcoHeaders(apiKey, brandId),
       cache: 'no-store',
     })
-    const data = (await res.json().catch(() => ({}))) as { orders?: unknown }
+    const data = (await res.json().catch(() => ({}))) as {
+      orders?: unknown
+      order?: Record<string, unknown>
+      error?: string
+    } & Record<string, unknown>
     if (!res.ok) {
+      const missingId = !orderId && /order_id/i.test(String(data.error || ''))
+      if (missingId || res.status === 404) {
+        return { status: 200, json: { orders: [] } }
+      }
       console.error('[orders] vco failed', res.status)
       return { status: res.status >= 400 ? res.status : 502, json: { error: publicOrdersError(res.status) } }
     }
-    const orders = Array.isArray(data.orders)
+    const rawOrders = Array.isArray(data.orders)
       ? data.orders
-          .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === 'object')
-          .map(mapPublicOrder)
-      : []
+      : data.order && typeof data.order === 'object'
+        ? [data.order]
+        : data.id
+          ? [data]
+          : []
+    const orders = rawOrders
+      .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === 'object')
+      .map(mapPublicOrder)
     return { status: 200, json: { orders } }
   } catch {
     console.error('[orders] vco unreachable')

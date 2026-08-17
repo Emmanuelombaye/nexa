@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Enter a valid email address.' }, { status: 400 })
   }
 
-  const result = await fetchPatientOrders(email)
+  const orderId = String(req.nextUrl.searchParams.get('orderId') || req.nextUrl.searchParams.get('order_id') || '').trim()
+  const result = await fetchPatientOrders(email, orderId)
   return NextResponse.json(result.json, { status: result.status })
 }

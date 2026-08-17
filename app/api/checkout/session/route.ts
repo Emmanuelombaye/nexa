@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { isValidAdultDob, isValidEmail, isValidPhone } from '../../../../lib/intake'
 import { isCheckoutProgramSlug } from '../../../../lib/checkout'
 import {
-  fetchVcoProducts,
   getVcoConfig,
   publicCheckoutError,
-  resolveProgramProduct,
+  resolveCheckoutProduct,
   sanitizeCouponCode,
+  vcoHeaders,
 } from '../../../../lib/vco'
 
 function originFromRequest(req: NextRequest) {
@@ -59,9 +59,7 @@ export async function POST(req: NextRequest) {
 
   let productId = ''
   try {
-    const products = await fetchVcoProducts()
-    const product = resolveProgramProduct(products, programSlug)
-    productId = product?.id || ''
+    productId = (await resolveCheckoutProduct(programSlug))?.id || ''
   } catch {
     return NextResponse.json({ error: publicCheckoutError(502) }, { status: 502 })
   }
@@ -76,10 +74,7 @@ export async function POST(req: NextRequest) {
   try {
     const res = await fetch(`${baseUrl}/api/commerce/v1/checkout/session`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
+      headers: vcoHeaders(apiKey, brandId),
       body: JSON.stringify({
         brandId,
         productId,
