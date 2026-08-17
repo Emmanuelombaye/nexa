@@ -202,7 +202,7 @@
     radial-gradient(ellipse at 50% 88%, color-mix(in oklch, var(--teal) 22%, transparent) 0%, transparent 62%),
     linear-gradient(165deg, color-mix(in oklch, var(--sand) 88%, var(--dune)) 0%, color-mix(in oklch, var(--dune) 35%, var(--sand)) 100%);
   border: 1.5px solid color-mix(in oklch, var(--forest) 14%, transparent);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .goal-vial {
@@ -386,6 +386,7 @@
 
   .goal-product-vial {
     height: 168px;
+    overflow: visible;
   }
 
   .goal-product-meta {

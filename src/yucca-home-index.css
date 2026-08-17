@@ -130,3 +130,86 @@
   color: color-mix(in oklch, var(--sand) 90%, transparent) !important;
   text-shadow: 0 1px 12px color-mix(in oklch, var(--forest) 45%, transparent);
 }
+
+/* Phone: Yucca inset photo card — stacked heading + CTAs, not a word/image list */
+@media (max-width: 899px) {
+  .yucca-home .nexa-hims-hero {
+    padding: 10px 12px 28px !important;
+    background: var(--cloud, #fafaf8) !important;
+  }
+
+  .yucca-home .nexa-hims-hero__desk {
+    display: none !important;
+  }
+
+  .yucca-home .nexa-hims-hero__phone {
+    display: block !important;
+  }
+
+  .yucca-home .nexa-hims-hero__phone .pax-home-hero--bleed,
+  .yucca-home .nexa-hims-hero__phone .pax-home-hero__card--bleed,
+  .yucca-home .nexa-hims-hero__phone .retro-home-hero-card {
+    border: 2px solid var(--navy, #0f1722) !important;
+    border-radius: 24px !important;
+    box-shadow: 3px 4px 0 0 var(--navy, #0f1722) !important;
+    background: var(--navy, #0f1722) !important;
+    min-height: min(78dvh, 38rem) !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .yucca-home .nexa-hims-hero__phone .retro-home-hero-contain {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+  }
+
+  .yucca-home .nexa-hims-hero__phone .retro-home-hero-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    height: min(78dvh, 38rem);
+    min-height: 28rem;
+    max-height: none;
+    gap: 1.25rem;
+    padding: 28px 18px 22px;
+  }
+
+  .yucca-home .nexa-hims-hero__phone .pax-home-hero__heading,
+  .yucca-home .nexa-hims-hero__phone .retro-home-hero-heading {
+    color: var(--sand, #f2efea) !important;
+    font-size: clamp(2.45rem, 11vw, 3.2rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-shadow: 0 2px 18px color-mix(in oklch, var(--navy) 55%, transparent);
+  }
+
+  .yucca-home .nexa-hims-hero__phone .retro-home-hero-cta-group,
+  .yucca-home .nexa-hims-hero__phone .retro-home-hero-primary-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 22.5rem;
+    gap: 10px;
+  }
+
+  .yucca-home .nexa-hims-hero__phone .retro-home-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 1.15rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .yucca-home .nexa-hims-hero__phone .pax-home-hero__photo {
+    object-fit: cover;
+    object-position: center 22%;
+  }
+}

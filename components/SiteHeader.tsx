@@ -218,6 +218,11 @@ function ShopTreatmentsDropdown({ align = 'right' }: { align?: 'left' | 'right' 
 
 function MobileNavCard({ row, onNavigate }: { row: MenuRow; onNavigate: () => void }) {
   const isAll = Boolean(row.allThumbs?.length)
+  const heading = row.heading.includes('Tirzepatide')
+    ? 'Tirzepatide'
+    : row.heading.includes('Semaglutide')
+      ? 'Semaglutide'
+      : row.heading
 
   return (
     <Link
@@ -241,7 +246,7 @@ function MobileNavCard({ row, onNavigate }: { row: MenuRow; onNavigate: () => vo
         </span>
       )}
       <span className="mobile-nav__card-text">
-        <span className="mobile-nav__card-heading">{row.heading}</span>
+        <span className="mobile-nav__card-heading">{heading}</span>
         <span className="mobile-nav__card-caption">{row.caption}</span>
       </span>
     </Link>
