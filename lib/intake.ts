@@ -12,11 +12,18 @@ export type QuestionnaireQuestion = {
 }
 
 export const INTAKE_PHASES = [
-  { id: 'metrics', label: 'Body metrics' },
-  { id: 'screening', label: 'Screening' },
-  { id: 'patient', label: 'Patient info' },
-  { id: 'shipping', label: 'Shipping' },
-  { id: 'consent', label: 'Agreements' },
+  { id: 'patient', label: 'Patient Information' },
+  { id: 'shipping', label: 'Shipping Address' },
+  { id: 'screening', label: 'Medical Screening' },
+  { id: 'consent', label: 'Agreements & Checkout' },
+] as const
+
+export const SCREENING_CONDITIONS = [
+  'Pregnancy or breastfeeding',
+  'Personal or family history of MEN, MTC, or thyroid cancer',
+  'History of thyroid tumors',
+  'Gastroparesis (delayed stomach emptying)',
+  'Gallbladder, pancreatic, kidney, or liver problems',
 ] as const
 
 export type IntakePhaseId = (typeof INTAKE_PHASES)[number]['id']

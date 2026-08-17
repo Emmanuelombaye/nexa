@@ -16,14 +16,18 @@ interface IntakeDraft {
 export default function PatientCenter() {
   const [session, setSession] = useState<PatientSession | null>(null)
   const [draft, setDraft] = useState<IntakeDraft | null>(null)
+  const [paid, setPaid] = useState(false)
 
   useEffect(() => {
     try {
       setSession(JSON.parse(localStorage.getItem('nexa_session_v2') || 'null'))
       setDraft(JSON.parse(localStorage.getItem('nexa_intake_draft_v2') || 'null'))
+      const checkout = JSON.parse(localStorage.getItem('nexa_checkout_status_v1') || 'null') as { paid?: boolean } | null
+      setPaid(Boolean(checkout?.paid))
     } catch {
       setSession(null)
       setDraft(null)
+      setPaid(false)
     }
   }, [])
 
@@ -59,11 +63,15 @@ export default function PatientCenter() {
           <article className="portal-card">
             <h2>Current program</h2>
             <p className="portal-stat">{program}</p>
-            <span className="pill">Pending clinician review</span>
+            <span className="pill">{paid ? 'Payment received' : 'Pending clinician review'}</span>
           </article>
           <article className="portal-card">
             <h2>Next step</h2>
-            <p>Watch your email for review updates. Typical review window is within 24 hours.*</p>
+            <p>
+              {paid
+                ? 'A licensed clinician will review your intake. Watch your email for updates, typically within 24 hours.*'
+                : 'Watch your email for review updates. Typical review window is within 24 hours.*'}
+            </p>
           </article>
           <article className="portal-card portal-card--wide">
             <h2>Care team</h2>

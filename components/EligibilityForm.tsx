@@ -1,20 +1,17 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { getProgramAvailabilityStatus, programs } from '../lib/site-data'
 import { programImages, media } from '../lib/media'
 import {
   INTAKE_PHASES,
+  SCREENING_CONDITIONS,
   US_STATES,
-  getActiveScreeningQuestions,
-  isScreeningComplete,
   isValidAdultDob,
   isValidEmail,
   isValidPhone,
   isValidZip,
-  questionIsDisqualified,
-  screeningHasDisqualifier,
 } from '../lib/intake'
 import SiteImage from './SiteImage'
 
@@ -29,7 +26,6 @@ const programImagesRecord: Record<string, { src: string; alt: string; width: num
 const TOTAL_STEPS = INTAKE_PHASES.length
 
 export default function EligibilityForm() {
-  const router = useRouter()
   const formRef = useRef<HTMLDivElement>(null)
 
   const [currentStep, setCurrentStep] = useState(1)
@@ -48,17 +44,21 @@ export default function EligibilityForm() {
     city: '',
     state: '',
     zip: '',
-    answers: {} as Record<string, string>,
+    conditionsApply: '',
     agreeConsent: false,
     authorizeReview: false,
   })
 
   const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
     const progParam = params.get('program')
+    if (params.get('canceled') === '1') {
+      setError('Checkout was canceled. Your intake is still here — continue when you are ready.')
+    }
     if (!progParam) return
     const found = programs.find(
       (p) =>
@@ -89,59 +89,20 @@ export default function EligibilityForm() {
     return getProgramAvailabilityStatus(selectedProgram.slug, form.state)
   }, [selectedProgram, form.state])
 
-  const screeningIntake = useMemo(
-    () => ({
-      answers: form.answers,
-      sexAtBirth: form.sex,
-    }),
-    [form.answers, form.sex],
-  )
-
-  const screeningQuestions = useMemo(
-    () => getActiveScreeningQuestions(screeningIntake),
-    [screeningIntake],
-  )
-
-  const setAnswer = (id: string, value: string) => {
-    setForm((prev) => ({
-      ...prev,
-      answers: { ...prev.answers, [id]: value },
-    }))
-  }
-
   const validateStep = (step: number) => {
     setError('')
     const phase = INTAKE_PHASES[step - 1]?.id
 
-    if (phase === 'metrics') {
-      if (!form.height.trim() || !form.weight || !form.sex || !form.dob) {
-        setError('Enter height, weight, date of birth, and sex assigned at birth.')
-        return false
-      }
-      if (!isValidAdultDob(form.dob)) {
-        setError('You must be 18 or older to continue.')
-        return false
-      }
-      return true
-    }
-
-    if (phase === 'screening') {
-      if (!isScreeningComplete(screeningIntake)) {
-        if (screeningHasDisqualifier(screeningIntake)) {
-          setError(
-            'Based on your answers, a physician must review before you can continue. Contact support@nexarx.com.',
-          )
-          return false
-        }
-        setError('Please answer all medical screening questions to continue.')
-        return false
-      }
-      return true
-    }
-
     if (phase === 'patient') {
-      if (!form.email.trim() || !form.firstName.trim() || !form.lastName.trim() || !form.phone.trim()) {
-        setError('Enter your full name, email, and phone number.')
+      if (
+        !form.email.trim() ||
+        !form.firstName.trim() ||
+        !form.lastName.trim() ||
+        !form.phone.trim() ||
+        !form.dob ||
+        !form.sex
+      ) {
+        setError('Please complete all required patient information fields.')
         return false
       }
       if (!isValidEmail(form.email)) {
@@ -150,6 +111,10 @@ export default function EligibilityForm() {
       }
       if (!isValidPhone(form.phone)) {
         setError('Enter a valid phone number.')
+        return false
+      }
+      if (!isValidAdultDob(form.dob)) {
+        setError('You must be 18 or older to continue.')
         return false
       }
       return true
@@ -170,6 +135,14 @@ export default function EligibilityForm() {
       }
       if (availabilityStatus === 'unavailable') {
         setError(availabilityMessages.unavailable)
+        return false
+      }
+      return true
+    }
+
+    if (phase === 'screening') {
+      if (form.conditionsApply !== 'yes' && form.conditionsApply !== 'no') {
+        setError('Please answer the medical screening question to continue.')
         return false
       }
       return true
@@ -197,20 +170,75 @@ export default function EligibilityForm() {
     setCurrentStep((prev) => Math.max(prev - 1, 1))
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (submitting) return
     if (!validateStep(TOTAL_STEPS)) return
+    if (!selectedProgram) {
+      setError('Select a care program to continue.')
+      return
+    }
 
     const fullIntakeData = {
       ...form,
       name: `${form.firstName} ${form.lastName}`.trim(),
       sexAtBirth: form.sex,
-      clinicalAnswers: form.answers,
       at: new Date().toISOString(),
     }
 
-    localStorage.setItem('nexa_intake_draft_v2', JSON.stringify(fullIntakeData))
-    router.push('/patient-center')
+    try {
+      localStorage.setItem('nexa_intake_draft_v2', JSON.stringify(fullIntakeData))
+    } catch {
+      /* ignore private-mode storage failures */
+    }
+
+    setSubmitting(true)
+    setError('')
+
+    try {
+      const res = await fetch('/api/checkout/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          programSlug: selectedProgram.slug,
+          patientInfo: {
+            firstName: form.firstName.trim(),
+            lastName: form.lastName.trim(),
+            email: form.email.trim(),
+            phone: form.phone.replace(/\D/g, ''),
+            dob: form.dob,
+            state: form.state,
+          },
+          intakeAnswers: {
+            program: selectedProgram.title,
+            programSlug: selectedProgram.slug,
+            sexAssignedAtBirth: form.sex,
+            shippingStreet: form.street.trim(),
+            shippingApartment: form.apartment.trim(),
+            shippingCity: form.city.trim(),
+            shippingState: form.state,
+            shippingZip: form.zip.trim(),
+            conditionsApply: form.conditionsApply,
+            screeningConditions: SCREENING_CONDITIONS.join('; '),
+            consentTermsAndTelehealth: form.agreeConsent,
+            authorizeClinicianReview: form.authorizeReview,
+            source: 'nexa-rx-eligibility',
+          },
+        }),
+      })
+
+      const data = (await res.json().catch(() => ({}))) as { error?: string; checkoutUrl?: string }
+      if (!res.ok || !data.checkoutUrl) {
+        setError(data.error || 'We could not start checkout. Please try again.')
+        return
+      }
+
+      window.location.href = data.checkoutUrl
+    } catch {
+      setError('Network error. Check your connection and try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const phase = INTAKE_PHASES[currentStep - 1]
@@ -296,31 +324,49 @@ export default function EligibilityForm() {
           </div>
 
           <form className="flow-form" onSubmit={handleSubmit}>
-            {phase?.id === 'metrics' && (
+            {phase?.id === 'patient' && (
               <div className="flow-step-body animate-fade-in">
-                <h3 className="flow-step-title">Body metrics</h3>
-                <p className="lede" style={{ marginBottom: '1rem' }}>
-                  Used by a licensed provider to evaluate whether treatment is appropriate.
-                </p>
+                <h3 className="flow-step-title">Step 1 — Patient Information</h3>
                 <div className="flow-form-grid">
-                  <label className="flow-field">
-                    Height (e.g. 5&apos;10&quot;) *
+                  <label className="flow-field flow-field--full">
+                    Email Address *
                     <input
-                      value={form.height}
-                      onChange={(e) => setForm({ ...form, height: e.target.value })}
-                      placeholder={`5'10"`}
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      placeholder="alex.rivera@example.com"
+                      autoComplete="email"
                       required
                     />
                   </label>
                   <label className="flow-field">
-                    Weight (lbs) *
+                    First Name *
                     <input
-                      type="number"
-                      value={form.weight}
-                      onChange={(e) => setForm({ ...form, weight: e.target.value })}
-                      placeholder="185"
-                      min={50}
-                      max={500}
+                      value={form.firstName}
+                      onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                      placeholder="Alex"
+                      autoComplete="given-name"
+                      required
+                    />
+                  </label>
+                  <label className="flow-field">
+                    Last Name *
+                    <input
+                      value={form.lastName}
+                      onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                      placeholder="Rivera"
+                      autoComplete="family-name"
+                      required
+                    />
+                  </label>
+                  <label className="flow-field">
+                    Phone Number *
+                    <input
+                      type="tel"
+                      value={form.phone}
+                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      placeholder="(305) 555-0142"
+                      autoComplete="tel"
                       required
                     />
                   </label>
@@ -330,13 +376,14 @@ export default function EligibilityForm() {
                       type="date"
                       value={form.dob}
                       onChange={(e) => setForm({ ...form, dob: e.target.value })}
+                      autoComplete="bday"
                       required
                     />
                   </label>
                   <div className="flow-field flow-field--full">
                     <span className="flow-label-text">Sex Assigned at Birth *</span>
                     <div className="flow-radio-group">
-                      {['Male', 'Female', 'Other'].map((sex) => (
+                      {['Male', 'Female'].map((sex) => (
                         <label key={sex} className={`flow-radio-tile ${form.sex === sex ? 'is-selected' : ''}`}>
                           <input
                             type="radio"
@@ -354,139 +401,9 @@ export default function EligibilityForm() {
               </div>
             )}
 
-            {phase?.id === 'screening' && (
-              <div className="flow-step-body animate-fade-in">
-                <h3 className="flow-step-title">Medical screening</h3>
-                <p className="lede" style={{ marginBottom: '1rem' }}>
-                  Answer each question carefully. Some responses require physician review before you can continue.
-                </p>
-                <div className="flow-q-list">
-                  {screeningQuestions.map((q) => {
-                    const value = form.answers[q.id] || ''
-                    const disqualified = questionIsDisqualified(q, value)
-                    return (
-                      <div key={q.id} className={`flow-q ${disqualified ? 'flow-q--warn' : ''}`}>
-                        <p className="flow-q__prompt">
-                          {q.question}
-                          {q.required ? ' *' : ''}
-                        </p>
-
-                        {q.type === 'boolean' && (
-                          <div className="flow-radio-group">
-                            {(['yes', 'no'] as const).map((opt) => (
-                              <button
-                                key={opt}
-                                type="button"
-                                className={`flow-radio-tile ${value === opt ? 'is-selected' : ''} ${
-                                  disqualified && value === opt ? 'is-danger' : ''
-                                }`}
-                                onClick={() => setAnswer(q.id, opt)}
-                              >
-                                <span>{opt === 'yes' ? 'Yes' : 'No'}</span>
-                              </button>
-                            ))}
-                          </div>
-                        )}
-
-                        {q.type === 'select' && (
-                          <div className="flow-radio-stack">
-                            {(q.options || []).map((opt) => (
-                              <button
-                                key={opt}
-                                type="button"
-                                className={`flow-radio-card ${value === opt ? 'is-selected' : ''}`}
-                                onClick={() => setAnswer(q.id, opt)}
-                              >
-                                <div className="flow-radio-content">
-                                  <strong>{opt}</strong>
-                                </div>
-                              </button>
-                            ))}
-                          </div>
-                        )}
-
-                        {(q.type === 'text' || q.type === 'number') &&
-                          (q.type === 'text' && q.question.length > 80 ? (
-                            <textarea
-                              value={value}
-                              onChange={(e) => setAnswer(q.id, e.target.value)}
-                              rows={3}
-                              placeholder="Enter your answer…"
-                            />
-                          ) : (
-                            <input
-                              type={q.type === 'number' ? 'number' : 'text'}
-                              value={value}
-                              onChange={(e) => setAnswer(q.id, e.target.value)}
-                              placeholder="Enter your answer…"
-                            />
-                          ))}
-
-                        {disqualified && (
-                          <div className="flow-q__alert" role="alert">
-                            <strong>Medical review required</strong>
-                            <p>
-                              Based on this response, a physician review is required before you can proceed. Contact
-                              support@nexarx.com for next steps.
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
-
-            {phase?.id === 'patient' && (
-              <div className="flow-step-body animate-fade-in">
-                <h3 className="flow-step-title">Patient information</h3>
-                <div className="flow-form-grid">
-                  <label className="flow-field flow-field--full">
-                    Email Address *
-                    <input
-                      type="email"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      placeholder="alex.rivera@example.com"
-                      required
-                    />
-                  </label>
-                  <label className="flow-field">
-                    First Name *
-                    <input
-                      value={form.firstName}
-                      onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                      placeholder="Alex"
-                      required
-                    />
-                  </label>
-                  <label className="flow-field">
-                    Last Name *
-                    <input
-                      value={form.lastName}
-                      onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                      placeholder="Rivera"
-                      required
-                    />
-                  </label>
-                  <label className="flow-field flow-field--full">
-                    Phone Number *
-                    <input
-                      type="tel"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      placeholder="(305) 555-0142"
-                      required
-                    />
-                  </label>
-                </div>
-              </div>
-            )}
-
             {phase?.id === 'shipping' && (
               <div className="flow-step-body animate-fade-in">
-                <h3 className="flow-step-title">Shipping address</h3>
+                <h3 className="flow-step-title">Step 2 — Shipping Address</h3>
                 <div className="flow-form-grid">
                   <label className="flow-field flow-field--full">
                     Street Address *
@@ -494,6 +411,7 @@ export default function EligibilityForm() {
                       value={form.street}
                       onChange={(e) => setForm({ ...form, street: e.target.value })}
                       placeholder="1248 Ocean Drive"
+                      autoComplete="address-line1"
                       required
                     />
                   </label>
@@ -503,6 +421,7 @@ export default function EligibilityForm() {
                       value={form.apartment}
                       onChange={(e) => setForm({ ...form, apartment: e.target.value })}
                       placeholder="Apt 4B / Suite 200"
+                      autoComplete="address-line2"
                     />
                   </label>
                   <label className="flow-field">
@@ -511,6 +430,7 @@ export default function EligibilityForm() {
                       value={form.city}
                       onChange={(e) => setForm({ ...form, city: e.target.value })}
                       placeholder="Miami"
+                      autoComplete="address-level2"
                       required
                     />
                   </label>
@@ -519,6 +439,7 @@ export default function EligibilityForm() {
                     <select
                       value={form.state}
                       onChange={(e) => setForm({ ...form, state: e.target.value })}
+                      autoComplete="address-level1"
                       required
                     >
                       <option value="" disabled>
@@ -537,6 +458,7 @@ export default function EligibilityForm() {
                       value={form.zip}
                       onChange={(e) => setForm({ ...form, zip: e.target.value })}
                       placeholder="33139"
+                      autoComplete="postal-code"
                       required
                     />
                   </label>
@@ -551,9 +473,46 @@ export default function EligibilityForm() {
               </div>
             )}
 
+            {phase?.id === 'screening' && (
+              <div className="flow-step-body animate-fade-in">
+                <h3 className="flow-step-title">Step 3 — Medical Screening</h3>
+                <div className="flow-q">
+                  <p className="flow-q__prompt">Do any of the following conditions apply to you? *</p>
+                  <ul className="flow-conditions-list">
+                    {SCREENING_CONDITIONS.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <div className="flow-radio-stack">
+                    {[
+                      { value: 'yes', label: 'Yes, one or more' },
+                      { value: 'no', label: 'No, none apply' },
+                    ].map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        className={`flow-radio-card ${form.conditionsApply === opt.value ? 'is-selected' : ''}`}
+                        onClick={() => setForm({ ...form, conditionsApply: opt.value })}
+                      >
+                        <div className="flow-radio-content">
+                          <strong>{opt.label}</strong>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  {form.conditionsApply === 'yes' && (
+                    <p className="hero__stats-note" style={{ marginTop: '1rem' }}>
+                      A licensed clinician will review your history before deciding whether treatment is appropriate.
+                      Answering yes does not automatically disqualify you.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
             {phase?.id === 'consent' && (
               <div className="flow-step-body animate-fade-in">
-                <h3 className="flow-step-title">Agreements &amp; consent</h3>
+                <h3 className="flow-step-title">Step 4 — Agreements &amp; Checkout</h3>
                 <div className="flow-agreements-stack">
                   <label className="flow-checkbox-card">
                     <input
@@ -563,8 +522,15 @@ export default function EligibilityForm() {
                     />
                     <div className="flow-checkbox-text">
                       <span>
-                        I agree to the Terms of Service, Medical Consent Form, and acknowledge the Telehealth Informed
-                        Consent for provider-guided treatment. *
+                        I agree to the{' '}
+                        <Link href="/terms" target="_blank" rel="noreferrer">
+                          Terms of Service
+                        </Link>
+                        , Medical Consent form, and acknowledge the{' '}
+                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">
+                          Telehealth Informed Consent
+                        </Link>{' '}
+                        for specialized medical protocols. *
                       </span>
                     </div>
                   </label>
@@ -576,23 +542,46 @@ export default function EligibilityForm() {
                     />
                     <div className="flow-checkbox-text">
                       <span>
-                        I authorize Nexa Rx&apos;s affiliated clinicians to securely review my medical information and
-                        prescribe medication only if clinically appropriate. *
+                        I authorize Nexa Rx&apos;s affiliated clinicians to securely review my medical records and
+                        prescribe the necessary medication if I am a candidate. *
                       </span>
                     </div>
                   </label>
                 </div>
+                <div className="flow-summary">
+                  <div>
+                    <span>Program</span>
+                    <strong>{selectedProgram?.navLabel || 'Select a program'}</strong>
+                  </div>
+                  <div>
+                    <span>Patient</span>
+                    <strong>
+                      {form.firstName} {form.lastName}
+                    </strong>
+                  </div>
+                  <div>
+                    <span>Ships to</span>
+                    <strong>
+                      {form.city}, {form.state} {form.zip}
+                    </strong>
+                  </div>
+                </div>
                 <p className="hero__stats-note" style={{ marginTop: '1rem' }}>
-                  Submitting this intake does not guarantee a prescription. A licensed provider must approve treatment.
+                  You will complete payment securely with Stripe. Submitting this intake does not guarantee a
+                  prescription. A licensed provider must approve treatment.
                 </p>
               </div>
             )}
 
-            {error && <p className="flow-error">{error}</p>}
+            {error && (
+              <p className="flow-error" role="alert">
+                {error}
+              </p>
+            )}
 
             <div className="flow-nav-actions">
               {currentStep > 1 && (
-                <button type="button" className="btn btn--outline" onClick={handlePrevStep}>
+                <button type="button" className="btn btn--outline" onClick={handlePrevStep} disabled={submitting}>
                   ← Back
                 </button>
               )}
@@ -601,8 +590,8 @@ export default function EligibilityForm() {
                   Next Step →
                 </button>
               ) : (
-                <button className="btn btn--primary btn--lg" type="submit">
-                  Submit medical intake →
+                <button className="btn btn--primary btn--lg" type="submit" disabled={submitting} aria-busy={submitting}>
+                  {submitting ? 'Starting secure checkout…' : 'Continue to secure checkout →'}
                 </button>
               )}
             </div>
