@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { shopLinks, treatmentLinks } from '../lib/site-data'
+import { FooterTrustBadges } from './FooterTrustBadges'
 
 const legalLinks = [
   { href: '/privacy', label: 'Privacy Policy' },
@@ -99,24 +100,7 @@ export default function SiteFooter() {
               <strong>LegitScript certification — not yet verified</strong>
             </div>
           </div>
-          <div className="footer__trust-item">
-            <span className="footer__trust-mark" aria-hidden="true">
-              USA
-            </span>
-            <div>
-              <span className="footer__trust-kicker">Compounded by</span>
-              <strong>Licensed Pharmacies in the USA</strong>
-            </div>
-          </div>
-          <div className="footer__trust-item">
-            <span className="footer__trust-mark footer__trust-mark--hipaa" aria-hidden="true">
-              HIPAA
-            </span>
-            <div>
-              <span className="footer__trust-kicker">Data protected</span>
-              <strong>HIPAA Compliant</strong>
-            </div>
-          </div>
+          <FooterTrustBadges hipaaHref="/hipaa" layout="items" />
         </div>
 
         <div className="container footer__bottom">
