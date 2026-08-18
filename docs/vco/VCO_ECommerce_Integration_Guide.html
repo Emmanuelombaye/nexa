@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VirtualClinicOS (VCO) — E-Commerce & Telehealth API Integration Guide</title>
+  <meta name="description" content="Official developer integration guide for wiring brand storefronts (PeakCare, etc.) with VirtualClinicOS E-Commerce & Telehealth REST APIs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-hover: rgba(31, 41, 55, 0.85);
+      --bg-code: #0d1117;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(16, 185, 129, 0.3);
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --brand-primary: #10b981;
+      --brand-primary-hover: #059669;
+      --brand-glow: rgba(16, 185, 129, 0.2);
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --method-get: #10b981;
+      --method-post: #3b82f6;
+      --method-delete: #ef4444;
+      --method-put: #f59e0b;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --sidebar-width: 280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2d3748;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4a5568;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px;
+      overflow-y: auto;
+      flex-shrink: 0;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px 24px 8px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #10b981, #065f46);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      box-shadow: 0 4px 12px var(--brand-glow);
+    }
+
+    .brand-text h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      color: var(--brand-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px 8px 8px 8px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s ease-in-out;
+    }
+
+    .nav-item a:hover {
+      color: var(--text-primary);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item.active a {
+      color: #fff;
+      background-color: rgba(16, 185, 129, 0.15);
+      border-left: 3px solid var(--brand-primary);
+      font-weight: 600;
+    }
+
+    .method-pill {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+    }
+    .method-pill.get { background: rgba(16, 185, 129, 0.15); color: var(--method-get); }
+    .method-pill.post { background: rgba(59, 130, 246, 0.15); color: var(--method-post); }
+
+    /* Main Content Area */
+    .main-container {
+      flex: 1;
+      padding: 40px 48px 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--brand-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--brand-primary);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 760px;
+      line-height: 1.7;
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: border-color 0.2s ease;
+    }
+
+    .section-card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title svg {
+      color: var(--brand-primary);
+    }
+
+    /* Architecture Flow Diagram */
+    .flow-diagram {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+      position: relative;
+    }
+
+    .flow-step {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .flow-step .step-number {
+      width: 28px;
+      height: 28px;
+      background: var(--brand-primary);
+      color: #000;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .flow-step h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .flow-step p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Endpoint Box */
+    .endpoint-box {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: rgba(17, 24, 39, 0.5);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .endpoint-method {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .endpoint-method.get {
+      background: rgba(16, 185, 129, 0.18);
+      color: var(--method-get);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .endpoint-method.post {
+      background: rgba(59, 130, 246, 0.18);
+      color: var(--method-post);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .endpoint-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .endpoint-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-left: auto;
+    }
+
+    .endpoint-body {
+      padding: 20px;
+    }
+
+    /* Parameters Table */
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+
+    .param-table th {
+      text-align: left;
+      padding: 10px 14px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .param-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: top;
+    }
+
+    .param-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .param-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--brand-primary);
+    }
+
+    .param-required {
+      color: var(--accent-rose);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .param-optional {
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    /* Code Blocks & Tabs */
+    .code-tabs {
+      margin-top: 16px;
+      background: var(--bg-code);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .tab-header {
+      display: flex;
+      align-items: center;
+      background: #161b22;
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 8px;
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .tab-btn.active {
+      color: var(--brand-primary);
+      border-bottom-color: var(--brand-primary);
+    }
+
+    .copy-btn {
+      margin-left: auto;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    pre {
+      padding: 18px 20px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #e6edf3;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Inline Code */
+    p code, td code, li code {
+      background: rgba(255, 255, 255, 0.08);
+      color: #38bdf8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      display: flex;
+      gap: 14px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    .callout.tip {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #a7f3d0;
+    }
+
+    .callout.important {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: #bfdbfe;
+    }
+
+    .callout.warning {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #fde68a;
+    }
+
+    .callout svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+
+    .checklist-item .check-icon {
+      width: 20px;
+      height: 20px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--brand-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .main-container {
+        padding: 24px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <a href="#" class="brand-logo">
+      <div class="logo-badge">V</div>
+      <div class="brand-text">
+        <h1>VirtualClinicOS</h1>
+        <span>Commerce API Docs</span>
+      </div>
+    </a>
+
+    <div class="nav-section-title">Getting Started</div>
+    <ul class="nav-links">
+      <li class="nav-item active"><a href="#overview">Overview & Architecture</a></li>
+      <li class="nav-item"><a href="#quickstart">5-Minute Quickstart</a></li>
+      <li class="nav-item"><a href="#authentication">Auth & Environment</a></li>
+    </ul>
+
+    <div class="nav-section-title">Core API Endpoints</div>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#ep-products"><span class="method-pill get">GET</span> List Products</a></li>
+      <li class="nav-item"><a href="#ep-product-detail"><span class="method-pill get">GET</span> Product by Slug</a></li>
+      <li class="nav-item"><a href="#ep-categories"><span class="method-pill get">GET</span> Categories</a></li>
+      <li class="nav-item"><a href="#ep-coupons"><span class="method-pill post">POST</span> Validate Coupon</a></li>
+      <li class="nav-item"><a href="#ep-checkout"><span class="method-pill post">POST</span> Checkout Session</a></li>
+      <li class="nav-item"><a href="#ep-orders"><span class="method-pill get">GET</span> Order Status & Tracking</a></li>
+      <li class="nav-item"><a href="#ep-upload"><span class="method-pill post">POST</span> Media / ID Upload</a></li>
+    </ul>
+
+    <div class="nav-section-title">Storefront Wire-up Guide</div>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#step-client">1. Create API Client</a></li>
+      <li class="nav-item"><a href="#step-catalog">2. Build Shop & Grid</a></li>
+      <li class="nav-item"><a href="#step-intake">3. Medical Intake Flow</a></li>
+      <li class="nav-item"><a href="#step-checkout">4. Execute Checkout</a></li>
+      <li class="nav-item"><a href="#step-success">5. Order Confirmation</a></li>
+    </ul>
+
+    <div class="nav-section-title">Support & Reference</div>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#peakcare-reference">PeakCare Real Example</a></li>
+      <li class="nav-item"><a href="#errors-troubleshooting">Errors & Troubleshooting</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-container">
+
+    <!-- Hero Header -->
+    <div class="hero" id="overview">
+      <div class="badge-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        VCO Telehealth Commerce Engine v1.0
+      </div>
+      <h2>Storefront Developer Integration Guide</h2>
+      <p>
+        Learn how to wire any custom brand storefront (such as <strong>PeakCare</strong>, or any future white-label brand tenant) to the <strong>VirtualClinicOS (VCO) Headless E-Commerce & Telehealth Backend</strong>.
+      </p>
+    </div>
+
+    <!-- 1. Overview & Architecture -->
+    <section class="section-card">
+      <div class="section-header">
+        <h3 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          How VirtualClinicOS Connects to Your Brand
+        </h3>
+      </div>
+
+      <p style="color: var(--text-secondary); margin-bottom: 20px;">
+        VirtualClinicOS functions as a <strong>Headless Telehealth & Fulfillment Engine</strong>. Your brand website (built with Next.js, React, or any framework) handles the marketing design, product displays, and customer UX, while delegating catalog syncing, medical questionnaires, clinical chart routing, Stripe payouts, and pharmacy fulfillment to VCO.
+      </p>
+
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="step-number">1</div>
+          <h4>Brand Storefront</h4>
+          <p>Next.js frontend fetches active products and displays treatment protocols.</p>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">2</div>
+          <h4>Medical Intake</h4>
+          <p>Collects patient symptoms, DOB, health history, and shipping state.</p>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">3</div>
+          <h4>VCO Checkout API</h4>
+          <p>Creates patient record, encrypts PHI (AES-256), and generates Stripe session.</p>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">4</div>
+          <h4>Doctor & Pharmacy</h4>
+          <p>Licensed clinician reviews order in Doctor Portal and pushes Rx to pharmacy.</p>
+        </div>
+      </div>
+
+      <div class="callout important">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <div>
+          <strong>Multi-Tenant Isolation:</strong> Each brand is a dedicated tenant in VCO. Every API request identifies your tenant using your <code>brandId</code> (e.g. <code>peakcare</code>) or your hashed API Key (<code>phk_live_...</code>). VCO automatically isolates products, orders, doctors, and payouts per brand.
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Authentication & Environment -->
+    <section class="section-card" id="authentication">
+      <div class="section-header">
+        <h3 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          Authentication & Environment Variables
+        </h3>
+      </div>
+
+      <p style="color: var(--text-secondary); margin-bottom: 16px;">
+        Add the following variables to your brand storefront's <code>.env.local</code> file:
+      </p>
+
+      <div class="code-tabs">
+        <div class="tab-header">
+          <span class="tab-btn active">.env.local</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code># VirtualClinicOS API Base URL
+NEXT_PUBLIC_VCO_API_URL=https://portal.virtualclinicos.com
+# For local sandbox development, you can use:
+# NEXT_PUBLIC_VCO_API_URL=http://localhost:3000
+
+# Your Brand Tenant Identifier (e.g. peakcare, trimrx, etc.)
+NEXT_PUBLIC_VCO_BRAND_ID=peakcare
+
+# Your Private API Key (Used in server-side API routes & Next.js Server Components)
+VCO_API_KEY=phk_live_your_brand_api_key_here</code></pre>
+      </div>
+
+      <table class="param-table" style="margin-top: 24px;">
+        <thead>
+          <tr>
+            <th>Header / Parameter</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Authorization</code></td>
+            <td><span class="param-type">string</span></td>
+            <td><span class="param-required">Required for Server APIs</span></td>
+            <td><code>Bearer vco_live_...</code>. Your brand tenant's private API key.</td>
+          </tr>
+          <tr>
+            <td><code>x-brand-id</code></td>
+            <td><span class="param-type">string</span></td>
+            <td><span class="param-optional">Optional</span></td>
+            <td>Your brand slug or tenant UUID (e.g. <code>vitalwellrx</code>). Can also be passed as query parameter <code>?brandId=vitalwellrx</code>.</td>
+          </tr>
+          <tr>
+            <td><code>Content-Type</code></td>
+            <td><span class="param-type">string</span></td>
+            <td><span class="param-required">Required</span></td>
+            <td><code>application/json</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Active Brand Credentials Matrix -->
+      <div style="margin-top: 32px;">
+        <h4 style="font-size: 16px; color: #fff; margin-bottom: 8px;">Active Brand Directory & API Credentials</h4>
+        <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 16px;">
+          Configure your brand storefront's <code>.env.local</code> using the matching <code>NEXT_PUBLIC_VCO_BRAND_ID</code> and <code>VCO_API_KEY</code> from the table below:
+        </p>
+
+        <table class="param-table">
+          <thead>
+            <tr>
+              <th>Brand Name</th>
+              <th>Brand Slug (<code>NEXT_PUBLIC_VCO_BRAND_ID</code>)</th>
+              <th>Live API Key (<code>VCO_API_KEY</code>)</th>
+              <th>Storefront Apex Domain</th>
+              <th>Tenant UUID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color: #fff;">VitalWell Rx</strong></td>
+              <td><code>vitalwellrx</code></td>
+              <td><code style="color: #34d399; font-size: 11px;">vco_live_REDACTED</code></td>
+              <td><code>vitalwellrx.com</code></td>
+              <td style="font-size: 11px; color: var(--text-muted);"><code>41521b9b-9237-4a8b-a42f-ac64dc0d782b</code></td>
+            </tr>
+            <tr>
+              <td><strong style="color: #fff;">Northstar</strong></td>
+              <td><code>northstar</code></td>
+              <td><code style="color: #34d399; font-size: 11px;">vco_live_REDACTED</code></td>
+              <td><code>joinnorthstar.com</code></td>
+              <td style="font-size: 11px; color: var(--text-muted);"><code>c68fcd62-30a3-4e41-b083-51b059106853</code></td>
+            </tr>
+            <tr>
+              <td><strong style="color: #fff;">Efexia</strong></td>
+              <td><code>efexia</code></td>
+              <td><code style="color: #34d399; font-size: 11px;">vco_live_REDACTED</code></td>
+              <td><code>efexia.com</code></td>
+              <td style="font-size: 11px; color: var(--text-muted);"><code>7b81ffe6-6349-4bc1-af65-959609e0cb0f</code></td>
+            </tr>
+            <tr>
+              <td><strong style="color: #fff;">Pax</strong></td>
+              <td><code>pax</code></td>
+              <td><code style="color: #34d399; font-size: 11px;">vco_live_REDACTED</code></td>
+              <td><code>paxlongevity.com</code></td>
+              <td style="font-size: 11px; color: var(--text-muted);"><code>4065c369-9a3c-47af-8d6f-07cc7238d329</code></td>
+            </tr>
+            <tr>
+              <td><strong style="color: #fff;">NexaRx</strong></td>
+              <td><code>nexarx</code></td>
+              <td><code style="color: #34d399; font-size: 11px;">vco_live_REDACTED</code></td>
+              <td><code>nexarx.com</code></td>
+              <td style="font-size: 11px; color: var(--text-muted);"><code>ea0316e8-f3e4-4356-8e33-ea6a93302b85</code></td>
+            </tr>
+            <tr>
+              <td><strong style="color: #fff;">RSRV</strong></td>
+              <td><code>rsrv</code></td>
+              <td><code style="color: #34d399; font-size: 11px;">vco_live_REDACTED</code></td>
+              <td><code>pending-rsrv.com</code></td>
+              <td style="font-size: 11px; color: var(--text-muted);"><code>2423922a-c0a9-4c0e-9b91-06a9641700df</code></td>
+            </tr>
+            <tr>
+              <td><strong style="color: #fff;">PeakCare</strong></td>
+              <td><code>peakcare</code></td>
+              <td><code style="color: #34d399; font-size: 11px;">Configured in PeakCare .env</code></td>
+              <td><code>peakcare.health</code></td>
+              <td style="font-size: 11px; color: var(--text-muted);"><code>58f6187c-0c0b-4a54-b4c8-741f9aa60469</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. Core API Endpoints -->
+    <section class="section-card" id="ep-products">
+      <div class="section-header">
+        <h3 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          API Endpoints Reference
+        </h3>
+      </div>
+
+      <!-- Endpoint 1: List Products -->
+      <div class="endpoint-box">
+        <div class="endpoint-header">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/api/commerce/v1/products</span>
+          <span class="endpoint-desc">Fetch active products for your storefront catalog</span>
+        </div>
+        <div class="endpoint-body">
+          <p style="font-size: 13.5px; color: var(--text-secondary);">
+            Retrieves all active, public products for the specified brand. Automatically formats prices, images, contraindications, and treatment protocols.
+          </p>
+
+          <table class="param-table">
+            <thead>
+              <tr>
+                <th>Query Parameter</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>brandId</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-required">Required*</span></td>
+                <td>Your brand slug (e.g. <code>peakcare</code>) or tenant UUID. (*If not passed in query, Bearer API key or <code>x-brand-id</code> header is used).</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-tabs">
+            <div class="tab-header">
+              <span class="tab-btn active">cURL</span>
+              <span class="tab-btn">TypeScript (Next.js)</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>curl -X GET "https://portal.virtualclinicos.com/api/commerce/v1/products?brandId=peakcare" \
+  -H "Authorization: Bearer phk_live_your_api_key" \
+  -H "Content-Type: application/json"</code></pre>
+          </div>
+
+          <div class="code-tabs" style="margin-top: 12px;">
+            <div class="tab-header">
+              <span class="tab-btn active">Response 200 OK</span>
+            </div>
+            <pre><code>{
+  "success": true,
+  "count": 3,
+  "products": [
+    {
+      "id": "7878a21f-8182-411a-85d0-9999081a349c",
+      "tenant_id": "77f7fa08-e218-4720-a616-0a670355447a",
+      "name": "Semaglutide Weekly Injections",
+      "slug": "semaglutide-weekly-injections",
+      "description": "GLP-1 receptor agonist for medical weight management.",
+      "price": 299.00,
+      "category": "weight_loss",
+      "treatment_protocol": "Semaglutide 2.5mg/mL subcutaneous vial",
+      "requires_prescription": true,
+      "requires_intake": true,
+      "images": ["https://portal.virtualclinicos.com/images/semaglutide.png"],
+      "contraindications": "Do not take if personal or family history of medullary thyroid carcinoma.",
+      "screening_questions": [
+        "Are you currently pregnant or breastfeeding?",
+        "Do you have a personal history of pancreatitis?"
+      ],
+      "visibility": "public",
+      "status": "active"
+    }
+  ]
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Endpoint 2: Product by Slug -->
+      <div class="endpoint-box" id="ep-product-detail">
+        <div class="endpoint-header">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/api/commerce/v1/products/{slug}</span>
+          <span class="endpoint-desc">Fetch single product details by slug or SKU</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="code-tabs">
+            <div class="tab-header">
+              <span class="tab-btn active">cURL</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>curl -X GET "https://portal.virtualclinicos.com/api/commerce/v1/products/semaglutide-weekly-injections?brandId=peakcare" \
+  -H "Authorization: Bearer phk_live_your_api_key"</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Endpoint 3: Validate Coupon -->
+      <div class="endpoint-box" id="ep-coupons">
+        <div class="endpoint-header">
+          <span class="endpoint-method post">POST</span>
+          <span class="endpoint-path">/api/commerce/v1/coupons/validate</span>
+          <span class="endpoint-desc">Validate discount code during checkout</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="code-tabs">
+            <div class="tab-header">
+              <span class="tab-btn active">Request Body (JSON)</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>{
+  "brandId": "peakcare",
+  "code": "SUMMER20",
+  "cartTotalCents": 29900
+}</code></pre>
+          </div>
+          <div class="code-tabs" style="margin-top: 12px;">
+            <div class="tab-header">
+              <span class="tab-btn active">Response 200 OK</span>
+            </div>
+            <pre><code>{
+  "valid": true,
+  "code": "SUMMER20",
+  "discountType": "percentage",
+  "discountValue": 20,
+  "discountAmountCents": 5980,
+  "finalAmountCents": 23920
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Endpoint 4: Create Checkout Session -->
+      <div class="endpoint-box" id="ep-checkout">
+        <div class="endpoint-header">
+          <span class="endpoint-method post">POST</span>
+          <span class="endpoint-path">/api/commerce/v1/checkout/session</span>
+          <span class="endpoint-desc">Create Stripe Checkout Session + Patient Order</span>
+        </div>
+        <div class="endpoint-body">
+          <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 16px;">
+            The central checkout endpoint. It creates or matches the patient profile in VCO, stores encrypted medical intake questionnaire answers, calculates doctor & platform fees, and returns a <strong>Stripe Checkout URL</strong>.
+          </p>
+
+          <table class="param-table">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>brandId</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-required">Required</span></td>
+                <td>Brand slug (e.g. <code>peakcare</code>) or tenant UUID.</td>
+              </tr>
+              <tr>
+                <td><code>productId</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-required">Required</span></td>
+                <td>Product UUID, SKU, or slug.</td>
+              </tr>
+              <tr>
+                <td><code>patientInfo</code></td>
+                <td><span class="param-type">object</span></td>
+                <td><span class="param-required">Required</span></td>
+                <td>Contains <code>firstName</code>, <code>lastName</code>, <code>email</code>, <code>state</code> (2-letter US code e.g. <code>TX</code>), optional <code>phone</code> and <code>dob</code> (<code>YYYY-MM-DD</code>).</td>
+              </tr>
+              <tr>
+                <td><code>intakeAnswers</code></td>
+                <td><span class="param-type">object</span></td>
+                <td><span class="param-required">Required</span></td>
+                <td>Key-value map of patient answers from your medical intake questionnaire. Encrypted at rest via AES-256-GCM.</td>
+              </tr>
+              <tr>
+                <td><code>couponCode</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-optional">Optional</span></td>
+                <td>Discount code string if applied.</td>
+              </tr>
+              <tr>
+                <td><code>successUrl</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-required">Required</span></td>
+                <td>Where to redirect patient after successful payment (e.g. <code>https://peakcare.com/checkout/success?session_id={CHECKOUT_SESSION_ID}</code>).</td>
+              </tr>
+              <tr>
+                <td><code>cancelUrl</code></td>
+                <td><span class="param-type">string</span></td>
+                <td><span class="param-required">Required</span></td>
+                <td>Where to redirect patient if they cancel checkout.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-tabs">
+            <div class="tab-header">
+              <span class="tab-btn active">Request Body (JSON)</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+            <pre><code>{
+  "brandId": "peakcare",
+  "productId": "7878a21f-8182-411a-85d0-9999081a349c",
+  "patientInfo": {
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jane.doe@example.com",
+    "phone": "5125551234",
+    "dob": "1992-05-14",
+    "state": "TX"
+  },
+  "intakeAnswers": {
+    "current_weight_lbs": 175,
+    "target_weight_lbs": 140,
+    "has_high_blood_pressure": false,
+    "current_medications": "Multivitamin daily",
+    "allergies": "None"
+  },
+  "couponCode": "SUMMER20",
+  "successUrl": "https://peakcare.com/checkout/success?session_id={CHECKOUT_SESSION_ID}",
+  "cancelUrl": "https://peakcare.com/shop"
+}</code></pre>
+          </div>
+
+          <div class="code-tabs" style="margin-top: 12px;">
+            <div class="tab-header">
+              <span class="tab-btn active">Response 200 OK</span>
+            </div>
+            <pre><code>{
+  "success": true,
+  "orderId": "ord_8f9e1234-abcd-5678",
+  "sessionId": "cs_live_a1b2c3d4e5f6g7h8",
+  "checkoutUrl": "https://checkout.stripe.com/c/pay/cs_live_a1b2c3d4e5f6g7h8",
+  "amountCents": 23920,
+  "currency": "usd"
+}</code></pre>
+          </div>
+
+          <div class="callout tip">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <div>
+              <strong>Frontend Action:</strong> When your frontend receives <code>checkoutUrl</code>, simply execute <code>window.location.href = data.checkoutUrl;</code> to take the patient to the secure payment screen.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Endpoint 5: Order Status & Tracking -->
+      <div class="endpoint-box" id="ep-orders">
+        <div class="endpoint-header">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/api/v1/orders/patient?email={email}</span>
+          <span class="endpoint-desc">Look up patient orders, doctor review status & shipping tracking</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="code-tabs">
+            <div class="tab-header">
+              <span class="tab-btn active">Response 200 OK</span>
+            </div>
+            <pre><code>{
+  "success": true,
+  "orders": [
+    {
+      "id": "ord_8f9e1234-abcd-5678",
+      "status": "shipped",
+      "clinical_status": "approved",
+      "product_name": "Semaglutide Weekly Injections",
+      "tracking_number": "9400111899562537829100",
+      "carrier": "USPS",
+      "created_at": "2026-08-10T14:32:00Z"
+    }
+  ]
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Step-by-Step Storefront Wire-up Guide -->
+    <section class="section-card" id="step-client">
+      <div class="section-header">
+        <h3 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Step-by-Step Storefront Wire-up Guide
+        </h3>
+      </div>
+
+      <!-- Step 1 -->
+      <h4 style="font-size: 16px; color: #fff; margin-bottom: 8px;">Step 1: Create the Reusable Commerce Client (<code>src/lib/commerce.ts</code>)</h4>
+      <p style="color: var(--text-secondary); font-size: 13.5px; margin-bottom: 14px;">
+        In your Next.js project, create a single client module to communicate with VCO:
+      </p>
+
+      <div class="code-tabs">
+        <div class="tab-header">
+          <span class="tab-btn active">src/lib/commerce.ts</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>// VCO Commerce Client for Storefront
+export interface VCOProduct {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: string;
+  treatment_protocol?: string;
+  images: string[];
+  contraindications?: string;
+  screening_questions?: string[];
+  requires_intake: boolean;
+}
+
+const vcoBaseUrl = (process.env.NEXT_PUBLIC_VCO_API_URL || 'https://portal.virtualclinicos.com').replace(/\/$/, '');
+const brandId = process.env.NEXT_PUBLIC_VCO_BRAND_ID || 'peakcare';
+const apiKey = process.env.VCO_API_KEY || '';
+
+// Fetch all active products
+export async function fetchProducts(): Promise<VCOProduct[]> {
+  try {
+    const res = await fetch(`${vcoBaseUrl}/api/commerce/v1/products?brandId=${brandId}`, {
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 60 }, // Cache on Edge for 60 seconds
+    });
+
+    if (!res.ok) throw new Error(`Failed to fetch catalog: ${res.status}`);
+    const data = await res.json();
+    return data.products || [];
+  } catch (err) {
+    console.error('[VCO Commerce] fetchProducts error:', err);
+    return [];
+  }
+}
+
+// Fetch single product by slug
+export async function fetchProductBySlug(slug: string): Promise<VCOProduct | null> {
+  try {
+    const res = await fetch(`${vcoBaseUrl}/api/commerce/v1/products/${slug}?brandId=${brandId}`, {
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.product || null;
+  } catch (err) {
+    console.error('[VCO Commerce] fetchProductBySlug error:', err);
+    return null;
+  }
+}</code></pre>
+      </div>
+
+      <!-- Step 2 -->
+      <h4 style="font-size: 16px; color: #fff; margin-top: 32px; margin-bottom: 8px;" id="step-catalog">Step 2: Build the Shop Catalog Page (<code>src/app/shop/page.tsx</code>)</h4>
+      <p style="color: var(--text-secondary); font-size: 13.5px; margin-bottom: 14px;">
+        Use React Server Components to load the dynamic catalog directly from VCO:
+      </p>
+
+      <div class="code-tabs">
+        <div class="tab-header">
+          <span class="tab-btn active">src/app/shop/page.tsx</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>import { fetchProducts } from '@/lib/commerce';
+import Link from 'next/link';
+
+export const revalidate = 60;
+
+export default async function ShopPage() {
+  const products = await fetchProducts();
+
+  return (
+    <div className="max-w-7xl mx-auto px-6 py-12">
+      <h1 className="text-3xl font-extrabold text-white mb-8">Medical Treatments & Therapies</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {products.map((product) => (
+          <div key={product.id} className="bg-gray-900 border border-gray-800 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <img src={product.images[0] || '/placeholder.svg'} alt={product.name} className="w-full h-48 object-cover rounded-xl mb-4" />
+              <h2 className="text-xl font-bold text-white mb-2">{product.name}</h2>
+              <p className="text-gray-400 text-sm mb-4 line-clamp-3">{product.description}</p>
+            </div>
+            
+            <div className="flex items-center justify-between pt-4 border-t border-gray-800">
+              <span className="text-2xl font-black text-emerald-400">${product.price}</span>
+              <Link href={`/shop/${product.slug}`} className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-5 py-2.5 rounded-lg text-sm transition">
+                Start Consultation →
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}</code></pre>
+      </div>
+
+      <!-- Step 3 & 4 -->
+      <h4 style="font-size: 16px; color: #fff; margin-top: 32px; margin-bottom: 8px;" id="step-checkout">Step 3: Wire Checkout Execution (<code>src/app/api/checkout/session/route.ts</code>)</h4>
+      <p style="color: var(--text-secondary); font-size: 13.5px; margin-bottom: 14px;">
+        Proxy the checkout request securely through your Next.js route handler to protect your <code>VCO_API_KEY</code>:
+      </p>
+
+      <div class="code-tabs">
+        <div class="tab-header">
+          <span class="tab-btn active">src/app/api/checkout/session/route.ts</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>import { NextRequest, NextResponse } from 'next/server';
+
+const vcoBaseUrl = (process.env.NEXT_PUBLIC_VCO_API_URL || 'https://portal.virtualclinicos.com').replace(/\/$/, '');
+const brandId = process.env.NEXT_PUBLIC_VCO_BRAND_ID || 'peakcare';
+const vcoApiKey = process.env.VCO_API_KEY || '';
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+
+    // Call VCO Commerce Engine
+    const res = await fetch(`${vcoBaseUrl}/api/commerce/v1/checkout/session`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${vcoApiKey}`,
+      },
+      body: JSON.stringify({
+        brandId,
+        productId: body.productId,
+        patientInfo: body.patientInfo,
+        intakeAnswers: body.intakeAnswers,
+        couponCode: body.couponCode,
+        successUrl: `${req.nextUrl.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `${req.nextUrl.origin}/shop`,
+      }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      return NextResponse.json({ error: data.error || 'Checkout failed' }, { status: res.status });
+    }
+
+    return NextResponse.json(data);
+  } catch (err: any) {
+    console.error('[Checkout Error]:', err);
+    return NextResponse.json({ error: err.message || 'Internal Server Error' }, { status: 500 });
+  }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 5. Real-World Case Study: PeakCare Reference -->
+    <section class="section-card" id="peakcare-reference">
+      <div class="section-header">
+        <h3 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          PeakCare Production Reference Implementation
+        </h3>
+      </div>
+
+      <p style="color: var(--text-secondary); margin-bottom: 16px;">
+        The <code>peakcare</code> repository (branch: <code>sandbox</code>) is the canonical reference implementation. You can inspect its files to see how it works end-to-end:
+      </p>
+
+      <ul class="checklist">
+        <li class="checklist-item">
+          <div class="check-icon">✓</div>
+          <div><strong><code>src/lib/commerce.ts</code></strong> — Reusable VCO product fetcher with 60-second ISR caching.</div>
+        </li>
+        <li class="checklist-item">
+          <div class="check-icon">✓</div>
+          <div><strong><code>src/app/shop/page.tsx</code></strong> & <strong><code>src/components/ShopGrid.tsx</code></strong> — Responsive product grid with category filtering.</div>
+        </li>
+        <li class="checklist-item">
+          <div class="check-icon">✓</div>
+          <div><strong><code>src/app/checkout/CheckoutClient.tsx</code></strong> — 50 US states dropdown, medical questionnaire parsing, and Stripe redirect trigger.</div>
+        </li>
+        <li class="checklist-item">
+          <div class="check-icon">✓</div>
+          <div><strong><code>src/app/checkout/success/page.tsx</code></strong> — Post-checkout confirmation and clinical intake summary.</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 6. Troubleshooting & Common Errors -->
+    <section class="section-card" id="errors-troubleshooting">
+      <div class="section-header">
+        <h3 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          Errors & Troubleshooting Checklist
+        </h3>
+      </div>
+
+      <table class="param-table">
+        <thead>
+          <tr>
+            <th>Status Code</th>
+            <th>Error Message</th>
+            <th>Root Cause & Solution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>401 Unauthorized</code></td>
+            <td><code>"brandId query param or valid Authorization Bearer API key required"</code></td>
+            <td>Ensure you are sending <code>Authorization: Bearer phk_live_...</code> or passing <code>?brandId=your_brand</code> in the URL.</td>
+          </tr>
+          <tr>
+            <td><code>400 Bad Request</code></td>
+            <td><code>"Invalid checkout request format"</code></td>
+            <td>Check your <code>patientInfo</code> payload. <code>state</code> must be a 2-letter uppercase US state code (e.g. <code>CA</code>, <code>TX</code>, <code>FL</code>), and <code>email</code> must be valid.</td>
+          </tr>
+          <tr>
+            <td><code>404 Not Found</code></td>
+            <td><code>"Product not found for this brand"</code></td>
+            <td>The <code>productId</code> or <code>slug</code> belongs to another tenant or is marked as <code>draft</code> / <code>portal_only</code> in VCO. Check the product's visibility in Admin Portal.</td>
+          </tr>
+          <tr>
+            <td><code>500 Server Error</code></td>
+            <td><code>"Stripe Connect account not configured"</code></td>
+            <td>The brand tenant has not connected their Stripe account yet. Navigate to <code>/admin/{brandId}/commerce</code> in VCO and complete Stripe Connect onboarding.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <script>
+    // Copy Code Functionality
+    function copyCode(btn) {
+      const pre = btn.closest('.code-tabs').querySelector('pre code');
+      if (pre) {
+        navigator.clipboard.writeText(pre.innerText).then(() => {
+          const originalText = btn.innerText;
+          btn.innerText = 'Copied!';
+          btn.style.color = '#10b981';
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.color = '';
+          }, 2000);
+        });
+      }
+    }
+
+    // Tab Switching
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const header = btn.closest('.tab-header');
+        header.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
