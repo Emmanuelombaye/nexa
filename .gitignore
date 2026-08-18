@@ -5,7 +5,6 @@ dist
 .DS_Store
 *.local
 .vercel
-.env*
 
 .vercel
-.env*
+config.bat
